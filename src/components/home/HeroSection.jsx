@@ -4,7 +4,7 @@ import { FileText, MapPin, Clock, Shield } from 'lucide-react';
 
 const stats = [
   { icon: MapPin, value: '15', label: 'States Covered' },
-  { icon: FileText, value: '822+', label: 'Cities Listed' },
+  { icon: FileText, value: '800+', label: 'Cities Listed' },
   { icon: Clock, value: '24/7', label: 'Accessibility' }
 ];
 
@@ -51,7 +51,7 @@ export default function HeroSection() {
           </h1>
           
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed">
-            Access over 822 direct links to code violation reporting forms across 15 states. 
+            Access over 800 direct links to code violation reporting forms across 15 states. 
             Streamline your compliance process with our comprehensive, organized database.
           </p>
           

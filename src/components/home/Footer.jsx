@@ -31,7 +31,7 @@ export default function Footer() {
             </h4>
             <p className="text-slate-400 leading-relaxed">
               This directory consolidates access to code violation reporting forms from over 
-              <span className="text-emerald-400 font-semibold"> 822 municipalities</span> across 
+              <span className="text-emerald-400 font-semibold"> 800 municipalities</span> across 
               <span className="text-emerald-400 font-semibold"> 15 states</span>, saving time for professionals 
               in real estate, construction, property management, and legal compliance.
             </p>
