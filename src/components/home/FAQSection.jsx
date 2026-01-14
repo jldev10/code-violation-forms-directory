@@ -1,0 +1,63 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { HelpCircle, ChevronRight } from 'lucide-react';
+
+const faqs = [
+  {
+    question: "What is a code violation form?",
+    answer: "A code violation form is an official document used to report violations of municipal codes, such as building code violations, zoning issues, property maintenance problems, and other local ordinance violations."
+  },
+  {
+    question: "How often should I resubmit requests?",
+    answer: "We recommend resubmitting code violation information requests every 6 months to ensure you have the most current data. The system will automatically remind you when it's time to resubmit."
+  },
+  {
+    question: "What do the status colors mean?",
+    answer: "Pending (yellow): Form has been requested but not yet received. Completed (green): Form has been received and processed. Resubmit (red): It's time to request updated information (6 months have passed). Neutral (gray): No action taken yet."
+  },
+  {
+    question: "Can I use this for multiple properties?",
+    answer: "Yes, this directory is designed to help property managers, real estate professionals, and legal teams manage code violation forms for multiple properties across different municipalities."
+  }
+];
+
+export default function FAQSection() {
+  return (
+    <section className="py-20 bg-slate-50">
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+          <p className="text-slate-600">Find answers to common questions about using our directory.</p>
+        </motion.div>
+        
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-200"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                  <HelpCircle className="w-5 h-5 text-emerald-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-2">{faq.question}</h3>
+                  <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
