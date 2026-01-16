@@ -14,18 +14,18 @@ const statesData = [
   { id: 1, name: "Arizona", cityCount: 73 },
   { id: 2, name: "North Carolina", cityCount: 64 },
   { id: 3, name: "Ohio", cityCount: 143 },
-  { id: 4, name: "Rhode Island", cityCount: 39 },
+  { id: 4, name: "Rhode Island", cityCount: 37 },
   { id: 5, name: "Alabama", cityCount: 51 },
   { id: 6, name: "Wyoming", cityCount: 13 },
-  { id: 7, name: "Georgia", cityCount: 110 },
+  { id: 7, name: "Georgia", cityCount: 116 },
   { id: 8, name: "Delaware", cityCount: 10 },
   { id: 9, name: "Alaska", cityCount: 9 },
-  { id: 10, name: "Colorado", cityCount: 69 },
+  { id: 10, name: "Colorado", cityCount: 66 },
   { id: 11, name: "Arkansas", cityCount: 20 },
-  { id: 12, name: "Connecticut", cityCount: 34 },
-  { id: 13, name: "Kentucky", cityCount: 45 },
-  { id: 14, name: "Florida", cityCount: 46 },
-  { id: 15, name: "Texas", cityCount: 97 }
+  { id: 12, name: "Connecticut", cityCount: 32 },
+  { id: 13, name: "Kentucky", cityCount: 44 },
+  { id: 14, name: "Florida", cityCount: 49 },
+  { id: 15, name: "Texas", cityCount: 101 }
 ];
 
 // Full city data for all states - 800+ cities total
@@ -315,7 +315,7 @@ const citiesData = {
     { name: "Ada", url: "https://www.adaoh.gov/form/public-records-request" },
     { name: "Whitehouse", url: "https://whitehouseoh.gov/Forms/Public-Records-Request.pdf" }
   ],
-  4: [ // Rhode Island (39 cities - COMPLETE)
+  4: [ // Rhode Island - 37 cities COMPLETE
     { name: "Providence", url: "https://providenceri.nextrequest.com/" },
     { name: "Cranston", url: "https://www.cranstonri.gov/public-records-requests.aspx" },
     { name: "Warwick", url: "https://www.warwickri.gov/city-clerks-office/pages/public-records-requests" },
@@ -409,7 +409,7 @@ const citiesData = {
     { name: "Margaret", url: "https://www.margaretal.com/wp-content/uploads/2025/02/City-of-Margaret-Information-Request-Template.pdf" },
     { name: "Chickasaw", url: "https://cityofchickasaw.org/wp-content/uploads/2023/03/Request-for-Public-Records-030123.pdf" }
   ],
-  6: [ // Wyoming (13 cities - COMPLETE)
+  6: [ // Wyoming - 13 cities COMPLETE
     { name: "Cheyenne", url: "https://cheyennewy.govqa.us/WEBAPP/_rs/(S(o44qall0gbd55nau2yj5tl5e))/supporthome.aspx" },
     { name: "Casper", url: "https://eg.casperwy.gov/EnerGov_Prod/SelfService#/applicationAssistant?sectionName=All&moduleId=3&categoryName=All&showTemplates=false" },
     { name: "Gillette", url: "https://gillettewy.justfoia.com/publicportal/home/track" },
@@ -424,7 +424,7 @@ const citiesData = {
     { name: "Buffalo", url: "https://www.cityofbuffalowy.com/files/documents/PublicRecordsRequest1312120613061521PM.pdf" },
     { name: "Mills", url: "https://www.millswy.gov/administration/page/wyoming-public-records-act-requests-foia" }
   ],
-  7: [ // Georgia - 110 cities COMPLETE
+  7: [ // Georgia - 116 cities COMPLETE
     { name: "Atlanta", url: "https://web.atlantaga.gov/orr/#/" },
     { name: "Augusta-Richmond County", url: "https://cityofaugustaga.nextrequest.com/" },
     { name: "Macon-Bibb County", url: "https://maconbibbcountyga.justfoia.com/publicportal/home/newrequest" },
@@ -534,7 +534,13 @@ const citiesData = {
     { name: "Cornelia", url: "https://cornelia.city/request-for-open-records/" },
     { name: "Jasper", url: "https://www.jasper-ga.us/cityclerk.htm" },
     { name: "Glennville", url: "https://glennvillega.gov/departments/city-clerk/open-record-request-form/" },
-    { name: "Nashville", url: "https://cityofnashvillega.net/wp/wp-content/uploads/bsk-pdf-manager/2017/02/0026_001.pdf" }
+    { name: "Nashville", url: "https://cityofnashvillega.net/wp/wp-content/uploads/bsk-pdf-manager/2017/02/0026_001.pdf" },
+    { name: "North Decatur", url: "https://northdecaturga.nextrequest.com/" },
+    { name: "Druid Hills", url: "https://www.dekalbcountyga.gov/human-resources/county-forms" },
+    { name: "East Point", url: "https://eastpointga.justfoia.com/publicportal/home/track" },
+    { name: "Decatur", url: "https://decaturga.com/city-hall/open-records" },
+    { name: "Martinez", url: "https://cityofaugustaga.nextrequest.com/" },
+    { name: "Evans", url: "https://cityofaugustaga.nextrequest.com/" }
   ],
   8: [ // Delaware - 10 cities COMPLETE
     { name: "Wilmington", url: "https://wilmingtonde.govqa.us/WEBAPP/_rs/(S(ppvqxszgbztfrvtvu0r53tni))/supporthome.aspx" },
@@ -548,7 +554,7 @@ const citiesData = {
     { name: "Millsboro", url: "https://www.millsboro.org/government/freedom_of_information_act.php" },
     { name: "Elsmere", url: "https://townofelsmere.com/departments/foia/" }
   ],
-  9: [ // Alaska (9 cities - COMPLETE)
+  9: [ // Alaska - 9 cities COMPLETE
     { name: "Anchorage", url: "https://anchorageak.justfoia.com/publicportal/home/newrequest" },
     { name: "Fairbanks", url: "https://www.fnsb.gov/210/Public-Records-Request" },
     { name: "Juneau", url: "https://juneau.org/community-development/record-requests" },
@@ -559,7 +565,7 @@ const citiesData = {
     { name: "Homer", url: "https://www.cityofhomer-ak.gov/cityclerk/public-records-0" },
     { name: "Kodiak", url: "https://www.city.kodiak.ak.us/cityclerk/page/public-records-request-form" }
   ],
-  10: [ // Colorado - 69 cities COMPLETE
+  10: [ // Colorado - 66 cities COMPLETE
     { name: "Denver", url: "https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Denver-Clerk-and-Recorder/find-records/CORA" },
     { name: "Aurora", url: "https://cityofauroraco.nextrequest.com/" },
     { name: "Fort Collins", url: "https://fortcollinsco.justfoia.com/publicportal/home/track" },
@@ -652,7 +658,7 @@ const citiesData = {
     { name: "Magnolia", url: "https://www.cityofmagnolia.com/sites/g/files/vyhlif7206/f/uploads/open_records_request_information_form_5.pdf" },
     { name: "Tontitown", url: "https://www.tontitown.com/misc-apps/freedom-of-information-act-foia-request-form/" }
   ],
-  12: [ // Connecticut - 34 cities COMPLETE
+  12: [ // Connecticut - 32 cities COMPLETE
     { name: "Bridgeport", url: "https://bridgeportct.mycusthelp.com/WEBAPP/_rs/(S(52hj3ya0cqapdw0hr1fxhwwa))/supporthome.aspx" },
     { name: "New Haven", url: "https://www.newhavenct.gov/government/freedom-of-information-act-records-request" },
     { name: "Hartford", url: "https://hartfordct.govqa.us/WEBAPP/_rs/(S(lgpvtnp3remb5of3gx4d0tlg))/supporthome.aspx" },
@@ -688,7 +694,7 @@ const citiesData = {
     { name: "Easton", url: "https://www.eastonct.gov/sites/g/files/vyhlif3071/f/uploads/foia_request_0.pdf" },
     { name: "Marlborough", url: "https://www.marlboroughct.net/services/freedom_of_information_act/foia_requests.php" }
   ],
-  13: [ // Kentucky - 45 cities COMPLETE
+  13: [ // Kentucky - 44 cities COMPLETE
     { name: "Louisville", url: "https://louisvillemetrogov-ky.nextrequest.com/" },
     { name: "Lexington", url: "https://lexingtonky.formstack.com/forms/open_records_request_form" },
     { name: "Owensboro", url: "https://owensboroky.rja.revize.com/forms/11141" },
@@ -735,7 +741,7 @@ const citiesData = {
     { name: "Central City", url: "https://www.cityofcentralcityky.com/records-request" },
     { name: "Douglass Hills", url: "https://www.cityofdouglasshills.gov/SmartForms/104/open-records-request" }
   ],
-  14: [ // Florida - 46 cities COMPLETE
+  14: [ // Florida - 49 cities COMPLETE
     { name: "Jacksonville", url: "https://jacksonvillefl.govqa.us/WEBAPP/_rs/(S(uxtsxib5wpwbh0v2um34bfsm))/supporthome.aspx" },
     { name: "Miami", url: "https://miami.nextrequest.com/requests/new" },
     { name: "Tampa", url: "https://cityoftampa.govqa.us/WEBAPP/_rs/(S(b3o4sertgpsz5ky52p2y5bc1))/SupportHome.aspx" },
@@ -781,9 +787,12 @@ const citiesData = {
     { name: "Sanford", url: "https://sanfordfl.mycusthelpadmin.com/WEBAPP/_rs/(S(tovfx5bolbrkj4ecx2u0h0wd))/supporthome.aspx" },
     { name: "Port Orange", url: "https://portorangefl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
     { name: "Palm Beach Gardens", url: "https://palmbeachgardensfl.justfoia.com/Forms/Launch/76e23194-15ff-48a2-9027-e38ef02f3aa3" },
-    { name: "Wellington", url: "https://www.wellingtonfl.gov/FormCenter/Public-Information-Request-Form-4/Public-Information-Request-Form-46" }
+    { name: "Wellington", url: "https://www.wellingtonfl.gov/FormCenter/Public-Information-Request-Form-4/Public-Information-Request-Form-46" },
+    { name: "Port Charlotte", url: "https://charlottecountyfl.gov/core/fileparse.php/109/urlt/Public-Records-Request.pdf" },
+    { name: "Brandon", url: "https://cityoftampa.govqa.us/WEBAPP/_rs/(S(b3o4sertgpsz5ky52p2y5bc1))/SupportHome.aspx" },
+    { name: "Kendall", url: "https://miami.nextrequest.com/requests/new" }
   ],
-  15: [ // Texas - 97 cities COMPLETE
+  15: [ // Texas - 101 cities COMPLETE
     { name: "Houston", url: "https://houstontx.govqa.us/WEBAPP/_rs/(S(a1mlmn4ry01gan54hat3er2u))/SupportHome.aspx" },
     { name: "San Antonio", url: "https://sanantonio.govqa.us/webapp/_rs/(S(2bp3nlwnaby5wzh5wyobbyym))/supporthome.aspx" },
     { name: "Dallas", url: "https://dallastx.govqa.us/WEBAPP/_rs/(S(1isvo1gcgop35m4ifj2wfrbl))/RequestOpen.aspx?rqst=3" },
@@ -880,7 +889,11 @@ const citiesData = {
     { name: "Copperas Cove", url: "https://copperascovetx.mycusthelp.com/webapp/_rs/(S(ol0kw2yuyjkkj424nxwtnwzq))/supporthome.aspx" },
     { name: "Hurst", url: "https://www.hursttx.gov/about-us/departments/city-secretary/public-information-request-online-form" },
     { name: "Weatherford", url: "https://weatherfordtx.mycusthelp.com/WEBAPP/_rs/(S(vduh5kh2c1nvwx3uvqzxdn23))/supporthome.aspx" },
-    { name: "Duncanville", url: "https://duncanvilletx.justfoia.com/publicportal/home/newrequest" }
+    { name: "Duncanville", url: "https://duncanvilletx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Anna", url: "https://annatx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Forney", url: "https://www.forneyisd.net/page/open-records-request" },
+    { name: "Southlake", url: "https://southlaketx.mycusthelp.com/webapp/_rs/(S(cdfxihb00kgvdxp1hkqcqbzd))/SupportHome.aspx" },
+    { name: "Melissa", url: "https://melissatx.justfoia.com/publicportal/home/newrequest" }
   ]
 };
 
