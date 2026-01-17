@@ -8,58 +8,56 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 
 const requestTypes = [
-  { value: 'code-violations', label: 'Code Violations History' },
-  { value: 'open-violations', label: 'Open/Active Violations' },
-  { value: 'permit-history', label: 'Permit History' },
-  { value: 'compliance-status', label: 'Compliance Status' }
+  { value: 'city', label: 'City' },
+  { value: 'county', label: 'County' }
 ];
 
 const timeframes = [
-  { value: 'all-time', label: 'All Available History' },
-  { value: '5-years', label: 'Last 5 Years' },
-  { value: '3-years', label: 'Last 3 Years' },
-  { value: '1-year', label: 'Last 1 Year' }
+  { value: '30-days', label: '30 days (Recommended)' },
+  { value: '60-days', label: '60 days' },
+  { value: '90-days', label: '90 days' },
+  { value: '180-days', label: '180 days' },
+  { value: '1-year', label: '1 year' }
 ];
 
 export default function ScriptGenerator() {
-  const [municipality, setMunicipality] = useState('');
-  const [propertyAddress, setPropertyAddress] = useState('');
-  const [requestType, setRequestType] = useState('code-violations');
-  const [timeframe, setTimeframe] = useState('all-time');
+  const [fullName, setFullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [requestType, setRequestType] = useState('city');
+  const [timeframe, setTimeframe] = useState('30-days');
   const [generatedScript, setGeneratedScript] = useState('');
   const [copied, setCopied] = useState(false);
   
   const generateScript = () => {
-    const requestTypeText = requestTypes.find(r => r.value === requestType)?.label || 'code violations history';
-    const timeframeText = timeframes.find(t => t.value === timeframe)?.label.toLowerCase() || 'all available history';
+    const requestTypeText = requestTypes.find(r => r.value === requestType)?.label || 'City';
+    const timeframeText = timeframes.find(t => t.value === timeframe)?.label || '30 days (Recommended)';
     
-    const script = `To: ${municipality || '[Municipality Name]'} - Code Enforcement Department
-From: [Your Name/Company]
+    const script = `To: ${requestTypeText} Code Enforcement Department
+From: ${fullName || '[Your Full Name]'}
+Phone: ${phoneNumber || '[Your Phone Number]'}
 Date: ${new Date().toLocaleDateString()}
 Subject: Public Records Request - Code Violation Information
 
 Dear Code Enforcement Department,
 
-I am writing to request public records under the [State] Public Records Act regarding the following property:
+I am writing to request public records under the [State] Public Records Act.
 
-Property Address: ${propertyAddress || '[Property Address]'}
+Request Details:
+- Full Name: ${fullName || '[Your Full Name]'}
+- Phone Number: ${phoneNumber || '[Your Phone Number]'}
+- ${requestTypeText}: [${requestTypeText} Name]
+- Timeframe: ${timeframeText}
 
-I am requesting the following information:
-1. ${requestTypeText} for the above-mentioned property
-2. Timeframe: ${timeframeText}
-3. Include all associated documentation, notices, and correspondence
-4. Any open or pending violation cases
+I am requesting copies of all code violation reports, notices, and related documentation for the above-specified timeframe. Please provide these records in electronic format if possible.
 
-Please provide this information in digital format if available. I am willing to pay reasonable copying fees as allowed by law.
+If there are any fees associated with this request, please notify me in advance. If you need any additional information to process this request, please contact me at your earliest convenience.
 
-Please let me know if you require any additional information to process this request. I look forward to your prompt response.
+Thank you for your assistance.
 
 Sincerely,
 
-[Your Name]
-[Your Title]
-[Your Company]
-[Your Contact Information]`;
+${fullName || '[Your Full Name]'}
+${phoneNumber || '[Your Phone Number]'}`;
     
     setGeneratedScript(script);
   };
@@ -92,27 +90,27 @@ Sincerely,
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="space-y-2">
-              <Label htmlFor="municipality">Municipality Name</Label>
+              <Label htmlFor="fullName">Full Name</Label>
               <Input
-                id="municipality"
-                value={municipality}
-                onChange={e => setMunicipality(e.target.value)}
-                placeholder="e.g., City of Phoenix"
+                id="fullName"
+                value={fullName}
+                onChange={e => setFullName(e.target.value)}
+                placeholder="e.g., John Smith"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="address">Property Address</Label>
+              <Label htmlFor="phoneNumber">Phone Number</Label>
               <Input
-                id="address"
-                value={propertyAddress}
-                onChange={e => setPropertyAddress(e.target.value)}
-                placeholder="e.g., 123 Main Street"
+                id="phoneNumber"
+                value={phoneNumber}
+                onChange={e => setPhoneNumber(e.target.value)}
+                placeholder="e.g., (555) 123-4567"
               />
             </div>
             
             <div className="space-y-2">
-              <Label>Request Type</Label>
+              <Label>City / County</Label>
               <Select value={requestType} onValueChange={setRequestType}>
                 <SelectTrigger>
                   <SelectValue />
