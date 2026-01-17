@@ -45,7 +45,7 @@ export default function HeroSection() {
           {/* Main heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Code Violation Forms
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 pb-2">
               Directory
             </span>
           </h1>
