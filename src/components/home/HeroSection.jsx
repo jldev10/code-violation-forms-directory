@@ -52,7 +52,7 @@ export default function HeroSection() {
           
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed">
             Access over 800 direct links to code violation reporting forms across 15 states. 
-            Streamline your compliance process with our comprehensive, organized database.
+            Streamline your compliance process with our comprehensive, organized database for cities.
           </p>
           
           {/* Stats */}

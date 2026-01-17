@@ -56,7 +56,7 @@ export default function CitiesModal({ isOpen, onClose, state, cities, onStatusCh
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-white">{state?.name}</h2>
-                  <p className="text-slate-400 text-sm">Code Violation Forms Directory</p>
+                  <p className="text-slate-400 text-sm">Code Violation Forms Directory for Cities</p>
                 </div>
               </div>
               <button

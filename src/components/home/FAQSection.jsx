@@ -9,15 +9,15 @@ const faqs = [
   },
   {
     question: "How often should I resubmit requests?",
-    answer: "We recommend resubmitting code violation information requests every 6 months to ensure you have the most current data. The system will automatically remind you when it's time to resubmit."
+    answer: "We recommend resubmitting code violation information requests every 30 days to ensure you have the most current data. The system will automatically remind you when it's time to resubmit."
   },
   {
     question: "What do the status colors mean?",
     answer: "Pending (yellow): Form has been requested but not yet received. Completed (green): Form has been received and processed. Resubmit (red): It's time to request updated information (6 months have passed). Neutral (gray): No action taken yet."
   },
   {
-    question: "Can I use this for multiple properties?",
-    answer: "Yes, this directory is designed to help property managers, real estate professionals, and legal teams manage code violation forms for multiple properties across different municipalities."
+    question: "How do I find the forms to the city I want?",
+    answer: "We provide forms in multiple cities in 15 states, not all cities in those states. Click on view cities & forms, find the city you want, and click on view form and it will send you straight to the website to request the form or the pdf form so you can print it out to be able to fill it out to email to the city."
   }
 ];
 
