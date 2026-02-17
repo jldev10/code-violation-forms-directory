@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from '../components/home/Header';
 import HeroSection from '../components/home/HeroSection';
@@ -8,6 +8,10 @@ import SearchSection from '../components/home/SearchSection';
 import FAQSection from '../components/home/FAQSection';
 import ScriptGenerator from '../components/home/ScriptGenerator';
 import Footer from '../components/home/Footer';
+import NotificationBell from '../components/home/NotificationBell';
+import NotificationDropdown from '../components/home/NotificationDropdown';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 // States data
 const statesData = [
@@ -917,6 +921,13 @@ export default function Home() {
     const saved = localStorage.getItem('cityStatuses');
     return saved ? JSON.parse(saved) : {};
   });
+  const [testDate, setTestDate] = useState('');
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [clearedNotifications, setClearedNotifications] = useState(() => {
+    const saved = localStorage.getItem('clearedNotifications');
+    return saved ? JSON.parse(saved) : [];
+  });
   
   // Get cities for selected state with status
   const getCitiesWithStatus = useCallback((stateId) => {
@@ -950,16 +961,91 @@ export default function Home() {
     const key = `${selectedState.id}_${cityName}`;
     const newStatuses = { ...cityStatuses, [key]: status };
     
-    // Set resubmit date if completed
-    if (status === 'completed') {
-      const resubmitDate = new Date();
-      resubmitDate.setMonth(resubmitDate.getMonth() + 6);
-      newStatuses[`${key}_resubmit`] = resubmitDate.toISOString();
+    // Set timestamp when status changes to pending or completed
+    if (status === 'pending' || status === 'completed') {
+      newStatuses[`${key}_timestamp`] = currentDate.toISOString();
     }
     
     setCityStatuses(newStatuses);
     localStorage.setItem('cityStatuses', JSON.stringify(newStatuses));
-  }, [selectedState, cityStatuses]);
+  }, [selectedState, cityStatuses, currentDate]);
+  
+  // Generate notifications
+  const notifications = useMemo(() => {
+    const notifs = [];
+    let id = 0;
+    
+    Object.keys(cityStatuses).forEach(key => {
+      if (key.includes('_timestamp') || key.includes('_resubmit')) return;
+      
+      const status = cityStatuses[key];
+      const timestamp = cityStatuses[`${key}_timestamp`];
+      
+      if (!timestamp) return;
+      
+      const [stateId, cityName] = key.split('_');
+      const state = statesData.find(s => s.id === parseInt(stateId));
+      const statusDate = new Date(timestamp);
+      const daysDiff = Math.floor((currentDate - statusDate) / (1000 * 60 * 60 * 24));
+      
+      if (status === 'pending' && daysDiff >= 14) {
+        notifs.push({
+          id: `${key}_pending`,
+          stateId: parseInt(stateId),
+          stateName: state?.name,
+          cityName,
+          type: 'followup',
+          message: `${cityName}, ${state?.name} form is marked as pending for ${daysDiff} days, it's time to follow up`,
+          timeAgo: `${daysDiff} days ago`,
+          isNew: !clearedNotifications.includes(`${key}_pending`)
+        });
+      }
+      
+      if (status === 'completed' && daysDiff >= 30) {
+        notifs.push({
+          id: `${key}_expired`,
+          stateId: parseInt(stateId),
+          stateName: state?.name,
+          cityName,
+          type: 'expired',
+          message: `${cityName}, ${state?.name} form is expired (${daysDiff} days old), it's time to resubmit`,
+          timeAgo: `${daysDiff} days ago`,
+          isNew: !clearedNotifications.includes(`${key}_expired`)
+        });
+      }
+    });
+    
+    return notifs.sort((a, b) => b.isNew - a.isNew);
+  }, [cityStatuses, currentDate, clearedNotifications]);
+  
+  // Update current date when test date changes
+  useEffect(() => {
+    if (testDate) {
+      setCurrentDate(new Date(testDate));
+    } else {
+      setCurrentDate(new Date());
+    }
+  }, [testDate]);
+  
+  const handleClearAllNotifications = () => {
+    const allIds = notifications.map(n => n.id);
+    setClearedNotifications(allIds);
+    localStorage.setItem('clearedNotifications', JSON.stringify(allIds));
+  };
+  
+  const handleClearOneNotification = (id) => {
+    const newCleared = [...clearedNotifications, id];
+    setClearedNotifications(newCleared);
+    localStorage.setItem('clearedNotifications', JSON.stringify(newCleared));
+  };
+  
+  const handleNotificationClick = (notification) => {
+    const state = statesData.find(s => s.id === notification.stateId);
+    if (state) {
+      openStateModal(state);
+      setShowNotifications(false);
+    }
+  };
   
   // Open modal for state
   const openStateModal = useCallback((state) => {
@@ -971,6 +1057,22 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Header />
       
+      {/* Notification Bell */}
+      <div className="fixed top-20 left-6 z-40">
+        <NotificationBell 
+          count={notifications.filter(n => n.isNew).length} 
+          onClick={() => setShowNotifications(!showNotifications)}
+        />
+        <NotificationDropdown
+          isOpen={showNotifications}
+          notifications={notifications}
+          onClose={() => setShowNotifications(false)}
+          onClearAll={handleClearAllNotifications}
+          onClearOne={handleClearOneNotification}
+          onNotificationClick={handleNotificationClick}
+        />
+      </div>
+      
       <main id="home">
         <HeroSection />
         
@@ -981,13 +1083,27 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="mb-12"
             >
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">States Covered</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">
-                Select a state to view all available city code violation form links. 
-                Each state directory is meticulously organized for quick access.
-              </p>
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-center flex-1">
+                  <h2 className="text-3xl font-bold text-slate-900 mb-4">States Covered</h2>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Select a state to view all available city code violation form links. 
+                    Each state directory is meticulously organized for quick access.
+                  </p>
+                </div>
+                <div className="ml-8">
+                  <Label htmlFor="testDate" className="text-sm text-slate-600 mb-2 block">Test Date</Label>
+                  <Input
+                    id="testDate"
+                    type="date"
+                    value={testDate}
+                    onChange={(e) => setTestDate(e.target.value)}
+                    className="w-44"
+                  />
+                </div>
+              </div>
             </motion.div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
