@@ -11,7 +11,7 @@ const navLinks = [
   { href: '#script-generator', label: 'Script Generator' }
 ];
 
-export default function Header() {
+export default function Header({ notificationBell }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -54,6 +54,7 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
+            {notificationBell}
             {navLinks.map(link => (
               <a
                 key={link.href}
