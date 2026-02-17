@@ -54,7 +54,6 @@ export default function Header({ notificationBell }) {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            {notificationBell}
             {navLinks.map(link => (
               <a
                 key={link.href}
@@ -68,6 +67,7 @@ export default function Header({ notificationBell }) {
                 {link.label}
               </a>
             ))}
+            {notificationBell}
           </nav>
           
           {/* Mobile menu button */}

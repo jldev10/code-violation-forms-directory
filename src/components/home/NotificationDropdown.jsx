@@ -35,7 +35,6 @@ export default function NotificationDropdown({ isOpen, notifications, onClose, o
         <div className="max-h-96 overflow-y-auto">
           {notifications.length === 0 ? (
             <div className="px-4 py-8 text-center text-slate-500">
-              <Bell className="w-12 h-12 mx-auto mb-2 text-slate-300" />
               <p>No notifications</p>
             </div>
           ) : (
