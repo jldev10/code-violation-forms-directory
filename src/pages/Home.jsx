@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Header from '../components/home/Header';
 import HeroSection from '../components/home/HeroSection';
@@ -10,8 +10,6 @@ import ScriptGenerator from '../components/home/ScriptGenerator';
 import Footer from '../components/home/Footer';
 import NotificationBell from '../components/home/NotificationBell';
 import NotificationDropdown from '../components/home/NotificationDropdown';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 // States data
 const statesData = [
@@ -921,8 +919,6 @@ export default function Home() {
     const saved = localStorage.getItem('cityStatuses');
     return saved ? JSON.parse(saved) : {};
   });
-  const [testDate, setTestDate] = useState('');
-  const [currentDate, setCurrentDate] = useState(new Date());
   const [showNotifications, setShowNotifications] = useState(false);
   const [clearedNotifications, setClearedNotifications] = useState(() => {
     const saved = localStorage.getItem('clearedNotifications');
@@ -963,17 +959,17 @@ export default function Home() {
     
     // Set timestamp when status changes to pending or completed
     if (status === 'pending' || status === 'completed') {
-      newStatuses[`${key}_timestamp`] = currentDate.toISOString();
+      newStatuses[`${key}_timestamp`] = new Date().toISOString();
     }
     
     setCityStatuses(newStatuses);
     localStorage.setItem('cityStatuses', JSON.stringify(newStatuses));
-  }, [selectedState, cityStatuses, currentDate]);
+  }, [selectedState, cityStatuses]);
   
   // Generate notifications
   const notifications = useMemo(() => {
     const notifs = [];
-    let id = 0;
+    const currentDate = new Date();
     
     Object.keys(cityStatuses).forEach(key => {
       if (key.includes('_timestamp') || key.includes('_resubmit')) return;
@@ -1016,16 +1012,7 @@ export default function Home() {
     });
     
     return notifs.sort((a, b) => b.isNew - a.isNew);
-  }, [cityStatuses, currentDate, clearedNotifications]);
-  
-  // Update current date when test date changes
-  useEffect(() => {
-    if (testDate) {
-      setCurrentDate(new Date(testDate));
-    } else {
-      setCurrentDate(new Date());
-    }
-  }, [testDate]);
+  }, [cityStatuses, clearedNotifications]);
   
   const handleClearAllNotifications = () => {
     const allIds = notifications.map(n => n.id);
@@ -1055,23 +1042,24 @@ export default function Home() {
   
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      
-      {/* Notification Bell */}
-      <div className="fixed top-20 left-6 z-40">
-        <NotificationBell 
-          count={notifications.filter(n => n.isNew).length} 
-          onClick={() => setShowNotifications(!showNotifications)}
-        />
-        <NotificationDropdown
-          isOpen={showNotifications}
-          notifications={notifications}
-          onClose={() => setShowNotifications(false)}
-          onClearAll={handleClearAllNotifications}
-          onClearOne={handleClearOneNotification}
-          onNotificationClick={handleNotificationClick}
-        />
-      </div>
+      <Header 
+        notificationBell={
+          <div className="relative">
+            <NotificationBell 
+              count={notifications.filter(n => n.isNew).length} 
+              onClick={() => setShowNotifications(!showNotifications)}
+            />
+            <NotificationDropdown
+              isOpen={showNotifications}
+              notifications={notifications}
+              onClose={() => setShowNotifications(false)}
+              onClearAll={handleClearAllNotifications}
+              onClearOne={handleClearOneNotification}
+              onNotificationClick={handleNotificationClick}
+            />
+          </div>
+        }
+      />
       
       <main id="home">
         <HeroSection />
@@ -1083,27 +1071,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-12"
+              className="text-center mb-12"
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="text-center flex-1">
-                  <h2 className="text-3xl font-bold text-slate-900 mb-4">States Covered</h2>
-                  <p className="text-slate-600 max-w-2xl mx-auto">
-                    Select a state to view all available city code violation form links. 
-                    Each state directory is meticulously organized for quick access.
-                  </p>
-                </div>
-                <div className="ml-8">
-                  <Label htmlFor="testDate" className="text-sm text-slate-600 mb-2 block">Test Date</Label>
-                  <Input
-                    id="testDate"
-                    type="date"
-                    value={testDate}
-                    onChange={(e) => setTestDate(e.target.value)}
-                    className="w-44"
-                  />
-                </div>
-              </div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">States Covered</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                Select a state to view all available city code violation form links. 
+                Each state directory is meticulously organized for quick access.
+              </p>
             </motion.div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
