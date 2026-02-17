@@ -957,9 +957,10 @@ export default function Home() {
     const key = `${selectedState.id}_${cityName}`;
     const newStatuses = { ...cityStatuses, [key]: status };
     
-    // Set timestamp when status changes to pending or completed
+    // Set timestamp when status changes to pending or completed (CST timezone)
     if (status === 'pending' || status === 'completed') {
-      newStatuses[`${key}_timestamp`] = new Date().toISOString();
+      const cstDate = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
+      newStatuses[`${key}_timestamp`] = new Date(cstDate).toISOString();
     }
     
     setCityStatuses(newStatuses);
@@ -969,7 +970,9 @@ export default function Home() {
   // Generate notifications
   const notifications = useMemo(() => {
     const notifs = [];
-    const currentDate = new Date();
+    // Get current date in CST
+    const cstDateString = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
+    const currentDate = new Date(cstDateString);
     
     Object.keys(cityStatuses).forEach(key => {
       if (key.includes('_timestamp') || key.includes('_resubmit')) return;

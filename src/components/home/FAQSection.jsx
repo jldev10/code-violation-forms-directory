@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: "What do the status colors mean?",
-    answer: "Pending (yellow): Form has been requested but not yet received. Completed (green): Form has been received and processed. Resubmit (red): It's time to request updated information (6 months have passed). Neutral (gray): No action taken yet."
+    answer: "Pending (yellow): Form has been requested but not yet received. Completed (green): Form has been received and processed. Resubmit (red): It's time to request updated information (6 months have passed). Neutral (clear circle): No action taken yet."
   },
   {
     question: "How do I find the forms to the city I want?",
