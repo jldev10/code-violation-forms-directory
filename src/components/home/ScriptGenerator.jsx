@@ -12,33 +12,73 @@ const requestTypes = [
   { value: 'county', label: 'County' }
 ];
 
+const listTypes = [
+  { value: 'code-violations', label: 'Code Violations' },
+  { value: 'arrest-records', label: 'Arrest Records' },
+  { value: 'fire-damaged', label: 'Fire Damaged Properties' },
+  { value: 'water-lien', label: 'Water Lien/Shut-Off' },
+  { value: 'tax-delinquencies', label: 'Tax Delinquencies' },
+  { value: 'tax-liens', label: 'Tax Liens' },
+  { value: 'evictions', label: 'Evictions' },
+  { value: 'pre-foreclosures', label: 'Pre-Foreclosures' },
+  { value: 'probates', label: 'Probates' }
+];
+
 const timeframes = [
-  { value: '30-days', label: '30 days (Recommended)' },
+  { value: '30-days', label: '30 days' },
   { value: '60-days', label: '60 days' },
   { value: '90-days', label: '90 days' },
   { value: '180-days', label: '180 days' },
   { value: '1-year', label: '1 year' }
 ];
 
+// Auto-recommend timeframes based on list type
+const getRecommendedTimeframe = (listType) => {
+  switch (listType) {
+    case 'code-violations':
+    case 'arrest-records':
+    case 'water-lien':
+    case 'evictions':
+    case 'probates':
+    case 'pre-foreclosures':
+      return '30-days';
+    case 'fire-damaged':
+      return '90-days';
+    case 'tax-delinquencies':
+    case 'tax-liens':
+      return '1-year';
+    default:
+      return '30-days';
+  }
+};
+
 export default function ScriptGenerator() {
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [requestType, setRequestType] = useState('city');
+  const [listType, setListType] = useState('code-violations');
   const [timeframe, setTimeframe] = useState('30-days');
   const [generatedScript, setGeneratedScript] = useState('');
   const [copied, setCopied] = useState(false);
   
+  // Update timeframe when list type changes
+  const handleListTypeChange = (value) => {
+    setListType(value);
+    setTimeframe(getRecommendedTimeframe(value));
+  };
+  
   const generateScript = () => {
     const requestTypeText = requestTypes.find(r => r.value === requestType)?.label || 'City';
-    const timeframeText = timeframes.find(t => t.value === timeframe)?.label || '30 days (Recommended)';
+    const listTypeText = listTypes.find(l => l.value === listType)?.label || 'Code Violations';
+    const timeframeText = timeframes.find(t => t.value === timeframe)?.label || '30 days';
     
-    const script = `To: ${requestTypeText} Code Enforcement Department
+    const script = `To: ${requestTypeText} ${listType === 'code-violations' ? 'Code Enforcement' : 'Records'} Department
 From: ${fullName || '[Your Full Name]'}
 Phone: ${phoneNumber || '[Your Phone Number]'}
 Date: ${new Date().toLocaleDateString()}
-Subject: Public Records Request - Code Violation Information
+Subject: Public Records Request - ${listTypeText} Information
 
-Dear Code Enforcement Department,
+Dear ${listType === 'code-violations' ? 'Code Enforcement' : 'Records'} Department,
 
 I am writing to request public records under the [State] Public Records Act.
 
@@ -46,9 +86,10 @@ Request Details:
 - Full Name: ${fullName || '[Your Full Name]'}
 - Phone Number: ${phoneNumber || '[Your Phone Number]'}
 - ${requestTypeText}: [${requestTypeText} Name]
+- Record Type: ${listTypeText}
 - Timeframe: ${timeframeText}
 
-I am requesting copies of all code violation reports, notices, and related documentation for the above-specified timeframe. Please provide these records in electronic format if possible.
+I am requesting copies of all ${listTypeText.toLowerCase()} reports, notices, and related documentation for the above-specified timeframe. Please provide these records in electronic format if possible.
 
 If there are any fees associated with this request, please notify me in advance. If you need any additional information to process this request, please contact me at your earliest convenience.
 
@@ -124,6 +165,30 @@ ${phoneNumber || '[Your Phone Number]'}`;
             </div>
             
             <div className="space-y-2">
+              <Label>Type of List</Label>
+              <Select value={listType} onValueChange={handleListTypeChange}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {listTypes.map(type => (
+                    <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <div className="flex gap-4">
+            <Button
+              onClick={generateScript}
+              className="w-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-6"
+            >
+              <Wand2 className="w-5 h-5 mr-2" />
+              Generate Script
+            </Button>
+            
+            <div className="w-1/2 space-y-2">
               <Label>Timeframe</Label>
               <Select value={timeframe} onValueChange={setTimeframe}>
                 <SelectTrigger>
@@ -137,14 +202,6 @@ ${phoneNumber || '[Your Phone Number]'}`;
               </Select>
             </div>
           </div>
-          
-          <Button
-            onClick={generateScript}
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-6"
-          >
-            <Wand2 className="w-5 h-5 mr-2" />
-            Generate Script
-          </Button>
           
           {generatedScript && (
             <motion.div
