@@ -32,6 +32,11 @@ const timeframes = [
   { value: '1-year', label: '1 year' }
 ];
 
+const getTimeframeLabel = (value, recommended) => {
+  const base = timeframes.find(t => t.value === value)?.label || '30 days';
+  return recommended === value ? `${base} (recommended)` : base;
+};
+
 // Auto-recommend timeframes based on list type
 const getRecommendedTimeframe = (listType) => {
   switch (listType) {
@@ -67,24 +72,89 @@ export default function ScriptGenerator() {
     setTimeframe(getRecommendedTimeframe(value));
   };
   
-  const generateScript = () => {
+  const generateScript = (regenerate = false) => {
+    if (listType === 'code-violations') {
+      generateCodeViolationScript(regenerate);
+    } else {
+      generateGenericScript();
+    }
+  };
+  
+  const generateCodeViolationScript = (regenerate = false) => {
+    const requestTypeText = requestTypes.find(r => r.value === requestType)?.label || 'City';
+    const timeframeText = timeframes.find(t => t.value === timeframe)?.label || '30 days';
+    
+    // Multiple variations for code violations
+    const variations = [
+      // Variation 1
+      () => `Hello,
+I hope this message finds you well. My name is ${fullName}${phoneNumber ? `, and I am reaching out to request information about any code violations related to tall grass and trash/debris in ${requestTypeText} over the past ${timeframeText}` : ` and I am reaching out to request information about any code violations related to tall grass and trash/debris in ${requestTypeText} over the past ${timeframeText}`}. I am conducting research and would greatly appreciate your assistance in providing this information.
+If there's a specific department or individual I should reach out to, or if there are forms I need to complete, please let me know so I can ensure the request is properly processed.
+Thank you for your time and help.${phoneNumber ? ` If you need any additional information or clarification, feel free to contact me at ${phoneNumber}.` : ''}
+Best regards,
+${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`,
+      
+      // Variation 2
+      () => `Good day,
+My name is ${fullName}, and I'm writing to inquire about code violation records in ${requestTypeText}. Specifically, I'm interested in violations concerning overgrown grass and debris/trash accumulation from the last ${timeframeText}. This information will help with my ongoing research project.
+Could you please direct me to the appropriate department or provide the necessary forms to complete this request? I want to make sure I follow the correct procedure.
+I appreciate your assistance${phoneNumber ? ` and am available at ${phoneNumber} should you need to reach me` : ''}.
+Sincerely,
+${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`,
+      
+      // Variation 3
+      () => `Hello there,
+I'm ${fullName}, and I'd like to request records of code violations in ${requestTypeText} for the past ${timeframeText}. I'm particularly looking for cases involving tall grass and trash or debris violations as part of my research efforts.
+Please let me know if there's a specific process I should follow or any forms that need to be filled out to obtain this information.
+Thank you so much for your help${phoneNumber ? `. You can reach me at ${phoneNumber} if you have any questions` : ''}.
+Warm regards,
+${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`,
+      
+      // Variation 4
+      () => `Hi,
+This is ${fullName} reaching out regarding code violations in ${requestTypeText}. I'm seeking information on violations related to tall grass and trash/debris over the past ${timeframeText} for research purposes.
+If there's a particular department handling these requests or any paperwork required, I'd appreciate being pointed in the right direction.
+Thanks for your time${phoneNumber ? `. Feel free to contact me at ${phoneNumber} if needed` : ''}.
+Best,
+${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`,
+      
+      // Variation 5
+      () => `Greetings,
+My name is ${fullName}, and I am requesting access to code violation records for ${requestTypeText} covering the last ${timeframeText}. I'm specifically interested in violations pertaining to overgrown grass and trash or debris accumulation for my research.
+Could you guide me on the proper channels or forms needed to process this request?
+I'm grateful for your assistance${phoneNumber ? ` and can be reached at ${phoneNumber} for any follow-up` : ''}.
+Kind regards,
+${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
+    ];
+    
+    // If regenerating, pick a random variation, otherwise use variation 0
+    const index = regenerate ? Math.floor(Math.random() * variations.length) : 0;
+    
+    // If no name provided, use placeholder
+    if (!fullName) {
+      setGeneratedScript(`Please provide your full name to generate the script.`);
+      return;
+    }
+    
+    setGeneratedScript(variations[index]());
+  };
+  
+  const generateGenericScript = () => {
     const requestTypeText = requestTypes.find(r => r.value === requestType)?.label || 'City';
     const listTypeText = listTypes.find(l => l.value === listType)?.label || 'Code Violations';
     const timeframeText = timeframes.find(t => t.value === timeframe)?.label || '30 days';
     
-    const script = `To: ${requestTypeText} ${listType === 'code-violations' ? 'Code Enforcement' : 'Records'} Department
-From: ${fullName || '[Your Full Name]'}
-Phone: ${phoneNumber || '[Your Phone Number]'}
+    const script = `To: ${requestTypeText} Records Department
+From: ${fullName || '[Your Full Name]'}${phoneNumber ? `\nPhone: ${phoneNumber}` : ''}
 Date: ${new Date().toLocaleDateString()}
 Subject: Public Records Request - ${listTypeText} Information
 
-Dear ${listType === 'code-violations' ? 'Code Enforcement' : 'Records'} Department,
+Dear Records Department,
 
 I am writing to request public records under the [State] Public Records Act.
 
 Request Details:
-- Full Name: ${fullName || '[Your Full Name]'}
-- Phone Number: ${phoneNumber || '[Your Phone Number]'}
+- Full Name: ${fullName || '[Your Full Name]'}${phoneNumber ? `\n- Phone Number: ${phoneNumber}` : ''}
 - ${requestTypeText}: [${requestTypeText} Name]
 - Record Type: ${listTypeText}
 - Timeframe: ${timeframeText}
@@ -97,8 +167,7 @@ Thank you for your assistance.
 
 Sincerely,
 
-${fullName || '[Your Full Name]'}
-${phoneNumber || '[Your Phone Number]'}`;
+${fullName || '[Your Full Name]'}${phoneNumber ? `\n${phoneNumber}` : ''}`;
     
     setGeneratedScript(script);
   };
@@ -179,28 +248,30 @@ ${phoneNumber || '[Your Phone Number]'}`;
             </div>
           </div>
           
-          <div className="flex gap-4">
-            <Button
-              onClick={generateScript}
-              className="w-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-6"
-            >
-              <Wand2 className="w-5 h-5 mr-2" />
-              Generate Script
-            </Button>
-            
+          <div className="flex gap-4 items-end">
             <div className="w-1/2 space-y-2">
               <Label>Timeframe</Label>
               <Select value={timeframe} onValueChange={setTimeframe}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   {timeframes.map(tf => (
-                    <SelectItem key={tf.value} value={tf.value}>{tf.label}</SelectItem>
+                    <SelectItem key={tf.value} value={tf.value}>
+                      {getTimeframeLabel(tf.value, getRecommendedTimeframe(listType))}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
+            
+            <Button
+              onClick={() => generateScript(false)}
+              className="w-1/2 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white"
+            >
+              <Wand2 className="w-5 h-5 mr-2" />
+              Generate Script
+            </Button>
           </div>
           
           {generatedScript && (
@@ -214,15 +285,28 @@ ${phoneNumber || '[Your Phone Number]'}`;
                   <FileText className="w-5 h-5 text-emerald-600" />
                   <span className="font-semibold text-slate-900">Generated Script</span>
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={copyToClipboard}
-                  className="gap-2"
-                >
-                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                  {copied ? 'Copied!' : 'Copy'}
-                </Button>
+                <div className="flex gap-2">
+                  {listType === 'code-violations' && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => generateScript(true)}
+                      className="gap-2"
+                    >
+                      <Wand2 className="w-4 h-4" />
+                      New Version
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={copyToClipboard}
+                    className="gap-2"
+                  >
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copied ? 'Copied!' : 'Copy'}
+                  </Button>
+                </div>
               </div>
               <pre className="bg-white rounded-xl p-6 border border-slate-200 text-sm text-slate-700 whitespace-pre-wrap overflow-x-auto font-mono">
                 {generatedScript}
