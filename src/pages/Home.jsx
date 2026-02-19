@@ -913,21 +913,6 @@ const generateSampleCities = (count, stateName) => {
   return cities;
 };
 
-// Sort states based on selected order
-const sortedStates = useMemo(() => {
-  const states = [...statesData];
-  switch (sortOrder) {
-    case 'alphabetical':
-      return states.sort((a, b) => a.name.localeCompare(b.name));
-    case 'cities-high':
-      return states.sort((a, b) => b.cityCount - a.cityCount);
-    case 'cities-low':
-      return states.sort((a, b) => a.cityCount - b.cityCount);
-    default:
-      return states;
-  }
-}, [sortOrder]);
-
 export default function Home() {
   const [selectedState, setSelectedState] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -942,6 +927,21 @@ export default function Home() {
   });
   const [sortOrder, setSortOrder] = useState('original');
   const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  // Sort states based on selected order
+  const sortedStates = useMemo(() => {
+    const states = [...statesData];
+    switch (sortOrder) {
+      case 'alphabetical':
+        return states.sort((a, b) => a.name.localeCompare(b.name));
+      case 'cities-high':
+        return states.sort((a, b) => b.cityCount - a.cityCount);
+      case 'cities-low':
+        return states.sort((a, b) => a.cityCount - b.cityCount);
+      default:
+        return states;
+    }
+  }, [sortOrder]);
   
   // Get cities for selected state with status
   const getCitiesWithStatus = useCallback((stateId) => {
