@@ -42,7 +42,7 @@ export default function Header({ notificationBell }) {
               <h1 className={`text-lg font-bold transition-colors ${
                 isScrolled ? 'text-slate-900' : 'text-white'
               }`}>
-                CodeViolation
+                Code Violation
               </h1>
               <p className={`text-xs font-medium transition-colors ${
                 isScrolled ? 'text-emerald-600' : 'text-emerald-300'

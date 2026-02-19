@@ -10,6 +10,7 @@ import ScriptGenerator from '../components/home/ScriptGenerator';
 import Footer from '../components/home/Footer';
 import NotificationBell from '../components/home/NotificationBell';
 import NotificationDropdown from '../components/home/NotificationDropdown';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // States data
 const statesData = [
@@ -912,6 +913,21 @@ const generateSampleCities = (count, stateName) => {
   return cities;
 };
 
+// Sort states based on selected order
+const sortedStates = useMemo(() => {
+  const states = [...statesData];
+  switch (sortOrder) {
+    case 'alphabetical':
+      return states.sort((a, b) => a.name.localeCompare(b.name));
+    case 'cities-high':
+      return states.sort((a, b) => b.cityCount - a.cityCount);
+    case 'cities-low':
+      return states.sort((a, b) => a.cityCount - b.cityCount);
+    default:
+      return states;
+  }
+}, [sortOrder]);
+
 export default function Home() {
   const [selectedState, setSelectedState] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -924,6 +940,8 @@ export default function Home() {
     const saved = localStorage.getItem('clearedNotifications');
     return saved ? JSON.parse(saved) : [];
   });
+  const [sortOrder, setSortOrder] = useState('original');
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   // Get cities for selected state with status
   const getCitiesWithStatus = useCallback((stateId) => {
@@ -1074,17 +1092,50 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="mb-12"
             >
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">States Covered</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <span className="text-sm text-slate-600">Light</span>
+                <button
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    isDarkMode ? 'bg-emerald-600' : 'bg-slate-300'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      isDarkMode ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+                <span className="text-sm text-slate-600">Dark</span>
+              </div>
+
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex-1"></div>
+                <h2 className="text-3xl font-bold text-slate-900 flex-1 text-center">States Covered</h2>
+                <div className="flex-1 flex justify-end">
+                  <Select value={sortOrder} onValueChange={setSortOrder}>
+                    <SelectTrigger className="w-48">
+                      <SelectValue placeholder="Sort by" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="original">Original Order</SelectItem>
+                      <SelectItem value="alphabetical">Alphabetical</SelectItem>
+                      <SelectItem value="cities-high"># of Cities (High to Low)</SelectItem>
+                      <SelectItem value="cities-low"># of Cities (Low to High)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <p className="text-slate-600 max-w-2xl mx-auto text-center">
                 Select a state to view all available city code violation form links. 
                 Each state directory is meticulously organized for quick access.
               </p>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {statesData.map((state, index) => (
+              {sortedStates.map((state, index) => (
                 <StateCard
                   key={state.id}
                   state={state}

@@ -68,6 +68,21 @@ export default function ScriptGenerator() {
   const [generatedScript, setGeneratedScript] = useState('');
   const [copied, setCopied] = useState(false);
   
+  // Format phone number as xxx-xxx-xxxx
+  const formatPhoneNumber = (value) => {
+    const cleaned = value.replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
+    if (match) {
+      return !match[2] ? match[1] : `${match[1]}-${match[2]}${match[3] ? `-${match[3]}` : ''}`;
+    }
+    return value;
+  };
+  
+  const handlePhoneChange = (e) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhoneNumber(formatted);
+  };
+  
   // Update timeframe when list type changes
   const handleListTypeChange = (value) => {
     setListType(value);
@@ -299,8 +314,9 @@ ${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
               <Input
                 id="phoneNumber"
                 value={phoneNumber}
-                onChange={e => setPhoneNumber(e.target.value)}
-                placeholder="e.g., (555) 123-4567"
+                onChange={handlePhoneChange}
+                placeholder="e.g., 555-123-4567"
+                maxLength={12}
               />
             </div>
             
