@@ -1062,7 +1062,7 @@ export default function Home() {
   }, []);
   
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
       <Header 
         notificationBell={
           <div className="relative">
@@ -1086,7 +1086,7 @@ export default function Home() {
         <HeroSection />
         
         {/* States Section */}
-        <section id="states" className="py-20 bg-white">
+        <section id="states" className={`py-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
           <div className="max-w-6xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1113,7 +1113,7 @@ export default function Home() {
 
               <div className="flex items-center justify-between mb-4">
                 <div className="flex-1"></div>
-                <h2 className="text-3xl font-bold text-slate-900 flex-1 text-center">States Covered</h2>
+                <h2 className={`text-3xl font-bold flex-1 text-center transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>States Covered</h2>
                 <div className="flex-1 flex justify-end">
                   <Select value={sortOrder} onValueChange={setSortOrder}>
                     <SelectTrigger className="w-48">
@@ -1128,7 +1128,7 @@ export default function Home() {
                   </Select>
                 </div>
               </div>
-              <p className="text-slate-600 max-w-2xl mx-auto text-center">
+              <p className={`max-w-2xl mx-auto text-center transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 Select a state to view all available city code violation form links. 
                 Each state directory is meticulously organized for quick access.
               </p>
