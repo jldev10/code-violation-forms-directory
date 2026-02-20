@@ -1095,7 +1095,7 @@ export default function Home() {
               className="mb-12"
             >
               <div className="flex items-center justify-center gap-3 mb-6">
-                <span className="text-sm text-slate-600">Light</span>
+                <span className={`text-sm transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Light</span>
                 <button
                   onClick={() => setIsDarkMode(!isDarkMode)}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
@@ -1108,7 +1108,7 @@ export default function Home() {
                     }`}
                   />
                 </button>
-                <span className="text-sm text-slate-600">Dark</span>
+                <span className={`text-sm transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Dark</span>
               </div>
 
               <div className="flex items-center justify-between mb-4">
@@ -1116,7 +1116,7 @@ export default function Home() {
                 <h2 className={`text-3xl font-bold flex-1 text-center transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>States Covered</h2>
                 <div className="flex-1 flex justify-end">
                   <Select value={sortOrder} onValueChange={setSortOrder}>
-                    <SelectTrigger className="w-48">
+                    <SelectTrigger className={`w-48 ${isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : ''}`}>
                       <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
