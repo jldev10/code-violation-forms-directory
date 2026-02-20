@@ -1147,13 +1147,17 @@ export default function Home() {
           </div>
         </section>
         
-        <SearchSection allCities={allCitiesForSearch} />
+        <div className={isDarkMode ? 'bg-slate-900' : ''}>
+          <SearchSection allCities={allCitiesForSearch} />
+        </div>
         
-        <section id="faq">
-          <FAQSection />
+        <section id="faq" className={isDarkMode ? 'bg-slate-900' : ''}>
+          <FAQSection isDarkMode={isDarkMode} />
         </section>
         
-        <ScriptGenerator />
+        <div className={isDarkMode ? 'bg-slate-900' : ''}>
+          <ScriptGenerator isDarkMode={isDarkMode} />
+        </div>
       </main>
       
       <Footer />
