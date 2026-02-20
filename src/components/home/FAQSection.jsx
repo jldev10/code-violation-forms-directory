@@ -21,9 +21,9 @@ const faqs = [
   }
 ];
 
-export default function FAQSection() {
+export default function FAQSection({ isDarkMode }) {
   return (
-    <section className="py-20 bg-slate-50">
+    <section className={`py-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -31,8 +31,8 @@ export default function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-          <p className="text-slate-600">Find answers to common questions about using our directory.</p>
+          <h2 className={`text-3xl font-bold mb-4 transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Frequently Asked Questions</h2>
+          <p className={`transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Find answers to common questions about using our directory.</p>
         </motion.div>
         
         <div className="space-y-4">
@@ -43,15 +43,17 @@ export default function FAQSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-200"
+              className={`rounded-xl p-6 border shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-200 ${
+                isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'
+              }`}
             >
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
                   <HelpCircle className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">{faq.question}</h3>
-                  <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                  <h3 className={`font-semibold mb-2 transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{faq.question}</h3>
+                  <p className={`leading-relaxed transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>{faq.answer}</p>
                 </div>
               </div>
             </motion.div>
