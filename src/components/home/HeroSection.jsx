@@ -73,6 +73,9 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </div>
+      
+      {/* Gradient blend to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white/10 to-transparent"></div>
     </section>
   );
 }

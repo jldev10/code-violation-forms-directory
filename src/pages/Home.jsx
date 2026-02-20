@@ -1086,8 +1086,8 @@ export default function Home() {
         <HeroSection />
         
         {/* States Section */}
-        <section id="states" className={`py-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
-          <div className="max-w-6xl mx-auto px-6">
+        <section id="states" className={`pt-0 pb-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
+          <div className="max-w-6xl mx-auto px-6 pt-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
