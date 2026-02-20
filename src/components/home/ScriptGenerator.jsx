@@ -59,7 +59,7 @@ const getRecommendedTimeframe = (listType) => {
   }
 };
 
-export default function ScriptGenerator() {
+export default function ScriptGenerator({ isDarkMode }) {
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [cityCounty, setCityCounty] = useState('');
@@ -280,7 +280,7 @@ ${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
   };
   
   return (
-    <section className="py-20 bg-white" id="script-generator">
+    <section className={`py-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`} id="script-generator">
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -288,52 +288,57 @@ ${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Script Generator</h2>
-          <p className="text-slate-600">Generate professional scripts for requesting code violation information.</p>
+          <h2 className={`text-3xl font-bold mb-4 transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Script Generator</h2>
+          <p className={`transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Generate professional scripts for requesting code violation information.</p>
         </motion.div>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-slate-50 rounded-2xl p-8 border border-slate-200"
+          className={`rounded-2xl p-8 border transition-colors ${
+            isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-200'
+          }`}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+              <Label htmlFor="fullName" className={isDarkMode ? 'text-slate-300' : ''}>Full Name</Label>
               <Input
                 id="fullName"
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
                 placeholder="e.g., John Smith"
+                className={isDarkMode ? 'bg-slate-700 border-slate-600 text-white placeholder:text-slate-400' : ''}
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Phone Number</Label>
+              <Label htmlFor="phoneNumber" className={isDarkMode ? 'text-slate-300' : ''}>Phone Number</Label>
               <Input
                 id="phoneNumber"
                 value={phoneNumber}
                 onChange={handlePhoneChange}
                 placeholder="e.g., 555-123-4567"
                 maxLength={12}
+                className={isDarkMode ? 'bg-slate-700 border-slate-600 text-white placeholder:text-slate-400' : ''}
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="cityCounty">City / County</Label>
+              <Label htmlFor="cityCounty" className={isDarkMode ? 'text-slate-300' : ''}>City / County</Label>
               <Input
                 id="cityCounty"
                 value={cityCounty}
                 onChange={e => setCityCounty(e.target.value)}
                 placeholder="e.g., Los Angeles"
+                className={isDarkMode ? 'bg-slate-700 border-slate-600 text-white placeholder:text-slate-400' : ''}
               />
             </div>
             
             <div className="space-y-2">
-              <Label>Type of List</Label>
+              <Label className={isDarkMode ? 'text-slate-300' : ''}>Type of List</Label>
               <Select value={listType} onValueChange={handleListTypeChange}>
-                <SelectTrigger>
+                <SelectTrigger className={isDarkMode ? 'bg-slate-700 border-slate-600 text-white' : ''}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -347,9 +352,9 @@ ${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
           
           <div className="flex gap-4 items-end">
             <div className="w-1/2 space-y-2">
-              <Label>Timeframe</Label>
+              <Label className={isDarkMode ? 'text-slate-300' : ''}>Timeframe</Label>
               <Select value={timeframe} onValueChange={setTimeframe}>
-                <SelectTrigger className="h-12">
+                <SelectTrigger className={`h-12 ${isDarkMode ? 'bg-slate-700 border-slate-600 text-white' : ''}`}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -380,14 +385,14 @@ ${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-emerald-600" />
-                  <span className="font-semibold text-slate-900">Generated Script</span>
+                  <span className={`font-semibold transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Generated Script</span>
                 </div>
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => generateScript(true)}
-                    className="gap-2"
+                    className={`gap-2 ${isDarkMode ? 'bg-slate-700 border-slate-600 text-white hover:bg-slate-600' : ''}`}
                   >
                     <Wand2 className="w-4 h-4" />
                     New Version
@@ -396,14 +401,16 @@ ${fullName}${phoneNumber ? `\n${phoneNumber}` : ''}`
                     variant="outline"
                     size="sm"
                     onClick={copyToClipboard}
-                    className="gap-2"
+                    className={`gap-2 ${isDarkMode ? 'bg-slate-700 border-slate-600 text-white hover:bg-slate-600' : ''}`}
                   >
                     {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     {copied ? 'Copied!' : 'Copy'}
                   </Button>
                 </div>
               </div>
-              <pre className="bg-white rounded-xl p-6 border border-slate-200 text-sm text-slate-700 whitespace-pre-wrap overflow-x-auto font-mono">
+              <pre className={`rounded-xl p-6 border text-sm whitespace-pre-wrap overflow-x-auto font-mono transition-colors ${
+                isDarkMode ? 'bg-slate-700 border-slate-600 text-slate-200' : 'bg-white border-slate-200 text-slate-700'
+              }`}>
                 {generatedScript}
               </pre>
             </motion.div>
