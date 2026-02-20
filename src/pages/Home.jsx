@@ -1083,10 +1083,10 @@ export default function Home() {
       />
       
       <main id="home">
-        <HeroSection />
+        <HeroSection isDarkMode={isDarkMode} />
         
         {/* States Section */}
-        <section id="states" className={`pt-0 pb-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
+        <section id="states" className={`-mt-1 pt-0 pb-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
           <div className="max-w-6xl mx-auto px-6 pt-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
