@@ -1111,12 +1111,12 @@ export default function Home() {
                 <span className={`text-sm transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Dark</span>
               </div>
 
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex-1"></div>
-                <h2 className={`text-3xl font-bold flex-1 text-center transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>States Covered</h2>
-                <div className="flex-1 flex justify-end">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
+                <div className="hidden md:block md:flex-1"></div>
+                <h2 className={`text-3xl font-bold md:flex-1 text-center transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>States Covered</h2>
+                <div className="md:flex-1 flex justify-center md:justify-end">
                   <Select value={sortOrder} onValueChange={setSortOrder}>
-                    <SelectTrigger className={`w-48 ${isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : ''}`}>
+                    <SelectTrigger className={`w-full md:w-48 ${isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : ''}`}>
                       <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
