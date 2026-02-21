@@ -95,13 +95,18 @@ export default function ScriptGenerator({ isDarkMode }) {
       return;
     }
     
+    if (!cityCounty) {
+      setGeneratedScript(`Please provide a city or county name to generate the script.`);
+      return;
+    }
+    
     const variations = getScriptVariations();
     const index = regenerate ? Math.floor(Math.random() * variations.length) : 0;
     setGeneratedScript(variations[index]());
   };
   
   const getScriptVariations = () => {
-    const location = cityCounty || '[City/County]';
+    const location = cityCounty;
     const timeframeText = timeframes.find(t => t.value === timeframe)?.label || '30 days';
     
     switch (listType) {
