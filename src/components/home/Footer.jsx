@@ -13,7 +13,7 @@ export default function Footer() {
                 <FileText className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-bold">CodeViolation</h3>
+                <h3 className="text-xl font-bold">Code Violation</h3>
                 <p className="text-emerald-400 text-sm font-medium">Forms Directory</p>
               </div>
             </div>
@@ -33,7 +33,7 @@ export default function Footer() {
               This directory consolidates access to code violation reporting forms from over 
               <span className="text-emerald-400 font-semibold"> 800 municipalities</span> across 
               <span className="text-emerald-400 font-semibold"> 15 states</span>, saving time for professionals 
-              in real estate, construction, property management, and legal compliance.
+              in real estate to possibly get leads few have.
             </p>
           </div>
           
