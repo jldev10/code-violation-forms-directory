@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Input } from '@/components/ui/input';
+import { Input } from '../ui/input';
 
 // A large list of US cities with their states for autocomplete
 const US_CITIES = [
