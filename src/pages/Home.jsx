@@ -916,6 +916,13 @@ const generateSampleCities = (count, stateName) => {
 export default function Home() {
   const [selectedState, setSelectedState] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const [cityStatuses, setCityStatuses] = useState(() => {
     const saved = localStorage.getItem('cityStatuses');
     return saved ? JSON.parse(saved) : {};
