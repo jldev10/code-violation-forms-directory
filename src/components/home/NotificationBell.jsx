@@ -2,15 +2,15 @@ import React from 'react';
 import { Bell } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function NotificationBell({ count, onClick }) {
+export default function NotificationBell({ count, onClick, isScrolled }) {
   const displayCount = count > 9 ? '9+' : count;
   
   return (
     <button
       onClick={onClick}
-      className="relative p-2 hover:bg-white/10 rounded-lg transition-colors"
+      className="relative p-2 hover:bg-slate-100/20 rounded-lg transition-colors"
     >
-      <Bell className="w-6 h-6 text-white" />
+      <Bell className={`w-6 h-6 transition-colors ${isScrolled ? 'text-slate-700' : 'text-white'}`} />
       {count > 0 && (
         <motion.div
           initial={{ scale: 0 }}
