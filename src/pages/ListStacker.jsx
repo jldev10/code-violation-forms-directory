@@ -36,7 +36,18 @@ export default function ListStacker() {
 
   const { data: leads = [], isLoading } = useQuery({
     queryKey: ['leads'],
-    queryFn: () => base44.entities.Lead.list('-created_date', 2000),
+    queryFn: async () => {
+      const all = [];
+      let page = 0;
+      const pageSize = 500;
+      while (true) {
+        const batch = await base44.entities.Lead.list('-created_date', pageSize, page * pageSize);
+        all.push(...batch);
+        if (batch.length < pageSize) break;
+        page++;
+      }
+      return all;
+    },
   });
 
   const markets = useMemo(() => {
