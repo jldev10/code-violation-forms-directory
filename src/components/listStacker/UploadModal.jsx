@@ -79,15 +79,24 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
     }
     setUploading(true);
     try {
-      // Load existing leads to check for duplicates
-      const existing = await base44.entities.Lead.list();
+      // Fetch ALL existing leads (paginate to avoid 2000 cap)
       const existingMap = {};
-      existing.forEach(l => {
-        const key = l.address?.toLowerCase().trim();
-        if (key) existingMap[key] = l;
-      });
+      let page = 0;
+      const pageSize = 500;
+      while (true) {
+        const batch = await base44.entities.Lead.list('-created_date', pageSize, page * pageSize);
+        batch.forEach(l => {
+          const key = l.address?.toLowerCase().trim();
+          if (key) existingMap[key] = l;
+        });
+        if (batch.length < pageSize) break;
+        page++;
+      }
 
-      let created = 0, updated = 0;
+      // Separate rows into new vs. needs-update
+      const toCreate = [];
+      const toUpdate = []; // { id, tags, tag_dates, market }
+
       for (const row of preview.rows) {
         const address = extractAddress(row);
         if (!address) continue;
@@ -97,32 +106,37 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
         const zip = extractField(row, ['zip', 'zip code', 'postal code']);
 
         if (existingMap[key]) {
-          // Update existing lead — add tag if not already present
           const lead = existingMap[key];
           const tags = lead.tags || [];
           if (!tags.includes(listType)) {
-            tags.push(listType);
-            const tag_dates = lead.tag_dates || {};
-            tag_dates[listType] = date;
-            await base44.entities.Lead.update(lead.id, { tags, tag_dates, market: market || lead.market });
-            updated++;
+            const newTags = [...tags, listType];
+            const tag_dates = { ...(lead.tag_dates || {}), [listType]: date };
+            toUpdate.push({ id: lead.id, tags: newTags, tag_dates, market: market || lead.market });
           }
         } else {
-          const newLead = {
-            address,
-            city,
-            state,
-            zip,
-            market,
-            tags: [listType],
-            tag_dates: { [listType]: date }
-          };
-          const created_lead = await base44.entities.Lead.create(newLead);
-          existingMap[key] = created_lead;
-          created++;
+          toCreate.push({ address, city, state, zip, market, tags: [listType], tag_dates: { [listType]: date } });
+          // Temporarily mark in map to avoid dupe creates within same file
+          existingMap[key] = { address };
         }
       }
-      toast.success(`Uploaded! ${created} new leads added, ${updated} leads updated with new tag.`);
+
+      // Bulk create new leads in batches of 100
+      const BATCH = 100;
+      for (let i = 0; i < toCreate.length; i += BATCH) {
+        await base44.entities.Lead.bulkCreate(toCreate.slice(i, i + BATCH));
+      }
+
+      // Update existing leads in parallel batches of 20
+      const UPDATE_BATCH = 20;
+      for (let i = 0; i < toUpdate.length; i += UPDATE_BATCH) {
+        await Promise.all(
+          toUpdate.slice(i, i + UPDATE_BATCH).map(u =>
+            base44.entities.Lead.update(u.id, { tags: u.tags, tag_dates: u.tag_dates, market: u.market })
+          )
+        );
+      }
+
+      toast.success(`Uploaded! ${toCreate.length} new leads added, ${toUpdate.length} leads updated.`);
       onUploaded();
       onClose();
       setFile(null);
