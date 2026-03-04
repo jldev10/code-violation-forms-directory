@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Upload, FileText, AlertCircle } from 'lucide-react';
+import { X, Upload, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import MarketAutocomplete from './MarketAutocomplete';
 
 const LIST_TYPES = [
   'Code Violations',
