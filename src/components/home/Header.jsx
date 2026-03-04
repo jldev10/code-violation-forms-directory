@@ -67,7 +67,7 @@ export default function Header({ notificationBell }) {
                 {link.label}
               </a>
             ))}
-            {notificationBell}
+            {notificationBell && React.cloneElement(notificationBell, { isScrolled })}
           </nav>
           
           {/* Mobile menu button */}
