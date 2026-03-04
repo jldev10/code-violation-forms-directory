@@ -1076,6 +1076,7 @@ export default function Home() {
             <NotificationBell 
               count={notifications.filter(n => n.isNew).length} 
               onClick={() => setShowNotifications(!showNotifications)}
+              isScrolled={isScrolled}
             />
             <NotificationDropdown
               isOpen={showNotifications}
