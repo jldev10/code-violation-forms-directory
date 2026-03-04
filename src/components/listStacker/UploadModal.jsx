@@ -172,7 +172,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
 
               <div className="space-y-2">
                 <Label>Market / Area</Label>
-                <Input value={market} onChange={e => setMarket(e.target.value)} placeholder="e.g. Fort Worth, TX" />
+                <MarketAutocomplete value={market} onChange={setMarket} placeholder="e.g. Fort Worth, TX" />
               </div>
 
               <div className="space-y-2">
