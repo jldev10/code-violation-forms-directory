@@ -69,6 +69,7 @@ export default function Header({ notificationBell }) {
                 {link.label}
               </a>
             ))}
+            
             {notificationBell}
           </nav>
           
