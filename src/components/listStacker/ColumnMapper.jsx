@@ -93,9 +93,12 @@ export default function ColumnMapper({ csvHeaders, sampleRows, onConfirm, onBack
                     </Select>
                   </td>
                   <td className="py-3 px-4 hidden md:table-cell">
-                    <span className="text-xs text-slate-400 font-mono truncate max-w-[180px] block">
-                      {sample || '—'}
-                    </span>
+                    {sampleRows.map((row, ri) => {
+                      const val = selectedCol ? row[selectedCol] : null;
+                      return val ? (
+                        <span key={ri} className="text-xs text-slate-500 font-mono block truncate max-w-[180px]">{val}</span>
+                      ) : null;
+                    }).filter(Boolean)[0] || <span className="text-xs text-slate-300">—</span>}
                   </td>
                 </tr>
               );
