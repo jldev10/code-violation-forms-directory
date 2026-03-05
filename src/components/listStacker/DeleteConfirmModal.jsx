@@ -59,17 +59,17 @@ export default function DeleteConfirmModal({ isOpen, count, onConfirm, onCancel 
             />
 
             <div className="flex flex-col gap-2">
-              <Button
+              <button
                 onClick={handleConfirm}
                 disabled={!canDelete}
-                className={`w-full h-10 font-semibold transition-all ${
+                className={`w-full h-10 font-semibold rounded-lg transition-all ${
                   canDelete
-                    ? 'bg-red-600 hover:bg-red-700 text-white'
+                    ? 'bg-red-600 hover:bg-red-700 text-white cursor-pointer'
                     : 'bg-slate-100 text-slate-400 cursor-not-allowed'
                 }`}
               >
                 Permanently Delete
-              </Button>
+              </button>
               <Button variant="ghost" onClick={handleCancel} className="w-full h-10 text-slate-600">
                 Cancel
               </Button>

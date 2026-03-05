@@ -171,7 +171,10 @@ export default function ListStacker() {
                 <>
                   <span className="font-semibold text-slate-900">{selectedCount.toLocaleString()} {selectedCount === 1 ? 'lead' : 'leads'} selected.</span>
                   {' '}{unselectedCount.toLocaleString()} {unselectedCount === 1 ? 'lead' : 'leads'} currently unselected.{' '}
-                  <button onClick={selectAll} className="font-bold text-slate-900 underline hover:no-underline">Select All</button>
+                  {selectedIds.size === filtered.length
+                    ? <button onClick={clearSelection} className="font-bold text-slate-900 underline hover:no-underline">Deselect All</button>
+                    : <button onClick={selectAll} className="font-bold text-slate-900 underline hover:no-underline">Select All</button>
+                  }
                 </>
               )}
             </div>
