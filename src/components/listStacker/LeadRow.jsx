@@ -16,13 +16,23 @@ const TAG_COLORS = {
   'Other': 'bg-gray-100 text-gray-700 border-gray-200',
 };
 
-export default function LeadRow({ lead, index }) {
+export default function LeadRow({ lead, index, selected, onSelect }) {
   const tagCount = lead.tags?.length || 0;
   const motivation = tagCount >= 3 ? 'high' : tagCount === 2 ? 'medium' : 'low';
 
   return (
-    <tr className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-      <td className="py-3 px-4 text-sm text-slate-500 w-12">{index + 1}</td>
+    <tr
+      className={`border-b border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer ${selected ? 'bg-blue-50' : ''}`}
+      onClick={() => onSelect(lead.id)}
+    >
+      <td className="py-3 px-4 w-10" onClick={e => e.stopPropagation()}>
+        <input
+          type="checkbox"
+          checked={selected}
+          onChange={() => onSelect(lead.id)}
+          className="w-4 h-4 rounded border-slate-300 accent-emerald-500 cursor-pointer"
+        />
+      </td>
       <td className="py-3 px-4">
         <div>
           <p className="text-sm font-medium text-slate-900">{lead.address}</p>
