@@ -220,7 +220,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
                 )}
                 <ColumnMapper
                   csvHeaders={parsed.headers}
-                  sampleRows={parsed.rows.slice(0, 3)}
+                  sampleRows={parsed.rows.slice(0, 5)}
                   onConfirm={handleProcess}
                   onBack={() => setStep('setup')}
                 />
