@@ -32,7 +32,14 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
   const [step, setStep] = useState('setup'); // 'setup' | 'mapping'
   const [listType, setListType] = useState('');
   const [market, setMarket] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const localToday = () => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+  const [date, setDate] = useState(localToday());
   const [file, setFile] = useState(null);
   const [parsed, setParsed] = useState(null); // { headers, rows }
   const [uploading, setUploading] = useState(false);
@@ -59,8 +66,8 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
   };
 
   const handleNext = () => {
-    if (!listType || !market || !file || !parsed) {
-      toast.error('Please fill in all fields and select a file.');
+    if (!listType || !file || !parsed) {
+      toast.error('Please select a list type and upload a CSV file.');
       return;
     }
     setStep('mapping');
