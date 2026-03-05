@@ -170,11 +170,6 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Market / Area</Label>
-                    <MarketAutocomplete value={market} onChange={setMarket} placeholder="e.g. Fort Worth, TX" />
-                  </div>
-
-                  <div className="space-y-2">
                     <Label>List Date</Label>
                     <Input type="date" value={date} onChange={e => setDate(e.target.value)} />
                   </div>
