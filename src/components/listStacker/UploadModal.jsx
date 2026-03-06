@@ -114,12 +114,12 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
       const toUpdate = [];
 
       for (const row of parsed.rows) {
-        const address = mapping.address ? row[mapping.address] : '';
+        const address = (mapping.address ? row[mapping.address] : '').trim();
         if (!address) continue;
         const key = address.toLowerCase().trim();
-        const city = mapping.city ? row[mapping.city] : '';
-        const state = mapping.state ? row[mapping.state] : '';
-        const zip = mapping.zip ? row[mapping.zip] : '';
+        const city = mapping.city ? (row[mapping.city] || '').trim() : '';
+        const state = mapping.state ? (row[mapping.state] || '').trim() : '';
+        const zip = mapping.zip ? (row[mapping.zip] || '').trim() : '';
 
         if (existingMap[key]) {
           const lead = existingMap[key];
@@ -127,7 +127,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
           if (!tags.includes(listType)) {
             const newTags = [...tags, listType];
             const tag_dates = { ...(lead.tag_dates || {}), [listType]: date };
-            toUpdate.push({ id: lead.id, tags: newTags, tag_dates, market: market || lead.market });
+            toUpdate.push({ id: lead.id, tags: newTags, tag_dates, city: city || lead.city, state: state || lead.state, zip: zip || lead.zip });
           }
         } else {
           toCreate.push({ address, city, state, zip, market, tags: [listType], tag_dates: { [listType]: date } });
@@ -146,7 +146,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
       for (let i = 0; i < toUpdate.length; i += UPDATE_BATCH) {
         await Promise.all(
           toUpdate.slice(i, i + UPDATE_BATCH).map(u =>
-            base44.entities.Lead.update(u.id, { tags: u.tags, tag_dates: u.tag_dates, market: u.market })
+            base44.entities.Lead.update(u.id, { tags: u.tags, tag_dates: u.tag_dates, city: u.city, state: u.state, zip: u.zip })
           )
         );
       }
