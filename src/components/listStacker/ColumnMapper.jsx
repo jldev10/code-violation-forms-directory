@@ -12,7 +12,7 @@ const REQUIRED_FIELDS = [
   { key: 'zip', label: 'Zip Code', required: false },
 ];
 
-export default function ColumnMapper({ csvHeaders, sampleRows, onConfirm, onBack }) {
+export default function ColumnMapper({ csvHeaders, sampleRows, onConfirm, onBack, onClose }) {
   const [mapping, setMapping] = useState(() => {
     // Auto-detect common column names
     const auto = {};
