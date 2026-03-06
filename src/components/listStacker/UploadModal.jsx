@@ -15,12 +15,32 @@ const LIST_TYPES = [
   'Tax Liens','Evictions','Pre-Foreclosures','Fire Damaged','Probates','Arrest Records','Other'
 ];
 
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i + 1] === '"') { cur += '"'; i++; }
+      else { inQuotes = !inQuotes; }
+    } else if (ch === ',' && !inQuotes) {
+      result.push(cur.trim());
+      cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  result.push(cur.trim());
+  return result;
+}
+
 function parseCSV(text) {
-  const lines = text.trim().split('\n');
+  const lines = text.trim().split(/\r?\n/);
   if (lines.length < 2) return { headers: [], rows: [] };
-  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+  const headers = parseCSVLine(lines[0]);
   const rows = lines.slice(1).map(line => {
-    const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
+    const values = parseCSVLine(line);
     const obj = {};
     headers.forEach((h, i) => { obj[h] = values[i] || ''; });
     return obj;
@@ -198,10 +218,20 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
                   </div>
 
                   {parsed && (
-                    <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg p-3">
-                      <FileText className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span className="text-sm text-emerald-700 font-medium">{parsed.rows.length.toLocaleString()} rows detected</span>
-                    </div>
+                    parsed.rows.length > 5000 ? (
+                      <div className="flex items-start gap-2 bg-yellow-50 border border-yellow-300 rounded-lg p-3">
+                        <FileText className="w-4 h-4 text-yellow-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-sm text-yellow-800 font-semibold">{parsed.rows.length.toLocaleString()} rows detected</span>
+                          <p className="text-xs text-yellow-700 mt-0.5">⚠️ Warning: Lists over 5,000 rows may take a long time. For best results, split into batches of 5,000 or less.</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                        <FileText className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                        <span className="text-sm text-emerald-700 font-medium">{parsed.rows.length.toLocaleString()} rows detected</span>
+                      </div>
+                    )
                   )}
                 </div>
 
