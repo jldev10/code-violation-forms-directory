@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { Plus, Search, Flame, Trash2, FileText } from 'lucide-react';
+import { Plus, Search, Flame, Trash2, FileText, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -30,6 +30,7 @@ export default function ListStacker() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: leads = [], isLoading } = useQuery({
@@ -101,7 +102,7 @@ export default function ListStacker() {
   const unselectedCount = filtered.length - selectedCount;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className={`min-h-screen transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-6 py-8">
         <div className="max-w-7xl mx-auto">
@@ -111,13 +112,22 @@ export default function ListStacker() {
               <h1 className="text-2xl font-bold mt-1">List Stacker</h1>
               <p className="text-slate-400 text-sm mt-1">Upload lead lists and automatically stack duplicates by property address.</p>
             </div>
-            <Button
-              onClick={() => setShowUpload(true)}
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white gap-2 w-full md:w-auto"
-            >
-              <Plus className="w-4 h-4" />
-              Add Leads
-            </Button>
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                {isDarkMode ? <Sun className="w-5 h-5 text-yellow-300" /> : <Moon className="w-5 h-5 text-slate-300" />}
+              </button>
+              <Button
+                onClick={() => setShowUpload(true)}
+                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white gap-2 flex-1 md:flex-none"
+              >
+                <Plus className="w-4 h-4" />
+                Add Leads
+              </Button>
+            </div>
           </div>
         </div>
       </div>
