@@ -260,6 +260,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
                   sampleRows={parsed.rows.slice(0, 5)}
                   onConfirm={handleProcess}
                   onBack={() => setStep('setup')}
+                  onClose={handleClose}
                 />
               </div>
             )}
