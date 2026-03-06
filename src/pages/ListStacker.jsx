@@ -10,6 +10,7 @@ import UploadModal from '../components/listStacker/UploadModal';
 import LeadRow from '../components/listStacker/LeadRow';
 import StatsBar from '../components/listStacker/StatsBar';
 import DeleteConfirmModal from '../components/listStacker/DeleteConfirmModal';
+import DeleteProgressOverlay from '../components/listStacker/DeleteProgressOverlay';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 
@@ -28,6 +29,7 @@ export default function ListStacker() {
   const [filterMarket, setFilterMarket] = useState('all');
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteProgress, setDeleteProgress] = useState({ visible: false, deleted: 0, total: 0 });
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -91,10 +93,22 @@ export default function ListStacker() {
 
   const handleDelete = async () => {
     const ids = [...selectedIds];
-    await Promise.all(ids.map(id => base44.entities.Lead.delete(id)));
-    toast.success(`${ids.length} ${ids.length === 1 ? 'lead' : 'leads'} deleted.`);
-    clearSelection();
+    const total = ids.length;
+    // Close modal immediately, show progress overlay
     setShowDeleteModal(false);
+    clearSelection();
+    setDeleteProgress({ visible: true, deleted: 0, total });
+
+    const BATCH = 5;
+    let deleted = 0;
+    for (let i = 0; i < ids.length; i += BATCH) {
+      await Promise.all(ids.slice(i, i + BATCH).map(id => base44.entities.Lead.delete(id)));
+      deleted = Math.min(i + BATCH, ids.length);
+      setDeleteProgress({ visible: true, deleted, total });
+    }
+
+    setDeleteProgress({ visible: false, deleted: 0, total: 0 });
+    toast.success(`${total} ${total === 1 ? 'lead' : 'leads'} deleted.`);
     queryClient.invalidateQueries({ queryKey: ['leads'] });
   };
 
