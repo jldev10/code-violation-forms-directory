@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -42,10 +42,15 @@ export default function ColumnMapper({ csvHeaders, sampleRows, onConfirm, onBack
         <button onClick={onBack} className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
           <ArrowLeft className="w-4 h-4 text-slate-500" />
         </button>
-        <div>
+        <div className="flex-1">
           <h2 className="text-lg font-bold text-slate-900">Map Your Columns</h2>
           <p className="text-sm text-slate-500">Match your CSV columns to the fields below. Only Address is required.</p>
         </div>
+        {onClose && (
+          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-lg transition-colors ml-auto">
+            <X className="w-4 h-4 text-slate-500" />
+          </button>
+        )}
       </div>
 
       <div className="border border-slate-200 rounded-xl overflow-hidden mb-6">
