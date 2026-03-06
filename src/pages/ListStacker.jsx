@@ -317,6 +317,12 @@ export default function ListStacker() {
         onUploaded={() => queryClient.invalidateQueries({ queryKey: ['leads'] })}
       />
 
+      <DeleteProgressOverlay
+        isVisible={deleteProgress.visible}
+        deleted={deleteProgress.deleted}
+        total={deleteProgress.total}
+      />
+
       <DeleteConfirmModal
         isOpen={showDeleteModal}
         count={selectedCount}
