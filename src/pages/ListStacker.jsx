@@ -99,12 +99,16 @@ export default function ListStacker() {
     clearSelection();
     setDeleteProgress({ visible: true, deleted: 0, total });
 
-    const BATCH = 10;
+    const BATCH = 5;
+    const DELAY_MS = 300;
     let deleted = 0;
     for (let i = 0; i < ids.length; i += BATCH) {
       await Promise.all(ids.slice(i, i + BATCH).map(id => base44.entities.Lead.delete(id)));
       deleted = Math.min(i + BATCH, ids.length);
       setDeleteProgress({ visible: true, deleted, total });
+      if (i + BATCH < ids.length) {
+        await new Promise(res => setTimeout(res, DELAY_MS));
+      }
     }
 
     setDeleteProgress({ visible: false, deleted: 0, total: 0 });
