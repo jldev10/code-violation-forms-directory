@@ -40,11 +40,11 @@ export default function ListStacker() {
     queryFn: async () => {
       const all = [];
       let page = 0;
-      const pageSize = 500;
+      const batchSize = 100;
       while (true) {
-        const batch = await base44.entities.Lead.list('-created_date', pageSize, page * pageSize);
+        const batch = await base44.entities.Lead.list('-created_date', batchSize, page * batchSize);
         all.push(...batch);
-        if (batch.length < pageSize) break;
+        if (batch.length < batchSize) break;
         page++;
       }
       return all;
