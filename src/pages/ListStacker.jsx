@@ -40,11 +40,11 @@ export default function ListStacker() {
     queryFn: async () => {
       const all = [];
       let page = 0;
-      const batchSize = 100;
+      const pageSize = 500;
       while (true) {
-        const batch = await base44.entities.Lead.list('-created_date', batchSize, page * batchSize);
+        const batch = await base44.entities.Lead.list('-created_date', pageSize, page * pageSize);
         all.push(...batch);
-        if (batch.length < batchSize) break;
+        if (batch.length < pageSize) break;
         page++;
       }
       return all;
@@ -100,15 +100,11 @@ export default function ListStacker() {
     setDeleteProgress({ visible: true, deleted: 0, total });
 
     const BATCH = 5;
-    const DELAY_MS = 300;
     let deleted = 0;
     for (let i = 0; i < ids.length; i += BATCH) {
       await Promise.all(ids.slice(i, i + BATCH).map(id => base44.entities.Lead.delete(id)));
       deleted = Math.min(i + BATCH, ids.length);
       setDeleteProgress({ visible: true, deleted, total });
-      if (i + BATCH < ids.length) {
-        await new Promise(res => setTimeout(res, DELAY_MS));
-      }
     }
 
     setDeleteProgress({ visible: false, deleted: 0, total: 0 });
