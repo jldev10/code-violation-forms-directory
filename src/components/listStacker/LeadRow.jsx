@@ -53,9 +53,7 @@ export default function LeadRow({ lead, index, selected, onSelect }) {
       </td>
       <td className="py-3 px-4">
         <div className="flex items-center gap-1">
-          {Array.from({ length: tagCount }).map((_, i) => (
-            <Flame key={i} className={`w-4 h-4 ${motivation === 'high' ? 'text-red-500' : motivation === 'medium' ? 'text-orange-400' : 'text-slate-300'}`} />
-          ))}
+          <Flame className={`w-4 h-4 ${motivation === 'high' ? 'text-red-500' : motivation === 'medium' ? 'text-orange-400' : 'text-slate-300'}`} />
           <span className={`text-xs ml-1 font-medium ${motivation === 'high' ? 'text-red-600' : motivation === 'medium' ? 'text-orange-500' : 'text-slate-400'}`}>
             {tagCount} {tagCount === 1 ? 'list' : 'lists'}
           </span>

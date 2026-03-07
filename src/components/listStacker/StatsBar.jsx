@@ -15,7 +15,7 @@ export default function StatsBar({ leads }) {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       {[
         { label: 'Total Leads', value: total.toLocaleString(), icon: Users, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-        { label: 'Stacked (2+ lists)', value: stacked.toLocaleString(), icon: Layers, color: 'text-blue-600', bg: 'bg-blue-50' },
+        { label: 'Stacked (2 lists)', value: stacked.toLocaleString(), icon: Layers, color: 'text-blue-600', bg: 'bg-blue-50' },
         { label: 'High Motivation (3+)', value: highMotivation.toLocaleString(), icon: Flame, color: 'text-red-600', bg: 'bg-red-50' },
         { label: 'Top List Type', value: topTag ? topTag[0] : '—', icon: TrendingUp, color: 'text-purple-600', bg: 'bg-purple-50', small: true },
       ].map(({ label, value, icon: Icon, color, bg, small }) => (
