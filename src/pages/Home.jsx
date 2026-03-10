@@ -994,10 +994,13 @@ export default function Home() {
     const key = `${selectedState.id}_${cityName}`;
     const newStatuses = { ...cityStatuses, [key]: status };
     
-    // Set timestamp when status changes to pending or completed (CST timezone)
-    if (status === 'pending' || status === 'completed') {
+    // Set timestamp when status changes to any non-neutral status (CST timezone)
+    if (status !== 'neutral') {
       const cstDate = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
       newStatuses[`${key}_timestamp`] = new Date(cstDate).toISOString();
+    } else {
+      // Clear timestamp when reset to neutral
+      delete newStatuses[`${key}_timestamp`];
     }
     
     setCityStatuses(newStatuses);
