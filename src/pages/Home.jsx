@@ -950,17 +950,29 @@ export default function Home() {
     }
   }, [sortOrder]);
   
-  // Get cities for selected state with status
+  // Get cities for selected state with status (auto-compute resubmit after 30 days)
   const getCitiesWithStatus = useCallback((stateId) => {
     const stateCities = citiesData[stateId] || generateSampleCities(
       statesData.find(s => s.id === stateId)?.cityCount || 10,
       statesData.find(s => s.id === stateId)?.name || ''
     );
     
-    return stateCities.map(city => ({
-      ...city,
-      status: cityStatuses[`${stateId}_${city.name}`] || 'neutral'
-    }));
+    const cstDateString = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
+    const currentDate = new Date(cstDateString);
+
+    return stateCities.map(city => {
+      const key = `${stateId}_${city.name}`;
+      let status = cityStatuses[key] || 'neutral';
+      const timestamp = cityStatuses[`${key}_timestamp`];
+      
+      // Auto-set resubmit if 30 days have passed since any non-neutral status
+      if (status !== 'neutral' && status !== 'resubmit' && timestamp) {
+        const daysDiff = Math.floor((currentDate - new Date(timestamp)) / (1000 * 60 * 60 * 24));
+        if (daysDiff >= 30) status = 'resubmit';
+      }
+
+      return { ...city, status };
+    });
   }, [cityStatuses]);
   
   // All cities for search
