@@ -1040,7 +1040,7 @@ export default function Home() {
         });
       }
       
-      if (status === 'completed' && daysDiff >= 30) {
+      if ((status === 'completed' || status === 'pending') && daysDiff >= 30) {
         notifs.push({
           id: `${key}_expired`,
           stateId: parseInt(stateId),
