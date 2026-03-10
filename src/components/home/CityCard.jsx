@@ -26,7 +26,21 @@ export default function CityCard({ city, onStatusChange, index }) {
         
         {/* Status selector */}
         <div className="flex gap-1.5 flex-shrink-0">
-          {Object.entries(statusConfig).map(([status, cfg]) => {
+          {/* Auto-resubmit indicator (not clickable) */}
+          {city.status === 'resubmit' && (() => {
+            const cfg = statusConfig.resubmit;
+            const Icon = cfg.icon;
+            return (
+              <div
+                className={cn("w-8 h-8 rounded-full flex items-center justify-center border-2", `${cfg.bg} ${cfg.border} ${cfg.color}`)}
+                title="Resubmit (auto-set after 30 days)"
+              >
+                <Icon className="w-4 h-4" />
+              </div>
+            );
+          })()}
+          {/* Clickable status buttons (excluding resubmit) */}
+          {city.status !== 'resubmit' && Object.entries(statusConfig).filter(([s]) => s !== 'resubmit').map(([status, cfg]) => {
             const Icon = cfg.icon;
             const isActive = city.status === status;
             return (
