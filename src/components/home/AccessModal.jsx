@@ -16,7 +16,7 @@ export default function AccessModal({ onAccessGranted }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, register } = useAuth();
 
   const reset = () => {
     setEmail(''); setPassword(''); setFirstName(''); setLastName('');
@@ -31,12 +31,12 @@ export default function AccessModal({ onAccessGranted }) {
     setLoading(true);
     
     try {
-      const user = await login(email.trim(), password);
+      const userResult = await login(email.trim(), password);
       
-      if (user.admin === 1) {
+      if (userResult.admin === 1) {
         window.location.href = createPageUrl('AdminDashboard');
       } else {
-        if (onAccessGranted) onAccessGranted(user);
+        if (onAccessGranted) onAccessGranted(userResult);
       }
     } catch (err) {
       setError(err.message || 'Incorrect email or password. Please try again.');
@@ -60,27 +60,24 @@ export default function AccessModal({ onAccessGranted }) {
     
     setLoading(true);
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          first_name: firstName.trim(),
-          last_name: lastName.trim(),
-          email: email.trim().toLowerCase(),
-          password,
-        }),
+      const userResult = await register({
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: email.trim().toLowerCase(),
+        password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
-      }
-
-      setSuccess('Account created! You can now log in.');
-      setTimeout(() => switchView('login'), 1500);
+      setSuccess('Account created!');
+      
+      // Auto-login success:
+      // Redirect or grant access based on role
+      setTimeout(() => {
+        if (userResult.admin === 1) {
+          window.location.href = createPageUrl('AdminDashboard');
+        } else {
+          if (onAccessGranted) onAccessGranted(userResult);
+        }
+      }, 1000);
     } catch (err) {
       setError(err.message || 'Registration failed.');
     } finally {

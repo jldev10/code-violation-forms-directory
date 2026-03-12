@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { api } from '@/api/apiClient';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -65,6 +65,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (userData) => {
+    try {
+      setAuthError(null);
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      // Auto-login after successful registration
+      api.token = data.token;
+      setUser(data.user);
+      setIsAuthenticated(true);
+      return data.user;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      const errMsg = error.message || 'Registration failed';
+      setAuthError({
+        type: 'registration_failed',
+        message: errMsg
+      });
+      throw new Error(errMsg);
+    }
+  };
+
   const logout = (shouldRedirect = true) => {
     setUser(null);
     setIsAuthenticated(false);
@@ -86,6 +119,7 @@ export const AuthProvider = ({ children }) => {
       isLoadingAuth,
       authError,
       login,
+      register,
       logout,
       navigateToLogin,
       checkUserAuth

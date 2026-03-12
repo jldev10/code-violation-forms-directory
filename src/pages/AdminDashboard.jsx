@@ -7,7 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Users, ShieldCheck, Pencil, Trash2, Plus, FileText, LogOut } from 'lucide-react';
+import { Users, ShieldCheck, Pencil, Trash2, Plus, FileText, LogOut, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const emptyForm = { first_name: '', last_name: '', email: '', admin: '0', password: '' };
 
@@ -19,24 +20,46 @@ export default function AdminDashboard() {
   const [form, setForm] = useState(emptyForm);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  const { data: users = [], isLoading } = useQuery({
+  const { data: users = [], isLoading, error: fetchError } = useQuery({
     queryKey: ['userProfiles'],
     queryFn: () => api.get('/users'),
+    retry: 1,
   });
 
   const createMutation = useMutation({
     mutationFn: (data) => api.post('/users', data),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); closeModal(); }
+    onSuccess: () => { 
+      queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); 
+      toast.success('User created successfully');
+      closeModal(); 
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to create user');
+    }
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => api.put(`/users/${id}`, data),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); closeModal(); }
+    onSuccess: () => { 
+      queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); 
+      toast.success('User updated successfully');
+      closeModal(); 
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to update user');
+    }
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id) => api.delete(`/users/${id}`),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); setDeleteTarget(null); }
+    onSuccess: () => { 
+      queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); 
+      toast.success('User deleted successfully');
+      setDeleteTarget(null); 
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to delete user');
+    }
   });
 
   const totalUsers = users.length;
@@ -63,6 +86,8 @@ export default function AdminDashboard() {
       createMutation.mutate(payload);
     }
   };
+
+  const isMutating = createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
 
   const handleLogout = () => {
     logout(true);
@@ -172,8 +197,9 @@ export default function AdminDashboard() {
               </SelectContent>
             </Select>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={closeModal}>Cancel</Button>
-              <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white">
+              <Button type="button" variant="outline" onClick={closeModal} disabled={isMutating}>Cancel</Button>
+              <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white" disabled={isMutating}>
+                {isMutating && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 {editingUser ? 'Save Changes' : 'Create User'}
               </Button>
             </DialogFooter>
@@ -191,8 +217,9 @@ export default function AdminDashboard() {
             Are you sure you want to delete <strong>{deleteTarget?.first_name} {deleteTarget?.last_name}</strong>? This cannot be undone.
           </p>
           <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setDeleteTarget(null)}>Cancel</Button>
-            <Button className="bg-red-600 hover:bg-red-700 text-white" onClick={() => deleteMutation.mutate(deleteTarget.id)}>
+            <Button variant="outline" onClick={() => setDeleteTarget(null)} disabled={deleteMutation.isPending}>Cancel</Button>
+            <Button className="bg-red-600 hover:bg-red-700 text-white" onClick={() => deleteMutation.mutate(deleteTarget.id)} disabled={deleteMutation.isPending}>
+              {deleteMutation.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               Delete
             </Button>
           </DialogFooter>

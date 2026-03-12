@@ -1,4 +1,4 @@
-import { query } from '../../db.js';
+import { query } from '../db.js';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_for_local_dev';
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
       if (Array.isArray(data)) {
         // Batch insert
         // Using a transaction for batch inserts
-         const client = await (await import('../../db.js')).getPool().connect();
+         const client = await (await import('../db.js')).getPool().connect();
          try {
            await client.query('BEGIN');
            
