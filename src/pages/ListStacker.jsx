@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { base44 } from '@/api/base44Client';
+import { api } from '@/api/apiClient';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Plus, Search, Flame, Trash2, FileText, Moon, Sun } from 'lucide-react';
@@ -38,16 +38,7 @@ export default function ListStacker() {
   const { data: leads = [], isLoading } = useQuery({
     queryKey: ['leads'],
     queryFn: async () => {
-      const all = [];
-      let page = 0;
-      const pageSize = 500;
-      while (true) {
-        const batch = await base44.entities.Lead.list('-created_date', pageSize, page * pageSize);
-        all.push(...batch);
-        if (batch.length < pageSize) break;
-        page++;
-      }
-      return all;
+      return await api.get('/leads');
     },
   });
 
@@ -102,7 +93,7 @@ export default function ListStacker() {
     const BATCH = 5;
     let deleted = 0;
     for (let i = 0; i < ids.length; i += BATCH) {
-      await Promise.all(ids.slice(i, i + BATCH).map(id => base44.entities.Lead.delete(id)));
+      await Promise.all(ids.slice(i, i + BATCH).map(id => api.delete(`/leads/${id}`)));
       deleted = Math.min(i + BATCH, ids.length);
       setDeleteProgress({ visible: true, deleted, total });
     }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { base44 } from '@/api/base44Client';
+import { api } from '@/api/apiClient';
+import { useAuth } from '@/lib/AuthContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,10 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Users, ShieldCheck, Pencil, Trash2, Plus, FileText, LogOut } from 'lucide-react';
 
-const emptyForm = { first_name: '', last_name: '', email: '', admin: '0' };
+const emptyForm = { first_name: '', last_name: '', email: '', admin: '0', password: '' };
 
 export default function AdminDashboard() {
   const queryClient = useQueryClient();
+  const { logout } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [form, setForm] = useState(emptyForm);
@@ -19,21 +21,21 @@ export default function AdminDashboard() {
 
   const { data: users = [], isLoading } = useQuery({
     queryKey: ['userProfiles'],
-    queryFn: () => base44.entities.UserProfile.list(),
+    queryFn: () => api.get('/users'),
   });
 
   const createMutation = useMutation({
-    mutationFn: (data) => base44.entities.UserProfile.create(data),
+    mutationFn: (data) => api.post('/users', data),
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); closeModal(); }
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.UserProfile.update(id, data),
+    mutationFn: ({ id, data }) => api.put(`/users/${id}`, data),
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); closeModal(); }
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => base44.entities.UserProfile.delete(id),
+    mutationFn: (id) => api.delete(`/users/${id}`),
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['userProfiles'] }); setDeleteTarget(null); }
   });
 
@@ -43,7 +45,7 @@ export default function AdminDashboard() {
 
   const openAdd = () => { setForm(emptyForm); setEditingUser(null); setShowModal(true); };
   const openEdit = (user) => {
-    setForm({ first_name: user.first_name || '', last_name: user.last_name || '', email: user.email || '', admin: String(user.admin ?? 0) });
+    setForm({ first_name: user.first_name || '', last_name: user.last_name || '', email: user.email || '', admin: String(user.admin ?? 0), password: '' });
     setEditingUser(user);
     setShowModal(true);
   };
@@ -52,6 +54,9 @@ export default function AdminDashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = { ...form, admin: parseInt(form.admin) };
+    if (!payload.password) {
+      delete payload.password; // Don't send empty passwords on update
+    }
     if (editingUser) {
       updateMutation.mutate({ id: editingUser.id, data: payload });
     } else {
@@ -60,8 +65,7 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('cvfd_user');
-    window.location.href = '/';
+    logout(true);
   };
 
   return (
@@ -157,6 +161,7 @@ export default function AdminDashboard() {
               <Input placeholder="Last name" value={form.last_name} onChange={e => setForm({ ...form, last_name: e.target.value })} />
             </div>
             <Input type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
+            <Input type="password" placeholder={editingUser ? "New Password (leave blank to keep current)" : "Password"} value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required={!editingUser} />
             <Select value={form.admin} onValueChange={v => setForm({ ...form, admin: v })}>
               <SelectTrigger>
                 <SelectValue placeholder="Role" />

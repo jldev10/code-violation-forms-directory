@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { base44 } from '@/api/base44Client';
+import { api } from '@/api/apiClient'; // Changed from base44Client
 import { toast } from 'sonner';
 import MarketAutocomplete from './MarketAutocomplete';
 import ColumnMapper from './ColumnMapper';
@@ -96,19 +96,13 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
   const handleProcess = async (mapping) => {
     setUploading(true);
     try {
-      // Fetch ALL existing leads (paginated)
+      // Fetch ALL existing leads
       const existingMap = {};
-      let page = 0;
-      const pageSize = 500;
-      while (true) {
-        const batch = await base44.entities.Lead.list('-created_date', pageSize, page * pageSize);
-        batch.forEach(l => {
-          const key = l.address?.toLowerCase().trim();
-          if (key) existingMap[key] = l;
-        });
-        if (batch.length < pageSize) break;
-        page++;
-      }
+      const allLeads = await api.get('/leads');
+      allLeads.forEach(l => {
+        const key = l.address?.toLowerCase().trim();
+        if (key) existingMap[key] = l;
+      });
 
       const toCreate = [];
       const toUpdate = [];
@@ -138,7 +132,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
       // Bulk create in batches of 100
       const BATCH = 100;
       for (let i = 0; i < toCreate.length; i += BATCH) {
-        await base44.entities.Lead.bulkCreate(toCreate.slice(i, i + BATCH));
+        await api.post('/leads', toCreate.slice(i, i + BATCH));
       }
 
       // Update in parallel batches of 20
@@ -146,7 +140,7 @@ export default function UploadModal({ isOpen, onClose, onUploaded }) {
       for (let i = 0; i < toUpdate.length; i += UPDATE_BATCH) {
         await Promise.all(
           toUpdate.slice(i, i + UPDATE_BATCH).map(u =>
-            base44.entities.Lead.update(u.id, { tags: u.tags, tag_dates: u.tag_dates, city: u.city, state: u.state, zip: u.zip })
+            api.put(`/leads/${u.id}`, { tags: u.tags, tag_dates: u.tag_dates, city: u.city, state: u.state, zip: u.zip })
           )
         );
       }

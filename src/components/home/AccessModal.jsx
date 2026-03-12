@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { base44 } from '@/api/base44Client';
+import { api } from '@/api/apiClient';
+import { useAuth } from '@/lib/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FileText } from 'lucide-react';
@@ -15,6 +16,7 @@ export default function AccessModal({ onAccessGranted }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
 
   const reset = () => {
     setEmail(''); setPassword(''); setFirstName(''); setLastName('');
@@ -23,38 +25,30 @@ export default function AccessModal({ onAccessGranted }) {
 
   const switchView = (v) => { reset(); setView(v); };
 
-  const findUser = async (emailVal) => {
-    const all = await base44.entities.UserProfile.list();
-    return all.find(u => u.email && u.email.toLowerCase() === emailVal.toLowerCase()) || null;
-  };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const user = await findUser(email.trim());
-    if (!user) {
-      setError('Email address not found. Please open a support ticket in our Discord for assistance.');
+    
+    try {
+      const user = await login(email.trim(), password);
+      
+      if (user.admin === 1) {
+        window.location.href = createPageUrl('AdminDashboard');
+      } else {
+        if (onAccessGranted) onAccessGranted(user);
+      }
+    } catch (err) {
+      setError(err.message || 'Incorrect email or password. Please try again.');
+    } finally {
       setLoading(false);
-      return;
     }
-    if (user.password !== password) {
-      setError('Incorrect password. Please try again.');
-      setLoading(false);
-      return;
-    }
-    if (user.admin === 1) {
-      sessionStorage.setItem('cvfd_user', JSON.stringify(user));
-      window.location.href = createPageUrl('AdminDashboard');
-    } else {
-      onAccessGranted(user);
-    }
-    setLoading(false);
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
+    
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
@@ -63,42 +57,40 @@ export default function AccessModal({ onAccessGranted }) {
       setError('Password must be at least 6 characters.');
       return;
     }
+    
     setLoading(true);
-    const existing = await findUser(email.trim());
-    if (existing) {
-      setError('An account with this email already exists.');
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          email: email.trim().toLowerCase(),
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      setSuccess('Account created! You can now log in.');
+      setTimeout(() => switchView('login'), 1500);
+    } catch (err) {
+      setError(err.message || 'Registration failed.');
+    } finally {
       setLoading(false);
-      return;
     }
-    await base44.entities.UserProfile.create({
-      first_name: firstName.trim(),
-      last_name: lastName.trim(),
-      email: email.trim().toLowerCase(),
-      password,
-      admin: 0,
-    });
-    setSuccess('Account created! You can now log in.');
-    setLoading(false);
-    setTimeout(() => switchView('login'), 1500);
   };
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
-    const user = await findUser(email.trim());
-    if (!user) {
-      setError('Email address not found. Please open a support ticket in our Discord for assistance.');
-      setLoading(false);
-      return;
-    }
-    await base44.integrations.Core.SendEmail({
-      to: user.email,
-      subject: 'Your Password – Code Violation Forms Directory',
-      body: `Hi ${user.first_name || 'there'},\n\nYour password is: ${user.password}\n\nIf you didn't request this, please ignore this email.\n\n– Code Violation Forms Directory`,
-    });
-    setSuccess('Your password has been sent to your email address.');
-    setLoading(false);
+    setError('Forgot password functionality is currently disabled. Please contact an administrator or open a support ticket in our Discord for assistance.');
   };
 
   return (
