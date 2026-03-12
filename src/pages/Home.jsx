@@ -915,6 +915,7 @@ const generateSampleCities = (count, stateName) => {
 };
 
 export default function Home() {
+  const [accessGranted, setAccessGranted] = useState(false);
   const [selectedState, setSelectedState] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
