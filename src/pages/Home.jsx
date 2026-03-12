@@ -1087,6 +1087,7 @@ export default function Home() {
   
   return (
     <div className={`min-h-screen transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
+      {!accessGranted && <AccessModal onAccessGranted={() => setAccessGranted(true)} />}
       <Header 
         notificationBell={
           <div className="relative">
