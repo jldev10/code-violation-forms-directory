@@ -10,6 +10,7 @@ import ScriptGenerator from '../components/home/ScriptGenerator';
 import Footer from '../components/home/Footer';
 import NotificationBell from '../components/home/NotificationBell';
 import NotificationDropdown from '../components/home/NotificationDropdown';
+import AccessModal from '../components/home/AccessModal';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // States data
