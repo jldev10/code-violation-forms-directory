@@ -6,73 +6,173 @@ import { FileText } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 
 export default function AccessModal({ onAccessGranted }) {
+  const [view, setView] = useState('login'); // 'login' | 'register' | 'forgot'
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const reset = () => {
+    setEmail(''); setPassword(''); setFirstName(''); setLastName('');
+    setConfirmPassword(''); setError(''); setSuccess('');
+  };
+
+  const switchView = (v) => { reset(); setView(v); };
+
+  const findUser = async (emailVal) => {
+    const all = await base44.entities.UserProfile.list();
+    return all.find(u => u.email && u.email.toLowerCase() === emailVal.toLowerCase()) || null;
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (!email.trim()) {
-      setError('Email is required.');
+    setError('');
+    setLoading(true);
+    const user = await findUser(email.trim());
+    if (!user) {
+      setError('Email address not found. Please open a support ticket in our Discord for assistance.');
+      setLoading(false);
+      return;
+    }
+    if (user.password !== password) {
+      setError('Incorrect password. Please try again.');
+      setLoading(false);
+      return;
+    }
+    if (user.admin === 1) {
+      sessionStorage.setItem('cvfd_user', JSON.stringify(user));
+      window.location.href = createPageUrl('AdminDashboard');
+    } else {
+      onAccessGranted(user);
+    }
+    setLoading(false);
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters.');
       return;
     }
     setLoading(true);
-    setError('');
-    try {
-      const allUsers = await base44.entities.UserProfile.list();
-      const results = allUsers.filter(u => u.email && u.email.toLowerCase() === email.trim().toLowerCase());
-      if (results && results.length > 0) {
-        const user = results[0];
-        if (user.admin === 1) {
-          sessionStorage.setItem('cvfd_user', JSON.stringify(user));
-          window.location.href = createPageUrl('AdminDashboard');
-        } else {
-          onAccessGranted(user);
-        }
-      } else {
-        setError('Email address not found. Please open a support ticket in our Discord for assistance.');
-      }
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
+    const existing = await findUser(email.trim());
+    if (existing) {
+      setError('An account with this email already exists.');
+      setLoading(false);
+      return;
     }
+    await base44.entities.UserProfile.create({
+      first_name: firstName.trim(),
+      last_name: lastName.trim(),
+      email: email.trim().toLowerCase(),
+      password,
+      admin: 0,
+    });
+    setSuccess('Account created! You can now log in.');
+    setLoading(false);
+    setTimeout(() => switchView('login'), 1500);
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    const user = await findUser(email.trim());
+    if (!user) {
+      setError('Email address not found. Please open a support ticket in our Discord for assistance.');
+      setLoading(false);
+      return;
+    }
+    await base44.integrations.Core.SendEmail({
+      to: user.email,
+      subject: 'Your Password – Code Violation Forms Directory',
+      body: `Hi ${user.first_name || 'there'},\n\nYour password is: ${user.password}\n\nIf you didn't request this, please ignore this email.\n\n– Code Violation Forms Directory`,
+    });
+    setSuccess('Your password has been sent to your email address.');
     setLoading(false);
   };
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8">
+        {/* Logo */}
         <div className="flex flex-col items-center mb-6">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-4">
             <FileText className="w-7 h-7 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Welcome</h2>
+          <h2 className="text-2xl font-bold text-slate-900">
+            {view === 'login' && 'Welcome'}
+            {view === 'register' && 'Create Account'}
+            {view === 'forgot' && 'Forgot Password'}
+          </h2>
           <p className="text-slate-500 text-sm mt-1 text-center">
-            Enter your email address to access the Code Violation Forms Directory.
+            {view === 'login' && 'Sign in to access the Code Violation Forms Directory.'}
+            {view === 'register' && 'Register a new account to get started.'}
+            {view === 'forgot' && "Enter your email and we'll send you your password."}
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Input
-              type="email"
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => { setEmail(e.target.value); setError(''); }}
-              className="h-12 text-base"
-              required
-            />
-            {error && (
-              <p className="text-red-500 text-sm mt-2">{error}</p>
-            )}
-          </div>
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base"
-          >
-            {loading ? 'Verifying...' : 'Continue'}
-          </Button>
-        </form>
+        {/* LOGIN */}
+        {view === 'login' && (
+          <form onSubmit={handleLogin} className="space-y-4">
+            <Input type="email" placeholder="your@email.com" value={email} onChange={e => { setEmail(e.target.value); setError(''); }} required className="h-12 text-base" />
+            <Input type="password" placeholder="Password" value={password} onChange={e => { setPassword(e.target.value); setError(''); }} required className="h-12 text-base" />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <Button type="submit" disabled={loading} className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base">
+              {loading ? 'Signing in...' : 'Sign In'}
+            </Button>
+            <div className="flex justify-between text-sm pt-1">
+              <button type="button" onClick={() => switchView('forgot')} className="text-slate-500 hover:text-emerald-600 transition-colors">Forgot password?</button>
+              <button type="button" onClick={() => switchView('register')} className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors">Register</button>
+            </div>
+          </form>
+        )}
+
+        {/* REGISTER */}
+        {view === 'register' && (
+          <form onSubmit={handleRegister} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <Input placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} className="h-12" />
+              <Input placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} className="h-12" />
+            </div>
+            <Input type="email" placeholder="your@email.com" value={email} onChange={e => { setEmail(e.target.value); setError(''); }} required className="h-12 text-base" />
+            <Input type="password" placeholder="Password (min 6 chars)" value={password} onChange={e => { setPassword(e.target.value); setError(''); }} required className="h-12 text-base" />
+            <Input type="password" placeholder="Confirm password" value={confirmPassword} onChange={e => { setConfirmPassword(e.target.value); setError(''); }} required className="h-12 text-base" />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {success && <p className="text-emerald-600 text-sm">{success}</p>}
+            <Button type="submit" disabled={loading} className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base">
+              {loading ? 'Creating account...' : 'Create Account'}
+            </Button>
+            <div className="text-center text-sm pt-1">
+              <span className="text-slate-500">Already have an account? </span>
+              <button type="button" onClick={() => switchView('login')} className="text-emerald-600 hover:text-emerald-700 font-medium">Sign in</button>
+            </div>
+          </form>
+        )}
+
+        {/* FORGOT PASSWORD */}
+        {view === 'forgot' && (
+          <form onSubmit={handleForgotPassword} className="space-y-4">
+            <Input type="email" placeholder="your@email.com" value={email} onChange={e => { setEmail(e.target.value); setError(''); setSuccess(''); }} required className="h-12 text-base" />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {success && <p className="text-emerald-600 text-sm">{success}</p>}
+            <Button type="submit" disabled={loading} className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base">
+              {loading ? 'Sending...' : 'Send Password'}
+            </Button>
+            <div className="text-center text-sm pt-1">
+              <button type="button" onClick={() => switchView('login')} className="text-slate-500 hover:text-emerald-600 transition-colors">Back to sign in</button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
