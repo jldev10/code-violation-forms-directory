@@ -19,7 +19,8 @@ export default function AccessModal({ onAccessGranted }) {
     setLoading(true);
     setError('');
     try {
-      const results = await base44.entities.UserProfile.filter({ email: email.trim().toLowerCase() });
+      const allUsers = await base44.entities.UserProfile.list();
+      const results = allUsers.filter(u => u.email && u.email.toLowerCase() === email.trim().toLowerCase());
       if (results && results.length > 0) {
         const user = results[0];
         if (user.admin === 1) {
@@ -29,7 +30,7 @@ export default function AccessModal({ onAccessGranted }) {
           onAccessGranted(user);
         }
       } else {
-        setError('No account found with that email address.');
+        setError('Email address not found. Please open a support ticket in our Discord for assistance.');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');
