@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FileText } from 'lucide-react';
+import { createPageUrl } from '@/utils';
 
 export default function AccessModal({ onAccessGranted }) {
   const [email, setEmail] = useState('');
@@ -20,7 +21,13 @@ export default function AccessModal({ onAccessGranted }) {
     try {
       const results = await base44.entities.UserProfile.filter({ email: email.trim().toLowerCase() });
       if (results && results.length > 0) {
-        onAccessGranted(results[0]);
+        const user = results[0];
+        if (user.admin === 1) {
+          sessionStorage.setItem('cvfd_user', JSON.stringify(user));
+          window.location.href = createPageUrl('AdminDashboard');
+        } else {
+          onAccessGranted(user);
+        }
       } else {
         setError('No account found with that email address.');
       }
