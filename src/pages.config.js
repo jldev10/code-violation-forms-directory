@@ -47,16 +47,16 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import AdminDashboard from './pages/AdminDashboard';
 import Home from './pages/Home';
 import ListStacker from './pages/ListStacker';
-import AdminDashboard from './pages/AdminDashboard';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "AdminDashboard": AdminDashboard,
     "Home": Home,
     "ListStacker": ListStacker,
-    "AdminDashboard": AdminDashboard,
 }
 
 export const pagesConfig = {
