@@ -10,7 +10,6 @@ const navLinks = [
   { href: '#search', label: 'Search' },
   { href: '#faq', label: 'FAQ' },
   { href: '#script-generator', label: 'Script Generator' },
-  { href: createPageUrl('ListStacker'), label: 'List Stacker', external: true }
 ];
 
 export default function Header({ notificationBell }) {
