@@ -14,11 +14,17 @@ const emptyForm = { first_name: '', last_name: '', email: '', admin: '0', passwo
 
 export default function AdminDashboard() {
   const queryClient = useQueryClient();
-  const { logout } = useAuth();
+  const { logout, user, isLoadingAuth } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [deleteTarget, setDeleteTarget] = useState(null);
+
+  React.useEffect(() => {
+    if (!isLoadingAuth && (!user || user.admin !== 1)) {
+      window.location.href = '/';
+    }
+  }, [user, isLoadingAuth]);
 
   const { data: users = [], isLoading, error: fetchError } = useQuery({
     queryKey: ['userProfiles'],

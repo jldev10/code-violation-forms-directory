@@ -42,7 +42,7 @@ class ApiClient {
       if (!response.ok) {
         if (response.status === 401) {
            this.token = null; // Clear invalid token
-           window.location.href = '/login'; // Or handle via AuthContext
+           window.location.href = '/'; // Redirect to homepage where AccessModal is
         }
         
         let errorData;
