@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import Login from '@/pages/Login';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -18,7 +17,7 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   : <>{children}</>;
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -34,8 +33,11 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Show login page inline
-      return <Login />;
+      // Redirect to homepage if we're not already there
+      if (window.location.pathname !== '/') {
+        window.location.href = '/';
+        return null;
+      }
     }
   }
 
@@ -58,7 +60,6 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
-      <Route path="/login" element={<Login />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

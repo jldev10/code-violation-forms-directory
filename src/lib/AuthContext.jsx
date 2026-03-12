@@ -104,12 +104,12 @@ export const AuthProvider = ({ children }) => {
     api.token = null; 
     
     if (shouldRedirect) {
-      window.location.href = '/login';
+      window.location.href = '/';
     }
   };
 
   const navigateToLogin = () => {
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   return (

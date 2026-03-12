@@ -12,6 +12,7 @@ import NotificationBell from '../components/home/NotificationBell';
 import NotificationDropdown from '../components/home/NotificationDropdown';
 import AccessModal from '../components/home/AccessModal';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAuth } from '@/lib/AuthContext';
 
 // States data
 const statesData = [
@@ -915,6 +916,7 @@ const generateSampleCities = (count, stateName) => {
 };
 
 export default function Home() {
+  const { isAuthenticated, user } = useAuth();
   const [accessGranted, setAccessGranted] = useState(false);
   const [selectedState, setSelectedState] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -969,7 +971,7 @@ export default function Home() {
       
       // Auto-set resubmit if 30 days have passed since any non-neutral status
       if (status !== 'neutral' && status !== 'resubmit' && timestamp) {
-        const daysDiff = Math.floor((currentDate - new Date(timestamp)) / (1000 * 60 * 60 * 24));
+        const daysDiff = Math.floor((currentDate.getTime() - new Date(timestamp).getTime()) / (1000 * 60 * 60 * 24));
         if (daysDiff >= 30) status = 'resubmit';
       }
 
@@ -1027,7 +1029,7 @@ export default function Home() {
       const [stateId, cityName] = key.split('_');
       const state = statesData.find(s => s.id === parseInt(stateId));
       const statusDate = new Date(timestamp);
-      const daysDiff = Math.floor((currentDate - statusDate) / (1000 * 60 * 60 * 24));
+      const daysDiff = Math.floor((currentDate.getTime() - statusDate.getTime()) / (1000 * 60 * 60 * 24));
       
       if (status === 'pending' && daysDiff >= 14) {
         notifs.push({
@@ -1087,7 +1089,7 @@ export default function Home() {
   
   return (
     <div className={`min-h-screen transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
-      {!accessGranted && <AccessModal onAccessGranted={() => setAccessGranted(true)} />}
+      {!accessGranted && !isAuthenticated && <AccessModal onAccessGranted={() => setAccessGranted(true)} />}
       <Header 
         notificationBell={
           <div className="relative">
