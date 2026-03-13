@@ -18,6 +18,7 @@ export default async function handler(req, res) {
 
   try {
     // 1. Check if user exists
+    console.log('1. Checking user existence for:', email.toLowerCase());
     const userResult = await query('SELECT id, first_name FROM user_profiles WHERE email = $1', [email.toLowerCase()]);
     const user = userResult.rows[0];
 
@@ -25,21 +26,30 @@ export default async function handler(req, res) {
     const successMsg = { message: 'If an account exists with that email, a password reset link has been sent.' };
 
     if (!user) {
+      console.log('1a. User not found, returning success (security).');
       return res.status(200).json(successMsg);
     }
 
     // 2. Generate secure token
+    console.log('2. Generating reset token for userId:', user.id);
     const token = crypto.randomBytes(32).toString('hex');
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour expiry
 
     // 3. Store token
-    await query(
-      'INSERT INTO password_reset_tokens (user_id, token, expires_at) VALUES ($1, $2, $3)',
-      [user.id, token, expiresAt]
-    );
+    console.log('3. Storing token in database...');
+    try {
+      await query(
+        'INSERT INTO password_reset_tokens (user_id, token, expires_at) VALUES ($1, $2, $3)',
+        [user.id, token, expiresAt]
+      );
+    } catch (dbError) {
+      console.error('3a. Database Error storing token:', dbError);
+      throw dbError; // Rethrow to be caught by the main catch block
+    }
 
     // 4. Send email via Brevo
+    console.log('4. Preparing Brevo email...');
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
     const resetUrl = `${protocol}://${host}/reset-password?token=${token}`;
@@ -89,10 +99,7 @@ export default async function handler(req, res) {
       `
     };
 
-    console.log('Attempting to send email via Brevo...');
-    console.log('Sender:', SENDER_EMAIL);
-    console.log('API Key present:', !!BREVO_API_KEY);
-
+    console.log('5. Sending request to Brevo API...');
     const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
@@ -106,7 +113,7 @@ export default async function handler(req, res) {
     const responseData = await brevoResponse.json();
 
     if (!brevoResponse.ok) {
-      console.error('Brevo Error:', responseData);
+      console.error('5a. Brevo Error:', responseData);
       // If it's a 401 from Brevo (invalid API key), we return it as a 500 to the frontend
       // to avoid triggering the global 401 -> redirect-to-home logic in apiClient.js
       const status = brevoResponse.status === 401 ? 500 : brevoResponse.status;
@@ -117,10 +124,14 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log('Brevo Email Sent successfully:', responseData);
+    console.log('6. Email sent successfully. messageId:', responseData.messageId);
     return res.status(200).json({ ...successMsg, brevoId: responseData.messageId });
   } catch (error) {
-    console.error('Forgot password error:', error);
-    res.status(500).json({ error: error.message || 'Internal server error', stack: error.stack });
+    console.error('CRITICAL: Forgot password error handler caught:', error);
+    res.status(500).json({ 
+      error: 'Internal server error during password reset', 
+      message: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 }
