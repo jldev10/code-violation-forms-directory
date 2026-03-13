@@ -50,6 +50,7 @@
 import AdminDashboard from './pages/AdminDashboard';
 import Home from './pages/Home';
 import ListStacker from './pages/ListStacker';
+import ResetPassword from './pages/ResetPassword';
 import __Layout from './Layout.jsx';
 
 
@@ -57,6 +58,7 @@ export const PAGES = {
     "AdminDashboard": AdminDashboard,
     "Home": Home,
     "ListStacker": ListStacker,
+    "reset-password": ResetPassword,
 }
 
 export const pagesConfig = {

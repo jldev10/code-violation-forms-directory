@@ -87,7 +87,18 @@ export default function AccessModal({ onAccessGranted }) {
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setError('Forgot password functionality is currently disabled. Please contact an administrator or open a support ticket in our Discord for assistance.');
+    setError('');
+    setSuccess('');
+    setLoading(true);
+
+    try {
+      const response = await api.post('/auth/forgot-password', { email: email.trim() });
+      setSuccess(response.message || 'If an account exists, a reset link has been sent.');
+    } catch (err) {
+      setError(err.message || 'Failed to process request. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

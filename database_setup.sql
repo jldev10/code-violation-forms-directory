@@ -51,6 +51,23 @@ CREATE INDEX IF NOT EXISTS idx_leads_created_date ON leads(created_date DESC);
 
 
 -- ============================================================
+-- TABLE: password_reset_tokens
+-- Stores secure tokens for password reset flow
+-- ============================================================
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    token VARCHAR(255) UNIQUE NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    used BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Index for fast token lookups
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_token ON password_reset_tokens(token);
+
+
+-- ============================================================
 -- OPTIONAL: Create your first admin user
 -- Replace these values with real credentials before running
 -- NOTE: The password_hash below is a bcrypt hash of 'changeme123'
