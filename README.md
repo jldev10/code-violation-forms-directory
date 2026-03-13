@@ -1,39 +1,65 @@
-**Welcome to your Base44 project** 
+# Code Violation Forms Directory
 
-**About**
+A modern web application for managing property leads, with a focus on code violation tracking and automated deduplication.
 
-View and Edit  your app on [Base44.com](http://Base44.com) 
+## 🚀 Features
 
-This project contains everything you need to run your app locally.
+- **Lead Management**: Efficiently store, track, and manage property leads.
+- **Automated Deduplication**: Intelligent address processing to prevent duplicate entries during CSV uploads.
+- **Secure Authentication**: Complete user lifecycle including:
+  - Secure Login/Registration
+  - Password Reset Flow (integrated with Brevo)
+  - Admin/User account roles
+- **Admin Dashboard**: Comprehensive management interface for users and data.
+- **Premium UI**: Responsive design built with React and Tailwind CSS, featuring subtle animations and a dark-mode-first aesthetic.
 
-**Edit the code in your local development environment**
+## 🛠 Tech Stack
 
-Any change pushed to the repo will also be reflected in the Base44 Builder.
+- **Core**: React 18, Vite
+- **Styling**: Tailwind CSS, Framer Motion (animations)
+- **Icons**: Lucide React
+- **Backend/API**: Vercel Serverless Functions (Node.js)
+- **Database**: Neon (PostgreSQL)
+- **Emails**: Brevo (Sendinblue)
 
-**Prerequisites:** 
+## ⚙️ Development Setup
 
-1. Clone the repository using the project's Git URL 
-2. Navigate to the project directory
-3. Install dependencies: `npm install`
-4. Create an `.env.local` file and set the right environment variables
+### Prerequisites
 
-```
-VITE_BASE44_APP_ID=your_app_id
+1.  Clone the repository.
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory and configure the following:
+
+```env
+# Database (Neon)
+PGHOST=your_neon_host
+PGDATABASE=your_db_name
+PGUSER=your_user
+PGPASSWORD=your_password
+
+# Authentication (JWT)
+JWT_SECRET=your_secret_key
+
+# Brevo (Email)
+BREVO_API_KEY=your_brevo_api_key
+BREVO_SENDER_EMAIL=your_sender_email
+
+# Backend URL (Base URL for API)
 VITE_BASE44_APP_BASE_URL=your_backend_url
-
-e.g.
-VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6
-VITE_BASE44_APP_BASE_URL=https://my-to-do-list-81bfaad7.base44.app
 ```
 
-Run the app: `npm run dev`
+### Running Locally
 
-**Publish your changes**
+```bash
+npm run dev
+```
 
-Open [Base44.com](http://Base44.com) and click on Publish.
+## 📄 License
 
-**Docs & Support**
-
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
-
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+This project is private and intended for use by the Code Violation Forms Directory team.
