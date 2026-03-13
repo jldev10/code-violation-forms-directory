@@ -430,7 +430,7 @@ const citiesData = {
     { name: "Mills", url: "https://www.millswy.gov/administration/page/wyoming-public-records-act-requests-foia" }
   ],
   7: [ // Georgia - 116 cities COMPLETE
-    { name: "Atlanta", url: "https://web.atlantaga.gov/orr/#/" },
+    { name: "Atlanta", url: "https://aca-prod.accela.com/ATLANTA_GA/Cap/CapHome.aspx?module=Enforcement&TabName=Enforcement" },
     { name: "Augusta-Richmond County", url: "https://cityofaugustaga.nextrequest.com/" },
     { name: "Macon-Bibb County", url: "https://maconbibbcountyga.justfoia.com/publicportal/home/newrequest" },
     { name: "Savannah", url: "https://savannahga.justfoia.com/publicportal/home/newrequest" },
