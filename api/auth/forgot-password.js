@@ -89,6 +89,10 @@ export default async function handler(req, res) {
       `
     };
 
+    console.log('Attempting to send email via Brevo...');
+    console.log('Sender:', SENDER_EMAIL);
+    console.log('API Key present:', !!BREVO_API_KEY);
+
     const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
@@ -99,15 +103,21 @@ export default async function handler(req, res) {
       body: JSON.stringify(emailBody)
     });
 
+    const responseData = await brevoResponse.json();
+
     if (!brevoResponse.ok) {
-      const errorData = await brevoResponse.json();
-      console.error('Brevo API Error:', errorData);
-      // We still return success to the user, but log the error
+      console.error('Brevo API Error:', responseData);
+      return res.status(brevoResponse.status).json({ 
+        error: 'Brevo API Error', 
+        details: responseData,
+        sender: SENDER_EMAIL
+      });
     }
 
-    return res.status(200).json(successMsg);
+    console.log('Brevo Email Sent successfully:', responseData);
+    return res.status(200).json({ ...successMsg, brevoId: responseData.messageId });
   } catch (error) {
     console.error('Forgot password error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: error.message || 'Internal server error', stack: error.stack });
   }
 }
