@@ -106,7 +106,7 @@ export default async function handler(req, res) {
     const responseData = await brevoResponse.json();
 
     if (!brevoResponse.ok) {
-      console.error('Brevo API Error:', responseData);
+      console.error('Brevo Error:', responseData);
       // If it's a 401 from Brevo (invalid API key), we return it as a 500 to the frontend
       // to avoid triggering the global 401 -> redirect-to-home logic in apiClient.js
       const status = brevoResponse.status === 401 ? 500 : brevoResponse.status;
