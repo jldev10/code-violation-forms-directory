@@ -40,7 +40,7 @@ class ApiClient {
       });
 
       if (!response.ok) {
-        if (response.status === 401) {
+        if (response.status === 401 && endpoint !== '/auth/login') {
            this.token = null; // Clear invalid token
            window.location.href = '/'; // Redirect to homepage where AccessModal is
         }
