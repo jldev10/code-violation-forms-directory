@@ -67,17 +67,11 @@ export default function AccessModal({ onAccessGranted }) {
         password,
       });
 
-      setSuccess('Account created!');
+      setSuccess('Registration complete. Your account is now under review. We will notify you via email regarding your status shortly.');
       
-      // Auto-login success:
-      // Redirect or grant access based on role
       setTimeout(() => {
-        if (userResult.admin === 1) {
-          window.location.href = createPageUrl('AdminDashboard');
-        } else {
-          if (onAccessGranted) onAccessGranted(userResult);
-        }
-      }, 1000);
+        switchView('login');
+      }, 5000);
     } catch (err) {
       setError(err.message || 'Registration failed.');
     } finally {

@@ -7,10 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Users, ShieldCheck, Pencil, Trash2, Plus, FileText, LogOut, Loader2 } from 'lucide-react';
+import { Users, ShieldCheck, Pencil, Trash2, Plus, FileText, LogOut, Loader2, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
 
-const emptyForm = { first_name: '', last_name: '', email: '', admin: '0', password: '' };
+const emptyForm = { first_name: '', last_name: '', email: '', admin: '0', password: '', approval_status: 'approved' };
 
 export default function AdminDashboard() {
   const queryClient = useQueryClient();
@@ -74,7 +74,7 @@ export default function AdminDashboard() {
 
   const openAdd = () => { setForm(emptyForm); setEditingUser(null); setShowModal(true); };
   const openEdit = (user) => {
-    setForm({ first_name: user.first_name || '', last_name: user.last_name || '', email: user.email || '', admin: String(user.admin ?? 0), password: '' });
+    setForm({ first_name: user.first_name || '', last_name: user.last_name || '', email: user.email || '', admin: String(user.admin ?? 0), password: '', approval_status: user.approval_status || 'approved' });
     setEditingUser(user);
     setShowModal(true);
   };
@@ -109,8 +109,8 @@ export default function AdminDashboard() {
               <FileText className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-bold text-slate-900 text-sm">Code Violation</span>
-              <span className="ml-1 text-xs text-emerald-600 font-medium">Admin Dashboard</span>
+              <span className="font-bold text-slate-900 text-sm leading-tight block">Code Violation Forms Directory</span>
+              <span className="text-xs text-emerald-600 font-medium block">Admin Dashboard</span>
             </div>
           </div>
           <Button variant="ghost" size="sm" onClick={handleLogout} className="text-slate-500 hover:text-red-600">
@@ -146,6 +146,7 @@ export default function AdminDashboard() {
                     <th className="px-6 py-3 font-medium">Name</th>
                     <th className="px-6 py-3 font-medium">Email</th>
                     <th className="px-6 py-3 font-medium">Role</th>
+                    <th className="px-6 py-3 font-medium">Status</th>
                     <th className="px-6 py-3 font-medium text-right">Actions</th>
                   </tr>
                 </thead>
@@ -160,18 +161,33 @@ export default function AdminDashboard() {
                           : <Badge className="bg-blue-100 text-blue-700 border-0">User</Badge>
                         }
                       </td>
+                      <td className="px-6 py-4">
+                        {user.approval_status === 'pending' && <Badge className="bg-amber-100 text-amber-700 border-0">Pending</Badge>}
+                        {(user.approval_status === 'approved' || !user.approval_status) && <Badge className="bg-emerald-100 text-emerald-700 border-0">Approved</Badge>}
+                        {user.approval_status === 'declined' && <Badge className="bg-red-100 text-red-700 border-0">Declined</Badge>}
+                      </td>
                       <td className="px-6 py-4 text-right">
-                        <button onClick={() => openEdit(user)} className="p-2 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors mr-1">
+                        {user.approval_status === 'pending' && (
+                          <>
+                            <button onClick={() => updateMutation.mutate({ id: user.id, data: { ...user, approval_status: 'approved' } })} className="p-2 rounded-lg text-emerald-600 hover:bg-emerald-50 transition-colors mr-1" title="Approve">
+                              <Check className="w-4 h-4" />
+                            </button>
+                            <button onClick={() => updateMutation.mutate({ id: user.id, data: { ...user, approval_status: 'declined' } })} className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors mr-1" title="Decline">
+                              <X className="w-4 h-4" />
+                            </button>
+                          </>
+                        )}
+                        <button onClick={() => openEdit(user)} className="p-2 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors mr-1" title="Edit">
                           <Pencil className="w-4 h-4" />
                         </button>
-                        <button onClick={() => setDeleteTarget(user)} className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors">
+                        <button onClick={() => setDeleteTarget(user)} className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </td>
                     </tr>
                   ))}
                   {users.length === 0 && (
-                    <tr><td colSpan={4} className="px-6 py-10 text-center text-slate-400">No users found.</td></tr>
+                    <tr><td colSpan={5} className="px-6 py-10 text-center text-slate-400">No users found.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -193,15 +209,27 @@ export default function AdminDashboard() {
             </div>
             <Input type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
             <Input type="password" placeholder={editingUser ? "New Password (leave blank to keep current)" : "Password"} value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required={!editingUser} />
-            <Select value={form.admin} onValueChange={v => setForm({ ...form, admin: v })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">User</SelectItem>
-                <SelectItem value="1">Admin</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="grid grid-cols-2 gap-3">
+              <Select value={form.admin} onValueChange={v => setForm({ ...form, admin: v })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">User</SelectItem>
+                  <SelectItem value="1">Admin</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={form.approval_status} onValueChange={v => setForm({ ...form, approval_status: v })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="approved">Approved</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="declined">Declined</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={closeModal} disabled={isMutating}>Cancel</Button>
               <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 text-white" disabled={isMutating}>

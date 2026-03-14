@@ -26,22 +26,19 @@ export default async function handler(req, res) {
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    // Insert user
+    // Insert user with default pending status
     const result = await query(
-      'INSERT INTO user_profiles (id, first_name, last_name, email, admin, password_hash) VALUES (gen_random_uuid(), $1, $2, $3, 0, $4) RETURNING id, first_name, last_name, email, admin',
+      'INSERT INTO user_profiles (id, first_name, last_name, email, admin, password_hash, approval_status) VALUES (gen_random_uuid(), $1, $2, $3, 0, $4, \'pending\') RETURNING id, first_name, last_name, email, admin, approval_status',
       [first_name, last_name, email, passwordHash]
     );
 
     const user = result.rows[0];
 
-    // Auto-login
-    const token = jwt.sign(
-      { userId: user.id, email: user.email, admin: user.admin },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    res.status(201).json({ token, user });
+    // Auto-login is removed because standard users need admin approval first
+    res.status(201).json({ 
+      message: 'Account created successfully. It is pending admin approval.', 
+      user 
+    });
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ error: 'Internal server error during registration' });

@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const result = await query('SELECT id, first_name, last_name, email, admin FROM user_profiles ORDER BY first_name ASC');
+      const result = await query('SELECT id, first_name, last_name, email, admin, approval_status FROM user_profiles ORDER BY first_name ASC');
       return res.status(200).json(result.rows);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -51,8 +51,9 @@ export default async function handler(req, res) {
       const saltRounds = 10;
       const passwordHash = await bcrypt.hash(password, saltRounds);
 
+      // Admin created users are immediately approved
       const result = await query(
-        'INSERT INTO user_profiles (id, first_name, last_name, email, admin, password_hash) VALUES (gen_random_uuid(), $1, $2, $3, $4, $5) RETURNING id, first_name, last_name, email, admin',
+        'INSERT INTO user_profiles (id, first_name, last_name, email, admin, password_hash, approval_status) VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, \'approved\') RETURNING id, first_name, last_name, email, admin, approval_status',
         [first_name, last_name, email, admin || 0, passwordHash]
       );
       

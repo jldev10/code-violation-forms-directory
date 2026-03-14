@@ -82,10 +82,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.error || 'Registration failed');
       }
 
-      // Auto-login after successful registration
-      api.token = data.token;
-      setUser(data.user);
-      setIsAuthenticated(true);
+      // Account requires admin approval, so we don't auto-login
       return data.user;
     } catch (error) {
       console.error('Registration failed:', error);

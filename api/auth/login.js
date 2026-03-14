@@ -23,6 +23,13 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
+    if (user.approval_status === 'pending') {
+      return res.status(403).json({ error: 'Your account is pending approval. We are reviewing your details and will email you once access is granted.' });
+    }
+    if (user.approval_status === 'declined') {
+      return res.status(403).json({ error: 'Access declined. To log in, you must first enroll in Gov List Millionaire at Wholesailors Academy on Skool.' });
+    }
+
     const isValid = await bcrypt.compare(password, user.password_hash);
     
     if (!isValid) {

@@ -44,10 +44,7 @@ export default function HeroSection({ isDarkMode }) {
           
           {/* Main heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Code Violation Forms
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 pb-2">
-              Directory
-            </span>
+            Code Violation Forms Directory
           </h1>
           
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed">
