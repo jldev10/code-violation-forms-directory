@@ -72,7 +72,6 @@ export default async function handler(req, res) {
          if (BREVO_API_KEY) {
            const protocol = req.headers['x-forwarded-proto'] || 'http';
            const host = req.headers.host;
-           const loginUrl = `${protocol}://${host}`;
            let subject = '';
            let htmlContent = '';
            
@@ -92,16 +91,26 @@ export default async function handler(req, res) {
                htmlContent: htmlContent
              };
 
-             // Send email but don't block response on it failing
-             fetch('https://api.brevo.com/v3/smtp/email', {
-               method: 'POST',
-               headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json',
-                 'api-key': BREVO_API_KEY
-               },
-               body: JSON.stringify(emailBody)
-             }).catch(err => console.error('Failed to send status email:', err));
+             try {
+               // IMPORTANT: Await fetch so serverless function doesn't terminate early
+               const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+                 method: 'POST',
+                 headers: {
+                   'Accept': 'application/json',
+                   'Content-Type': 'application/json',
+                   'api-key': BREVO_API_KEY
+                 },
+                 body: JSON.stringify(emailBody)
+               });
+
+               if (!brevoRes.ok) {
+                 const errorData = await brevoRes.json();
+                 console.error('Brevo API Error Detail:', JSON.stringify(errorData, null, 2));
+                 console.error('Brevo Sender Used:', SENDER_EMAIL);
+               }
+             } catch (err) {
+               console.error('Brevo fetch failure:', err);
+             }
            }
          }
       }
