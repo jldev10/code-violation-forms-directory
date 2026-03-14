@@ -70,20 +70,70 @@ export default async function handler(req, res) {
          const SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL || 'noreply@codeviolation.com';
          
          if (BREVO_API_KEY) {
-           const protocol = req.headers['x-forwarded-proto'] || 'http';
-           const host = req.headers.host;
            let subject = '';
-           let htmlContent = '';
+           let themeColor = '#10b981'; // Default green
+           let title = '';
+           let content = '';
+           let buttonText = '';
+           let buttonLink = '';
            
            if (approval_status === 'approved') {
               subject = 'Welcome to requestkits.com – Account Approved';
-              htmlContent = `<p>Hi there,</p><p>Your registration for requestkits.com is approved. You can now log in to your account and access our platform.</p><p><a href="https://www.requestkits.com/">https://www.requestkits.com/</a></p>`;
+              themeColor = '#10b981';
+              title = 'Account Approved';
+              content = 'Your registration for requestkits.com is approved. You can now log in to your account and access our platform.';
+              buttonText = 'Login to Your Account';
+              buttonLink = 'https://www.requestkits.com/';
            } else if (approval_status === 'declined') {
               subject = 'Update regarding your requestkits.com account';
-              htmlContent = `<p>Hi there,</p><p>Your registration for requestkits.com has been declined. To gain access, you must first enroll in Gov List Millionaire at Wholesailors Academy on Skool.</p><p>Once you have enrolled, please let us know so we can update your status.</p>`;
+              themeColor = '#ef4444'; // Red theme for declined
+              title = 'Account Status Update';
+              content = 'Your registration for requestkits.com has been declined. To gain access, you must first enroll in Gov List Millionaire at Wholesailors Academy on Skool.';
+              buttonText = 'Enroll in Academy';
+              buttonLink = 'https://www.skool.com/'; // Placeholder link
            }
 
            if (subject) {
+             const htmlContent = `
+               <!DOCTYPE html>
+               <html>
+               <head>
+                 <style>
+                   body { font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; color: #334155; }
+                   .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+                   .header { text-align: center; margin-bottom: 30px; }
+                   .button { 
+                     display: inline-block; 
+                     padding: 12px 24px; 
+                     background-color: ${themeColor}; 
+                     color: white !important; 
+                     text-decoration: none; 
+                     border-radius: 8px; 
+                     font-weight: 600;
+                     margin: 20px 0;
+                   }
+                   .footer { font-size: 12px; color: #94a3b8; margin-top: 40px; text-align: center; }
+                 </style>
+               </head>
+               <body>
+                 <div class="container">
+                   <div class="header">
+                     <h1 style="color: #0f172a;">${title}</h1>
+                   </div>
+                   <p>Hi ${first_name || 'there'},</p>
+                   <p>${content}</p>
+                   <div style="text-align: center;">
+                     <a href="${buttonLink}" class="button">${buttonText}</a>
+                   </div>
+                   <p>Once you have enrolled, please let us know so we can update your status.</p>
+                   <div class="footer">
+                     <p>&copy; 2026 Code Violation Forms Directory. All rights reserved.</p>
+                   </div>
+                 </div>
+               </body>
+               </html>
+             `;
+
              const emailBody = {
                sender: { name: 'Code Violation Forms Directory', email: SENDER_EMAIL },
                to: [{ email: email, name: first_name || 'User' }],
@@ -109,7 +159,7 @@ export default async function handler(req, res) {
                  console.error('Brevo Sender Used:', SENDER_EMAIL);
                }
              } catch (err) {
-               console.error('Brevo fetch failure:', err);
+               console.error('Brevo status email fetch failure:', err);
              }
            }
          }
