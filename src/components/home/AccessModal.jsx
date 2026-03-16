@@ -68,10 +68,6 @@ export default function AccessModal({ onAccessGranted }) {
       });
 
       setSuccess('Registration complete. Your account is now under review. We will notify you via email regarding your status shortly.');
-      
-      setTimeout(() => {
-        switchView('login');
-      }, 5000);
     } catch (err) {
       setError(err.message || 'Registration failed.');
     } finally {
