@@ -43,7 +43,7 @@ export default async function handler(req, res) {
       // Fetch current to check if status is changing
       const currentUserResult = await query('SELECT approval_status, first_name, email FROM user_profiles WHERE id = $1', [id]);
       if (currentUserResult.rows.length === 0) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(404).json({ error: 'User find not found' });
       }
       const currentUser = currentUserResult.rows[0];
       const newStatus = approval_status || currentUser.approval_status;
@@ -136,7 +136,7 @@ export default async function handler(req, res) {
 
              const emailBody = {
                sender: { name: 'Code Violation Forms Directory', email: SENDER_EMAIL },
-               to: [{ email: email, name: first_name || 'User' }],
+               to: [{ email: email || currentUser.email, name: first_name || currentUser.first_name || 'User' }],
                subject: subject,
                htmlContent: htmlContent
              };
@@ -163,6 +163,15 @@ export default async function handler(req, res) {
              }
            }
          }
+      }
+
+      // Add to banned_emails table if status is declined
+      if (approval_status === 'declined') {
+        try {
+          await query('INSERT INTO banned_emails (email) VALUES ($1) ON CONFLICT (email) DO NOTHING', [email || currentUser.email]);
+        } catch (banErr) {
+          console.error('Error adding to banned_emails:', banErr);
+        }
       }
 
       return res.status(200).json(result.rows[0]);

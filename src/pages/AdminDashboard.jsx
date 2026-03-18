@@ -19,6 +19,8 @@ export default function AdminDashboard() {
   const [editingUser, setEditingUser] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [showBanList, setShowBanList] = useState(false);
+  const [bannedEmailToDelete, setBannedEmailToDelete] = useState(null);
 
   React.useEffect(() => {
     if (!isLoadingAuth && (!user || user.admin !== 1)) {
@@ -65,6 +67,24 @@ export default function AdminDashboard() {
     },
     onError: (error) => {
       toast.error(error.message || 'Failed to delete user');
+    }
+  });
+
+  const { data: bannedEmails = [], isLoading: isLoadingBanned } = useQuery({
+    queryKey: ['bannedEmails'],
+    queryFn: () => api.get('/admin/banned-emails'),
+    enabled: showBanList,
+  });
+
+  const unbanMutation = useMutation({
+    mutationFn: (email) => api.delete('/admin/banned-emails', { email }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bannedEmails'] });
+      toast.success('Email unbanned successfully');
+      setBannedEmailToDelete(null);
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to unban email');
     }
   });
 
@@ -130,15 +150,20 @@ export default function AdminDashboard() {
         {/* Users Table */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200">
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-            <h2 className="font-bold text-slate-900 text-lg">Users</h2>
-            <Button onClick={openAdd} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              <Plus className="w-4 h-4 mr-2" /> Add User
-            </Button>
+            <div className="flex items-center gap-6">
+              <h2 className={`font-bold text-lg cursor-pointer ${!showBanList ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-slate-400'}`} onClick={() => setShowBanList(false)}>Users</h2>
+              <h2 className={`font-bold text-lg cursor-pointer ${showBanList ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-slate-400'}`} onClick={() => setShowBanList(true)}>Ban List</h2>
+            </div>
+            {!showBanList && (
+              <Button onClick={openAdd} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                <Plus className="w-4 h-4 mr-2" /> Add User
+              </Button>
+            )}
           </div>
 
-          {isLoading ? (
+          {isLoading || (showBanList && isLoadingBanned) ? (
             <div className="p-10 text-center text-slate-400">Loading...</div>
-          ) : (
+          ) : !showBanList ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -192,9 +217,56 @@ export default function AdminDashboard() {
                 </tbody>
               </table>
             </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-500 text-left">
+                    <th className="px-6 py-3 font-medium">Banned Email</th>
+                    <th className="px-6 py-3 font-medium">Date Banned</th>
+                    <th className="px-6 py-3 font-medium text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bannedEmails.map(banned => (
+                    <tr key={banned.email} className="border-t border-slate-100 hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-slate-900">{banned.email}</td>
+                      <td className="px-6 py-4 text-slate-600">{new Date(banned.created_at).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 text-right">
+                        <Button variant="ghost" size="sm" onClick={() => setBannedEmailToDelete(banned.email)} className="text-slate-400 hover:text-emerald-600">
+                          Unban
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                  {bannedEmails.length === 0 && (
+                    <tr><td colSpan={3} className="px-6 py-10 text-center text-slate-400">No banned emails found.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </main>
+
+      {/* Unban Confirm */}
+      <Dialog open={!!bannedEmailToDelete} onOpenChange={(open) => { if (!open) setBannedEmailToDelete(null); }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Unban Email</DialogTitle>
+          </DialogHeader>
+          <p className="text-slate-600 text-sm mt-1">
+            Are you sure you want to unban <strong>{bannedEmailToDelete}</strong>? They will be able to register or log in again.
+          </p>
+          <DialogFooter className="mt-4">
+            <Button variant="outline" onClick={() => setBannedEmailToDelete(null)} disabled={unbanMutation.isPending}>Cancel</Button>
+            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => unbanMutation.mutate(bannedEmailToDelete)} disabled={unbanMutation.isPending}>
+              {unbanMutation.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Unban
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Add/Edit Modal */}
       <Dialog open={showModal} onOpenChange={(open) => { if (!open) closeModal(); }}>

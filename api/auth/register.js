@@ -16,6 +16,12 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Check if email is banned
+    const bannedRes = await query('SELECT email FROM banned_emails WHERE email = $1', [email]);
+    if (bannedRes.rows.length > 0) {
+      return res.status(403).json({ error: 'Account can not be created at this time' });
+    }
+
     // Check if user exists
     const existing = await query('SELECT id FROM user_profiles WHERE email = $1', [email]);
     if (existing.rows.length > 0) {

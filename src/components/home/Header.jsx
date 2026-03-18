@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Menu, X } from 'lucide-react';
+import { FileText, Menu, X, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 
@@ -12,7 +12,7 @@ const navLinks = [
   { href: '#script-generator', label: 'Script Generator' },
 ];
 
-export default function Header({ notificationBell }) {
+export default function Header({ notificationBell, onLogout, isAuthenticated }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -70,6 +70,20 @@ export default function Header({ notificationBell }) {
             ))}
             
             {notificationBell}
+            
+            {isAuthenticated && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={onLogout}
+                className={`ml-2 flex items-center gap-2 transition-colors ${
+                  isScrolled ? 'text-slate-600 hover:text-red-600' : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <LogOut className="w-4 h-4" />
+                Logout
+              </Button>
+            )}
           </nav>
           
           {/* Mobile menu button */}

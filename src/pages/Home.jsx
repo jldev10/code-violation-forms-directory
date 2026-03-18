@@ -916,7 +916,7 @@ const generateSampleCities = (count, stateName) => {
 };
 
 export default function Home() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const [accessGranted, setAccessGranted] = useState(false);
   const [selectedState, setSelectedState] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -1091,6 +1091,8 @@ export default function Home() {
     <div className={`min-h-screen transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
       {!accessGranted && !isAuthenticated && <AccessModal onAccessGranted={() => setAccessGranted(true)} />}
       <Header 
+        onLogout={() => logout(true)}
+        isAuthenticated={isAuthenticated}
         notificationBell={
           <div className="relative">
             <NotificationBell 

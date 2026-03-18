@@ -68,6 +68,19 @@ CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_token ON password_reset_tok
 
 
 -- ============================================================
+-- TABLE: banned_emails
+-- Stores emails that are prohibited from registering or logging in
+-- ============================================================
+CREATE TABLE IF NOT EXISTS banned_emails (
+    email VARCHAR(255) PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Index for fast lookup by email
+CREATE INDEX IF NOT EXISTS idx_banned_emails_email ON banned_emails(email);
+
+
+-- ============================================================
 -- OPTIONAL: Create your first admin user
 -- Replace these values with real credentials before running
 -- NOTE: The password_hash below is a bcrypt hash of 'changeme123'
