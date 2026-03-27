@@ -799,9 +799,9 @@ const citiesData = {
   ],
   15: [ // Texas - 101 cities COMPLETE
     { name: "Houston", url: "https://houstontx.govqa.us/WEBAPP/_rs/(S(a1mlmn4ry01gan54hat3er2u))/SupportHome.aspx" },
-    { name: "San Antonio", url: "https://sanantonio.govqa.us/webapp/_rs/(S(2bp3nlwnaby5wzh5wyobbyym))/supporthome.aspx" },
+    { name: "San Antonio", url: "https://aca-prod.accela.com/COSA/Cap/CapHome.aspx?module=Code&TabName=Code" },
     { name: "Dallas", url: "https://dallastx.govqa.us/WEBAPP/_rs/(S(1isvo1gcgop35m4ifj2wfrbl))/RequestOpen.aspx?rqst=3" },
-    { name: "Fort Worth", url: "https://data.fortworthtexas.gov/Property-Data/Code-Violations/spnu-bq4u/about_data" },
+    { name: "Fort Worth", url: "https://fortworth.govqa.us/WEBAPP/_rs/(S(rytjisxctmttn0qpxjaolwa5))/SupportHome.aspx?s&lp=3" },
     { name: "Austin", url: "https://data.austintexas.gov/Public-Safety/Austin-Code-Complaint-Cases/6wtj-zbtb" },
     { name: "El Paso", url: "https://elpaso.govqa.us/webapp/_rs/(S(hm1uchviveeby3ljoerwkw1b))/supporthome.aspx" },
     { name: "Arlington", url: "https://arlingtontx.govqa.us/WEBAPP/_rs/(S(td4begmvrv5r2gj5rkdqg3sf))/SupportHome.aspx" },
