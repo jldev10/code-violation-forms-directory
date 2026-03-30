@@ -30,7 +30,7 @@ const statesData = [
   { id: 12, name: "Connecticut", cityCount: 32 },
   { id: 13, name: "Kentucky", cityCount: 44 },
   { id: 14, name: "Florida", cityCount: 49 },
-  { id: 15, name: "Texas", cityCount: 101 }
+  { id: 15, name: "Texas", cityCount: 100 }
 ];
 
 // Full city data for all states - 800+ cities total
@@ -804,7 +804,7 @@ const citiesData = {
     { name: "Fort Worth", url: "https://fortworth.govqa.us/WEBAPP/_rs/(S(rytjisxctmttn0qpxjaolwa5))/SupportHome.aspx?s&lp=3" },
     { name: "Austin", url: "https://data.austintexas.gov/Public-Safety/Austin-Code-Complaint-Cases/6wtj-zbtb" },
     { name: "El Paso", url: "https://elpaso.govqa.us/webapp/_rs/(S(hm1uchviveeby3ljoerwkw1b))/supporthome.aspx" },
-    { name: "Arlington", url: "https://arlingtontx.govqa.us/WEBAPP/_rs/(S(td4begmvrv5r2gj5rkdqg3sf))/SupportHome.aspx" },
+    { name: "Arlington", url: "https://opendata.arlingtontx.gov/datasets/0a5939d9d2834678aaf33285d2e1f1a5_6/explore?location=32.701050%2C-97.135150%2C12" },
     { name: "Corpus Christi", url: "https://cctexas.jotform.com/form/203084314220036" },
     { name: "Plano", url: "https://planotx.govqa.us/WEBAPP/_rs/(S(af0ehmoyscxatndbphmv2uw5))/SupportHome.aspx" },
     { name: "Lubbock", url: "https://lubbocktx.govqa.us/WEBAPP/_rs/(S(odecowb1fmhmmmxf2gnbtk10))/SupportHome.aspx" },
@@ -817,7 +817,6 @@ const citiesData = {
     { name: "Brownsville", url: "https://brownsvilletx.justfoia.com/publicportal/home/newrequest" },
     { name: "Denton", url: "https://dentontx.mycusthelp.com/WEBAPP/_rs/(S(r511gmn5yuzlxpr2lkqmgk0l))/SupportHome.aspx" },
     { name: "Killeen", url: "https://killeentx.justfoia.com/publicportal/home/newrequest" },
-    { name: "Mesquite city", url: "https://www.cityofmesquite.com/FormCenter/City-Secretary-14/City-Secretary-Open-Records-Request-234" },
     { name: "McAllen", url: "https://mcallen.net/pir" },
     { name: "Waco", url: "https://wacotx.mycusthelp.com/WEBAPP/_rs/(S(yjxosukp0ivclr1wsusr0fjy))/supporthome.aspx" },
     { name: "Midland", url: "https://midlandtx.mycusthelp.com/WEBAPP/_rs/(S(mkaax45dflwvbgra32h5clop))/SupportHome.aspx" },
