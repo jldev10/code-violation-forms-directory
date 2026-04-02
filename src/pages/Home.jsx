@@ -806,7 +806,7 @@ const citiesData = {
     { name: "El Paso", url: "https://elpaso.govqa.us/webapp/_rs/(S(hm1uchviveeby3ljoerwkw1b))/supporthome.aspx" },
     { name: "Arlington", url: "https://opendata.arlingtontx.gov/datasets/0a5939d9d2834678aaf33285d2e1f1a5_6/explore?location=32.701050%2C-97.135150%2C12" },
     { name: "Corpus Christi", url: "https://cctexas.jotform.com/form/203084314220036" },
-    { name: "Plano", url: "https://planotx.govqa.us/WEBAPP/_rs/(S(af0ehmoyscxatndbphmv2uw5))/SupportHome.aspx" },
+    { name: "Plano", url: "https://dashboard.plano.gov/Neighborhood-Services/Neighborhood-Services-Violations-Landscaping-SQL-D/ccd3-98vm/about_data" },
     { name: "Lubbock", url: "https://lubbocktx.govqa.us/WEBAPP/_rs/(S(odecowb1fmhmmmxf2gnbtk10))/SupportHome.aspx" },
     { name: "Laredo", url: "https://laredo.mycusthelp.com/webapp/_rs/(S(glqixc5w5ry0ho3sra1xmk34))/SupportHome.aspx" },
     { name: "Irving", url: "https://irvingtx.justfoia.com/publicportal/home/track" },
