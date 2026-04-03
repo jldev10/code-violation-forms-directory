@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { api } from '@/api/apiClient'; // Changed from base44Client
+import { api } from '@/api/apiClient';
 import { toast } from 'sonner';
 import MarketAutocomplete from './MarketAutocomplete';
 import ColumnMapper from './ColumnMapper';

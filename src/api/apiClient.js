@@ -1,5 +1,3 @@
-import { jwtDecode } from 'jwt-decode';
-
 class ApiClient {
   constructor() {
     this.baseUrl = '/api';

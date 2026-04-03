@@ -51,7 +51,7 @@ BREVO_API_KEY=your_brevo_api_key
 BREVO_SENDER_EMAIL=your_sender_email
 
 # Backend URL (Base URL for API)
-VITE_BASE44_APP_BASE_URL=your_backend_url
+VITE_API_BASE_URL=your_backend_url
 ```
 
 ### Running Locally
