@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, MapPin, Clock, Shield } from 'lucide-react';
+import { FileText, MapPin, Clock } from 'lucide-react';
 
 const stats = [
   { icon: MapPin, value: '15', label: 'States Covered' },
@@ -31,15 +31,19 @@ export default function HeroSection({ isDarkMode }) {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          {/* Badge */}
+          {/* Maintenance Banner */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8"
+            className="inline-flex flex-col items-center gap-1 px-6 py-3 bg-yellow-400/20 border-2 border-yellow-400/60 rounded-xl mb-8"
           >
-            <Shield className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm font-medium text-emerald-300">Professional Directory for Public Records</span>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">⚠️</span>
+              <span className="text-sm font-bold text-yellow-300 uppercase tracking-wide">Site Under Maintenance</span>
+              <span className="text-lg">⚠️</span>
+            </div>
+            <span className="text-xs text-yellow-200/80">Updates are in progress — some features may be broken, missing, or newly added. Thank you for your patience.</span>
           </motion.div>
           
           {/* Main heading */}

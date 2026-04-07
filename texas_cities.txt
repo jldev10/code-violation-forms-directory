@@ -1,0 +1,310 @@
+Houston	TX	https://houstontx.govqa.us/WEBAPP/_rs/(S(a1mlmn4ry01gan54hat3er2u))/SupportHome.aspx
+San Antonio	TX	https://aca-prod.accela.com/COSA/Cap/CapHome.aspx?module=Code&TabName=Code
+Dallas	TX	https://dallastx.govqa.us/WEBAPP/_rs/(S(1isvo1gcgop35m4ifj2wfrbl))/RequestOpen.aspx?rqst=3
+Fort Worth	TX	https://fortworth.govqa.us/WEBAPP/_rs/(S(rytjisxctmttn0qpxjaolwa5))/SupportHome.aspx?s&lp=3
+Austin	TX	https://data.austintexas.gov/Public-Safety/Austin-Code-Complaint-Cases/6wtj-zbtb
+El Paso	TX	https://elpaso.govqa.us/webapp/_rs/(S(hm1uchviveeby3ljoerwkw1b))/supporthome.aspx
+Arlington	TX	https://opendata.arlingtontx.gov/datasets/0a5939d9d2834678aaf33285d2e1f1a5_6/explore?location=32.701050%2C-97.135150%2C12
+Corpus Christi	TX	https://cctexas.jotform.com/form/203084314220036
+Plano	TX	https://dashboard.plano.gov/Neighborhood-Services/Neighborhood-Services-Violations-Landscaping-SQL-D/ccd3-98vm/about_data
+Lubbock	TX	https://lubbocktx.govqa.us/WEBAPP/_rs/(S(odecowb1fmhmmmxf2gnbtk10))/SupportHome.aspx
+Laredo	TX	https://laredo.mycusthelp.com/webapp/_rs/(S(glqixc5w5ry0ho3sra1xmk34))/SupportHome.aspx
+Irving	TX	https://irvingtx.justfoia.com/publicportal/home/track
+Garland	TX	https://garlandtx.justfoia.com/publicportal/home/newrequest
+Frisco	TX	https://www.friscotexas.gov/690/Open-Records-Request
+McKinney	TX	https://mckinneytx.mycusthelp.com/WEBAPP/_rs/(S(kktuomz0mguowhcxlqr4vka3))/supporthome.aspx
+Grand Prairie	TX	https://www.gptx.org/Departments/City-Secretary/Public-Information-Requests
+Brownsville	TX	https://brownsvilletx.justfoia.com/publicportal/home/newrequest
+Denton	TX	https://dentontx.mycusthelp.com/WEBAPP/_rs/(S(r511gmn5yuzlxpr2lkqmgk0l))/SupportHome.aspx
+Killeen	TX	https://killeentx.justfoia.com/publicportal/home/newrequest
+McAllen	TX	https://mcallen.net/pir
+Waco	TX	https://wacotx.mycusthelp.com/WEBAPP/_rs/(S(yjxosukp0ivclr1wsusr0fjy))/supporthome.aspx
+Midland	TX	https://midlandtx.mycusthelp.com/WEBAPP/_rs/(S(mkaax45dflwvbgra32h5clop))/SupportHome.aspx
+Lewisville	TX	https://home-lewisvilletx.mycusthelp.com/webapp/_rs/(S(iwhiqbqmthrpjv3bumo4wb1b))/supporthome.aspx?sSessionID=7584101186GQWTUXTFCFGWDWRNYUZSGTU[TKXITF
+Carrollton	TX	https://carrolltontx.mycusthelp.com/webapp/_rs/(S(s114n0hlxvcjdcmz0v0g0rdh))/supporthome.aspx
+Round Rock	TX	https://roundrocktx.mycusthelp.com/webapp/_rs/(S(vibwygalhgcgyscykbtuma5z))/supporthome.aspx
+Abilene	TX	https://abilenetxopenrecords.nextrequest.com/requests/new
+Pearland	TX	https://pearlandtx.justfoia.com/publicportal/home/newrequest
+College Station	TX	https://cstx.govqa.us/WEBAPP/_rs/(S(i0uzt10wnqwmu0gmlkmd0gyz))/supporthome.aspx
+Odessa	TX	https://odessatx.mycusthelp.com/WEBAPP/_rs/(S(haywm4cjtleszwc33lpor0cz))/supporthome.aspx
+League City	TX	https://leaguecitytx.justfoia.com/publicportal/home/newrequest
+Richardson	TX	https://richardsontx.govqa.us/WEBAPP/_rs/(S(2baaanvahhlpnrxortteylpy))/supporthome.aspx
+The Woodlands	TX	https://thewoodlandstx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb
+New Braunfels	TX	https://newbraunfelstx.govqa.us/WEBAPP/_rs/(S(uuplqmfkv0s2cw2stx5egckr))/SupportHome.aspx
+Conroe	TX	https://www.cityofconroe.org/services/administration/public_records_request.php
+Allen	TX	https://allentx.justfoia.com/publicportal/home/newrequest
+Beaumont	TX	https://beaumonttexas.streamlinegov.us/#
+Tyler	TX	https://www.cityoftyler.org/government/departments/city-clerk/forms-applications/public-information-request-test
+Sugar Land	TX	https://sugarlandtx.mycusthelp.com/WEBAPP/_rs/(S(okzvy2r3sqwtawpwcjti3pgu))/supporthome.aspx
+Edinburg	TX	https://edinburgtx.govqa.us/WEBAPP/_rs/(S(2o4eahofskdct2s0raq5l1lo))/supporthome.aspx
+Wichita Falls	TX	https://wichitafallstx.govqa.us/WEBAPP/_rs/(S(rl3xt3ulh5yshiegopkbn2gf))/supporthome.aspx
+Georgetown	TX	https://georgetowntx.mycusthelp.com/webapp/_rs/(S(d11ydpx30mk3zrnyv4trj2sa))/supporthome.aspx
+San Angelo	TX	https://sanangelotx.mycusthelp.com/WEBAPP/_rs/(S(qfah4pszxyaymou51455sgml))/supporthome.aspx
+Temple	TX	https://cityoftempletx.nextrequest.com/requests/new
+Atascocita	TX	https://harriscountyso.org/Services/RecordsNotavailable
+Bryan	TX	https://bryantx.justfoia.com/publicportal/home/newrequest
+Mission	TX	https://www.missiontexas.us/DocumentCenter/View/219/Public-Information-Request-Form-PDF
+Leander	TX	https://www.leandertx.gov/FormCenter/City-Secretary-6/Open-Records-Request-49
+Baytown	TX	https://tx-baytown.civicplus.com/186/Open-Records-Request
+Longview	TX	https://longviewtx.justfoia.com/publicportal/home/newrequest
+Pharr	TX	https://pharrtx.mycusthelp.com/WEBAPP/_rs/(S(meni55i3rorjdxegl3h5orby))/supporthome.aspx
+Mansfield	TX	https://mansfieldtexas.govqa.us/WEBAPP/_rs/(S(jr23qjhpsdng5n4g2qbubpqg))/supporthome.aspx
+Flower Mound	TX	https://www.flowermound.gov/252/Public-Information-Requests
+Missouri City	TX	https://missouricitytx.justfoia.com/publicportal/home/track
+Cedar Park	TX	https://www.cedarparktexas.gov/464/Public-Information-Requests
+San Marcos	TX	https://sanmarcostx.mycusthelp.com/WEBAPP/_rs/(S(tjo0uqiszxy31y1lo1ecyrf2))/RequestLogin.aspx
+Harlingen	TX	https://harlingenpdtx.govqa.us/WEBAPP/_rs/(S(n2lutlbsekww1vqeqrnpc5ov))/supporthome.aspx
+North Richland Hills	TX	https://northrichlandhillstx.govqa.us/WEBAPP/_rs/(S(nahydxdsplex0g5nsykmpl0x))/SupportHome.aspx
+Rowlett	TX	https://rowlett.justfoia.com/publicportal/home/newrequest
+Spring	TX	https://hctxeng.govqa.us/WEBAPP/_rs/(S(eawdrcaqnnp1v2a3whpygfps))/SupportHome.aspx
+Pflugerville	TX	https://pflugervilletx.mycusthelp.com/WEBAPP/_rs/(S(im0p1zsvn5yqxd4yzwet3i0y))/supporthome.aspx
+Victoria	TX	https://victoriatx.civicweb.net/Portal/CitizenEngagement.aspx
+Kyle	TX	https://kyle.mycusthelp.com/WEBAPP/_rs/(S(5qugzm5hhcteligqfq0ggloq))/SupportHome.aspx?sSessionID=
+Wylie	TX	https://wylietexas.justfoia.com/publicportal/home/newrequest
+Little Elm	TX	https://littleelm.govqa.us/WEBAPP/_rs/(S(xy5fdzlqn2ypli4bmai1hubc))/supporthome.aspx
+Euless	TX	https://eulesstx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb
+Texas City	TX	https://public.destinyhosted.com/public_records.cfm?id=83927
+DeSoto	TX	https://desototexas.justfoia.com/publicportal/home/newrequest
+Burleson	TX	https://burlesontx.govqa.us/WEBAPP/_rs/(S(zievr2ygxbqxjyej2inqoo15))/supporthome.aspx
+Port Arthur	TX	https://www.portarthurtx.gov/formcenter/office-of-the-city-secretary-30/information-request-form-63
+Fulshear	TX	https://www.fulsheartexas.gov/about-us/city-secretary/public-information-requests
+Rockwall	TX	https://city-rockwalltx.govqa.us/WEBAPP/_rs/(S(ofnlfph32h4fqbxwt5bf4dbl))/supporthome.aspx?sSessionID=7584101186:51325VKPOKSTMVSMATDYMGSBYCMZJ
+Galveston	TX	https://galvestontx.mycusthelp.com/WEBAPP/_rs/(S(sxo41msaw1punnomvxjthmg3))/supporthome.aspx
+Celina	TX	https://celinatx.justfoia.com/Forms/Launch/2fa066d3-045f-440c-94bf-5c077dadfb04
+Grapevine	TX	https://www.grapevinetexas.gov/FormCenter/Police-2/Police-Open-Records-Requests-62
+Sherman	TX	https://shermantx.govqa.us/WEBAPP/_rs/(S(izlepuobvucbakjcxbtmecwo))/supporthome.aspx
+Cedar Hill	TX	https://cedarhilltx.com/73/Open-Records-Request
+Huntsville	TX	https://huntsvilletx.justfoia.com/publicportal/home/track
+Bedford	TX	https://bedfordtx.gov/FormCenter/City-Secretary-15/Texas-Public-Information-Act-Information-64
+Waxahachie	TX	https://www.waxahachie.com/departments/city_secretary/open_records_requests.php
+Keller	TX	https://cityofkellertx.govqa.us/WEBAPP/_rs/(S(pbozzkeo1tuvwkne1m0jgxbv))/supporthome.aspx
+The Colony	TX	https://thecolonytx.justfoia.com/publicportal/home/track
+Haltom City	TX	https://haltomcitytx.wufoo.com/forms/r1r8uomm0rx39mt/
+Prosper	TX	https://prospertx.justfoia.com/publicportal/home/newrequest
+Schertz	TX	https://schertz.justfoia.com/publicportal/home/newrequest
+Midlothian	TX	https://www.midlothian.tx.us/FormCenter/Administration-5/Request-For-Public-Information-49
+Weslaco	TX	https://www.weslacotx.gov/government/city_secretary/public_information_request.php
+Channelview	TX	https://hctxeng.govqa.us/WEBAPP/_rs/(S(eawdrcaqnnp1v2a3whpygfps))/SupportHome.aspx
+Hutto	TX	https://huttotx.mycusthelp.com/WEBAPP/_rs/(S(ubpjclb4rydtj5fqrh3al1rb))/supporthome.aspx
+Rosenberg	TX	https://rosenbergtx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb
+Coppell	TX	https://coppelltx.mycusthelp.com/webapp/_rs/(S(4lvckxwhd2klguukuel3iun2))/SupportHome.aspx
+Friendswood	TX	https://friendswoodtx.mycusthelp.com/webapp/_rs/(S(10zeiegno5tt00n2id3pev3y))/SupportHome.aspx?sSessionID=&lp=3
+Lancaster	TX	https://lancastertxfoia.mycusthelp.com/webapp/_rs/(S(jowadawqy2w4mbxovbzgfnko))/supporthome.aspx
+Copperas Cove	TX	https://copperascovetx.mycusthelp.com/webapp/_rs/(S(ol0kw2yuyjkkj424nxwtnwzq))/supporthome.aspx
+Hurst	TX	https://www.hursttx.gov/about-us/departments/city-secretary/public-information-request-online-form
+Weatherford	TX	https://weatherfordtx.mycusthelp.com/WEBAPP/_rs/(S(vduh5kh2c1nvwx3uvqzxdn23))/supporthome.aspx
+Duncanville	TX	https://duncanvilletx.justfoia.com/publicportal/home/newrequest
+Seguin	TX	https://seguintx.justfoia.com/publicportal/home/newrequest
+Socorro	TX	https://cityofsocorrotx.nextrequest.com/requests/new
+Forney	TX	https://forneytx.mycusthelp.com/WEBAPP/_rs/(S(tsweom4oxh3tjrt2d0n2bawp))/SupportHome.aspx
+Cleburne	TX	https://cityworks.cleburne.net/Permits/login
+La Porte	TX	https://laportetx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb
+Cibolo	TX	https://cibolotx.justfoia.com/publicportal/home/newrequest
+Farmers Branch	TX	https://farmersbranchtx.mycusthelp.com/WEBAPP/_rs/(S(bmc5j3b0smluj05ma2piz5uy))/SupportHome.aspx?sSessionID=&lp=2
+San Juan city	TX	https://www.sjtx.us/wp-content/uploads/2024/02/Public_Information_Request_Fillable_Form-_New_Address-2.pdf
+Princeton	TX	https://orr-princetontx.mycusthelp.com/WEBAPP/_rs/(S(1wvmjai1iimo4oksjyo5l052))/SupportHome.aspx?sSessionID=70172659WGLWTFFQGCLTPEVRJWUFQWXYWBCSV[QP
+Texarkana	TX	https://public.mygov.us/tx_texarkana/templates?module=reports
+Harker Heights	TX	https://harkerheights.civicweb.net/Portal/CitizenEngagement.aspx
+Del Rio	TX	https://www.cityofdelrio.com/government/departments/city-secretary/open-records-request
+Deer Park	TX	https://deerparktx.justfoia.com/publicportal/home/newrequest
+Lufkin	TX	https://cityoflufkintx.justfoia.com/publicportal/home/newrequest
+Greenville	TX	https://www.ci.greenville.tx.us/1385/Public-Information-Requests
+Sachse	TX	https://cityofsachse.justfoia.com/publicportal/home/newrequest
+Canyon Lake	TX	https://canyonlakeca.nextrequest.com/
+Nacogdoches	TX	https://nacogdochestx.justfoia.com/publicportal/home/newrequest
+Anna	TX	https://annatx.mycusthelp.com/webapp/_rs/(S(acvkutjp52ibajwu2bvyj05a))/supporthome.aspx
+Southlake	TX	https://cityofsouthlaketx.justfoia.com/publicportal/home/newrequest
+Alvin	TX	https://alvintx.justfoia.com/publicportal/home/newrequest
+Eagle Pass	TX	https://www.eaglepasstx.gov/FormCenter/Municipal-Court-5/Request-for-Records-47
+Lake Jackson	TX	https://lakejacksontx.justfoia.com/publicportal/home/newrequest
+Katy	TX	https://katytx.justfoia.com/publicportal/home/track
+Fate	TX	https://fatetx.govqa.us/WEBAPP/_rs/(S(t4zj23wqhlrjxcz2ifom4rzm))/supporthome.aspx
+Balch Springs	TX	https://www.balchspringstx.gov/158/Open-Records-Requests
+Denison	TX	https://www.denisontx.gov/169/Open-Records-Request
+Royse City	TX	https://roysecity.justfoia.com/publicportal/home/newrequest
+Melissa	TX	https://melissatx.justfoia.com/publicportal/home/newrequest
+Saginaw	TX	https://saginawtx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb
+Colleyville	TX	https://www.colleyville.com/government/departments-a-l/city-secretary/open-records-request
+Belton	TX	https://www.beltontexas.gov/how_do_i/request_report/request_public_information.php
+Corsicana	TX	https://www.cityofcorsicana.com/617/Open-Records-Request
+University Park	TX	https://universityparktx.mycusthelp.com/WEBAPP/_rs/(S(fjq5pnzlimhb0fmflw4hr1f5))/SupportHome.aspx
+Kerrville	TX	https://www.kerrvilletx.gov/FormCenter/Citizen-Forms-2/Public-Information-Request-36
+Paris	TX	https://www.paristexas.gov/DocumentCenter/View/5151/Public-Information-Request-REVISED-11-19-19
+Kingsville	TX	https://www.cityofkingsville.com/departments/legal-department/open-record-request/
+San Benito	TX	https://www.cityofsanbenito.com/DocumentCenter/View/3538/COSB-Open-Records-Request-Form
+Benbrook	TX	https://www.benbrook-tx.gov/FormCenter/City-Secretary-4/Public-Information-Request-36
+Corinth	TX	https://corinthtx.justfoia.com/publicportal/home/newrequest
+Marshall	TX	https://www.marshalltexas.net/DocumentCenter/View/90/Open-Records-Request-Form-PDF?bidId=
+Watauga	TX	https://www.cowtx.org/forms.aspx?FID=264
+Terrell	TX	https://cityofterrelltx.nextrequest.com/
+Alton	TX	https://cms5.revize.com/revize/alton/uploadfiles/Public%20Information%20Request%202023.pdf
+Boerne	TX	https://boernetx.justfoia.com/publicportal/home/newrequest
+Big Spring	TX	https://bigspringtx.justfoia.com/publicportal/home/newrequest
+Stephenville	TX	https://cityofstephenvilletx.nextrequest.com/
+Dickinson	TX	https://dickinsontx.govqa.us/WEBAPP/_rs/(S(tvrjzs02fxprw35c0vx2lrjd))/supporthome.aspx
+Manor	TX	https://manortx.justfoia.com/publicportal/home/newrequest
+Murphy	TX	https://murphytx.mycusthelp.com/webapp/_rs/(S(iuxox3waxsnggm5n4ggmvb3g))/supporthome.aspx
+Angleton	TX	https://angletontx.justfoia.com/publicportal/home/newrequest
+Portland	TX	https://www.portlandtx.com/93/Open-Records-Requests
+Alamo	TX	https://alamotexas.org/wp-content/uploads/2024/05/PIR-Online-Form.pdf
+Crowley	TX	https://cityofcrowleytx.nextrequest.com/requests/new
+Universal City	TX	https://www.universalcitytexas.gov/FormCenter/General-Forms-3-3/Open-Records-Request-47-47
+La Marque	TX	https://cityoflamarquetx.nextrequest.com/
+Seagoville	TX	https://seagovilletx.govqa.us/WEBAPP/_rs/(S(jfab21dnt3bbvz4ipytsfsut))/SupportHome.aspx?lp=2&sSessionID=
+Glenn Heights	TX	https://www.glennheightstx.gov/FormCenter/Record-Requests-4/Public-Information-Request-47
+Brenham	TX	https://cityofbrenhamtx.nextrequest.com/
+Palestine	TX	https://www.cityofpalestinetx.com/353/Public-Information-Requests
+Plainview	TX	https://www.plainviewtx.org/86/Open-Records-Request
+Red Oak	TX	https://www.redoaktx.org/FormCenter/City-Secretary-15/Public-Information-Request-Form-Online-84
+Manvel	TX	https://www.cityofmanvel.com/DocumentCenter/View/696/Open-Records-Request
+Orange	TX	https://orangetexas.gov/FormCenter/City-Secretary-8/Request-for-Public-Records-50
+Lakeway	TX	https://cityoflakewaytx.nextrequest.com/
+Brownwood	TX	https://www.brownwoodtexas.gov/FormCenter/Request-Forms-3/Open-Records-Request-Form-43
+Gainesville	TX	https://www.gainesville.tx.us/FormCenter/Admin-3/City-of-Gainesville-Public-Information-R-67
+Nederland	TX	https://www.ci.nederland.tx.us/upload/page/0067/docs/Open%20Records%20Request%20Form.pdf
+White Settlement	TX	https://wstx.justfoia.com/publicportal/home/newrequest
+Taylor	TX	https://www.taylortx.gov/FormCenter/Open-Records-Requests-9/Texas-Public-Information-Act-Information-74
+Alice	TX	https://cityofalice.civicweb.net/Portal/CitizenEngagement.aspx
+Stafford	TX	https://staffordtx.justfoia.com/publicportal/home/newrequest
+Mercedes	TX	https://www.cityofmercedes.com/city-government/open-records-request/
+Bay City	TX	https://cityofbaycitytx.nextrequest.com/
+Bellaire	TX	https://bellairetx.justfoia.com/publicportal/home/newrequest
+Addison	TX	https://addisontx.mycusthelp.com/webapp/_rs/(S(vgusmxdlrny3mzhjowvxg41k))/supporthome.aspx
+Iowa Colony	TX	https://iowacolonytx.justfoia.com/publicportal/home/newrequest
+Donna	TX	https://www.cityofdonna.org/213/Request-Public-Information
+Groves	TX	https://www.cigrovestx.com/upload/page/0224/docs/Open%20Records%20Request%20Form%20240507.pdf
+Hewitt	TX	https://www.cityofhewitt.com/DocumentCenter/View/214/Open-Records-Request-Form?bidId=
+Humble	TX	https://humbletx.govqa.us/WEBAPP/_rs/(S(v1ewoaaq3o5tsxmzmtgm4yxk))/SupportHome.aspx
+Pampa	TX	https://www.cityofpampa.org/community/city_government/city_secretary/public_information_request_form.php#outer-303
+Canyon	TX	https://canyontx.gov/FormCenter/Police-10/Open-Records-Request-86
+Mount Pleasant	TX	https://mpcity.net/open-records-request
+Live Oak	TX	https://www.liveoaktx.net/departments/city-secretary
+Highland Village	TX	https://highlandvillagetx.govqa.us/WEBAPP/_rs/(S(ydqemvvdvamjdzjs5v0dz40c))/SupportHome.aspx?sSessionID=
+Buda	TX	https://budatx.govqa.us/WEBAPP/_rs/(S(mvda3g5r2idp1q2oz3siclte))/supporthome.aspx
+Palmview	TX	https://cityofpalmview.govqa.us/WEBAPP/_rs/(S(w2uduriagl4tpyfjjf1z5ssa))/supporthome.aspx?_gl=1*1ygqg8v*_ga*MTUwMjQzODA4My4xNzc0NjcwNDM4*_ga_CZW0XZZYK8*czE3NzQ2NzA0MzgkbzEkZzAkdDE3NzQ2NzA0MzgkajYwJGwwJGgw*_ga_C5BN7JK7VF*czE3NzQ2NzA0MzgkbzEkZzAkdDE3NzQ2NzA0MzgkajYwJGwwJGgw
+Mineral Wells	TX	https://mineralwellstx.justfoia.com/publicportal/home/newrequest
+Uvalde	TX	https://cms8.revize.com/revize/cityofuvaldetx/Public%20Information%20Request%20Form.pdf
+Tomball	TX	https://tomballtx.justfoia.com/publicportal/home/newrequest
+West University Place	TX	https://westuniversitytx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb
+Azle	TX	https://cityofazle-community-opportunity.app.transform.civicplus.com/forms/34377
+Jacksonville	TX	https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBm-p40qnjRPBf6Lt2zQqAVmNBwrY92J-WKqMcrQhgUQM1s_bWQl38whpgeMEEmNVE*
+Forest Hill	TX	https://cityofforesthilltx.nextrequest.com/
+Seabrook	TX	https://seabrooktx.justfoia.com/publicportal/home/newrequest
+Trophy Club	TX	https://trophyclubtx.justfoia.com/publicportal/home/newrequest
+Andrews	TX	https://www.cityofandrews.org/service/public_information_request.php
+Kilgore	TX	https://cityofkilgore.civicweb.net/Portal/CitizenEngagement.aspx
+Athens	TX	https://cityofathens.nextrequest.com/
+Henderson	TX	https://www.hendersontx.us/1397/Open-Records
+Richmond	TX	https://richmondtx.justfoia.com/publicportal/home/newrequest
+Beeville	TX	https://www.beevilletx.gov/public-info
+Santa Fe	TX	https://www.santafetx.gov/administration/page/city-secretary-and-public-records
+Robinson	TX	https://robinsontexas-city-secretary-city-secretary.app.transform.civicplus.com/forms/47092
+Granbury	TX	https://www.granbury.org/forms.aspx?fid=153
+Bastrop	TX	https://public.mygov.us/bastrop_tx/request?id=9
+Webster	TX	https://webstertx.justfoia.com/publicportal/home/newrequest
+Levelland	TX	https://www.levellandtexas.org/DocumentCenter/View/3359/OPEN-RECORDS-REQUEST-FORM--City-of-Levelland
+Elgin	TX	https://elgintx.justfoia.com/publicportal/home/newrequest
+Liberty Hill	TX	https://libertyhilltx.govqa.us/WEBAPP/_rs/(S(kq04b5xbr0cuqrfm5p4mv3lt))/supporthome.aspx
+Selma	TX	https://ci.selma.tx.us/168/Make-a-Public-Information-Request
+Borger	TX	https://www.borgertx.gov/FormCenter/Public-Records-6/Public-Records-Request-Form-49
+Fredericksburg	TX	https://www.fbgtx.org/1178/Code-Enforcement
+Fair Oaks Ranch	TX	https://form.jotform.com/260144661236149
+Heath	TX	https://cityofheathtx.nextrequest.com/
+Pleasanton	TX	https://cityofpleasantontx.nextrequest.com/
+Port Lavaca	TX	https://portlavacatx.justfoia.com/publicportal/home/newrequest
+Snyder	TX	https://www.snydertx.gov/FormCenter/City-Secretary-6/Open-Records-Request-42
+Bonham	TX	https://tx-bonham.civicplus.com/FormCenter/City-of-Bonham-4/Open-Records-Request-71
+Burkburnett	TX	https://www.burkburnett.org/229/Public-Information
+Rockport	TX	https://rockporttx.gov/FormCenter/Request-for-Information-CS-9/Request-for-Information-55
+Clute	TX	https://clutetexas.gov/new/city-info/freedom-of-information-act-foia/
+Kennedale	TX	https://www.cityofkennedale.com/FormCenter/City-Secretary-Forms-5/Request-for-Public-Information-118
+Northlake	TX	https://northlaketx.govqa.us/WEBAPP/_rs/(S(2qkav2wv4tcnfylok5bdecqh))/RequestLogin.aspx?sSessionID=&rqst=1&target=YpURA3m6cNU+N1K9kEqQhqz8yC2ZLKNdSdB4wnowVJ5S8CGTBp2GIItHg4/I0pUMVtKVBt74dC4B8Fg0Spu/B2ptZsIOVvBQmH6sfbSBBNe6tQ7pv+SFdJYoVQ1A0LAt
+Freeport	TX	https://freeporttx.justfoia.com/publicportal/home/newrequest
+Bellmead	TX	https://bellmeadtx.gov/510/Open-Records-Requests
+Galena Park	TX	https://www.cityofgalenapark-tx.gov/FormCenter/About-Galena-Park-3/Open-Records-Request-34
+Robstown	TX	https://cityofrobstown.com/city-hall/administration/open-records-request/
+Providence Village	TX	https://pvtx.gov/FormCenter/Public-Information-Request-5/Public-Information-Request-52
+Mont Belvieu	TX	https://montbelvieutx.govqa.us/WEBAPP/_rs/(S(jfbuf0aa4hhef5ocg1e5y21z))/supporthome.aspx
+Helotes	TX	https://helotes-tx.gov/government/public-info-requests/
+Lago Vista city	TX	https://cityoflagovistatx.nextrequest.com/
+Sweetwater	TX	https://www.sweetwatertx.gov/222/Open-Records-Requests
+Dripping Springs	TX	https://drippingspringstx.justfoia.com/publicportal/home/newrequest
+Ingleside	TX	https://inglesidetx.justfoia.com/publicportal/home/newrequest
+Sanger	TX	https://sangertx.justfoia.com/publicportal/home/newrequest
+San Elizario	TX	https://cityofsanelizario.com/open-records-request/
+Bridge City	TX	https://www.bridgecitytex.com/214/Public-Information
+Whitehouse	TX	https://www.whitehousetx.org/FormCenter/Code-Enforcement-10/Report-Code-Violations-52
+Cleveland	TX	https://www.clevelandtexas.com/446/Request
+Dayton	TX	https://www.cityofdaytontx.com/government/departments/city-secretary/public-records-requests/pir-online-form
+Woodway	TX	https://www.woodwaytexas.gov/wp-content/uploads/2020/09/REQUEST-FOR-PUBLIC-INFORMATION-002.pdf
+Navasota	TX	https://navasotatx.rja.revize.com/forms/13227
+Marble Falls	TX	https://marblefallstx.gov/FormCenter/City-Secretary-10/Public-Information-Request-80
+Joshua	TX	https://cityofjoshuatx.nextrequest.com/
+Liberty	TX	https://www.cityofliberty.org/city-secretary/page/public-information-request
+Hondo	TX	https://cityofhondotx.nextrequest.com/
+Hillsboro	TX	https://www.hillsborotx.org/departments/administration/city_secretarys_office/open_records_request_form.php
+Aubrey	TX	https://www.aubreytx.gov/223/Forms-Applications
+Sunnyvale	TX	https://townofsunnyvale.govqa.us/WEBAPP/_rs/(S(eoohajoog3n0yf32bav2xqkl))/supporthome.aspx
+Josephine	TX	https://cityofjosephinetx.com/public-information-and-records-request-link/
+Highland Park	TX	https://hptx.justfoia.com/publicportal/home/newrequest
+Aransas Pass	TX	https://aptx.nextrequest.com/
+Floresville	TX	https://www.floresvilletx.gov/contact-feedback/open-records-requests/
+Brownfield	TX	https://ci.brownfield.tx.us/256/Public-Information-Request
+Los Fresnos city	TX	https://losfresnostx.justfoia.com/publicportal/home/newrequest
+Richland Hills	TX	https://www.richlandhills.com/166/Records-Request
+Bee Cave	TX	https://cityofbeecavetx.nextrequest.com/
+Decatur	TX	https://decaturtx.nextrequest.com/
+Cuero	TX	https://www.cityofcuero.com/527/Open-Records-Request
+Venus	TX	https://www.cityofvenus.org/city-secretary/webforms/online-open-records-request-form
+Fort Stockton	TX	https://www.cityoffortstockton.com/departments/city_secretary/public_information_act.php
+Kirby	TX	https://cityofkirbytx.justfoia.com/publicportal/home/newrequest
+Hutchins	TX	https://cityofhutchins.justfoia.com/publicportal/home/newrequest
+Wolfforth	TX	https://www.wolfforthtx.us/government/city_secretary/public_information_requests.php
+Lampasas	TX	https://www.lampasas.org/FormCenter/Administration-21/Request-for-Public-Records-37
+Lake Dallas	TX	https://www.lakedallas.com/FormCenter/Police-Department-3/Open-Records-Request-44
+Jersey Village	TX	https://www.jerseyvillage.gov/FormCenter/NonPolice-Record-Process-for-Requesting--5/NonPolice-Record-Process-for-Requesting--46
+Hitchcock	TX	https://www.cityofhitchcock.org/departments_/city_secretary/open_records_request/index.php
+Alamo Heights	TX	https://www.alamoheightstx.gov/government/public-information-request/public-information-request-form/
+Sealy	TX	https://www.ci.sealy.tx.us/government/public_information.php
+River Oaks	TX	https://riveroakstx.com/openrecords
+Jasper	TX	https://www.jaspertx.org/page/public%20open%20records%20request
+Seminole	TX	https://cityofseminoletx.org/government/city-secretary/public-information-request/
+Monahans	TX	https://cityofmonahans.nextrequest.com/
+Alvarado	TX	https://www.cityofalvarado.org/FormCenter/Online-Open-Records-Request-Form-6/Online-Open-Records-Request-Form-53
+Lacy-Lakeview	TX	https://www.lacylakeview.org/administration/page/open-records-request
+Lindale	TX	https://www.lindaletx.gov/DocumentCenter/View/180/Open-Records-Request-PDF
+Willis	TX	https://ci.willis.tx.us/346/Records
+Van Alstyne	TX	https://cityofvanalstyne.us/codeviolations
+Bulverde	TX	https://cityofbulverdetx.nextrequest.com/
+La Feria	TX	https://www.cityoflaferia.com/departments/public-information/
+Mabank	TX	https://www.cityofmabanktx.org/163/Open-Records-Request
+Gun Barrel City	TX	https://www.gunbarrelcity.gov/DocumentCenter/View/775/REQUEST-FOR-PUBLIC-INFORMATION?bidId=
+Keene	TX	https://keenetx.justfoia.com/publicportal/home/newrequest
+Hickory Creek	TX	https://www.hickorycreek-tx.gov/police/page/open-records-request
+Burnet	TX	https://www.cityofburnet.com/administration/webform/request-public-information
+Willow Park	TX	https://willowparktx.govqa.us/WEBAPP/_rs/(S(omgts44qal0k1cqb0jke41ph))/supporthome.aspx
+Krum	TX	https://cityofkrum.com/government/city-documents/public-information-request/
+Wilmer	TX	https://cityofwilmertx.govqa.us/WEBAPP/_rs/(S(3rzqtdw04gpwldeuwrufv42d))/supporthome.aspx
+Pilot Point	TX	https://pilotpointtx.justfoia.com/publicportal/home/newrequest
+Bridgeport	TX	https://www.cityofbridgeport.net/FormCenter/Online-Forms-5/Open-Records-Request-36
+Hempstead	TX	https://www.hempsteadcitytx.gov/residents/public_information_request.php
+Aledo	TX	https://www.aledotx.gov/city-secretary/pages/public-information-requests
+Carthage	TX	https://www.carthagetexas.us/government/open_records_request.php
+Penitas	TX	https://www.cityofpenitas.com/request-for-public-records
+Magnolia	TX	https://www.cityofmagnolia.com/sites/g/files/vyhlif7206/f/uploads/open_records_request_information_form_5.pdf
+Crockett	TX	https://www.crocketttexas.org/transparency/page/public-information-request
+Parker	TX	https://www.parkertexas.us/DocumentCenter/View/76/Form_Records-Request?bidId=
+Gladewater	TX	https://cityofgladewater.com/inforequest
+Argyle	TX	https://argyletx.justfoia.com/publicportal/home/newrequest
+Alpine	TX	https://www.cityofalpine.com/departments/administration2/city_secretary1/public_information_request/index.php
+Crandall	TX	https://www.crandalltexas.com/145/2457/Records
+Brookshire	TX	https://brookshiretx.justfoia.com/publicportal/home/newrequest
+Luling	TX	https://www.cityofluling.net/DocumentCenter/View/780/open-records-request
+Littlefield	TX	https://littlefieldtexas.net/1352/Open-Records-Request
+Sandy Oaks	TX	https://cityofsandyoaks.com/open-records-request/
+Sinton	TX	https://www.sintontexas.org/2215/Public-Information-Requests
+Rockdale	TX	https://rockdaletx.govqa.us/WEBAPP/_rs/(S(iq1hagk2pnb2k5tmwptmwpdv))/supporthome.aspx
+Marlin	TX	https://marlintx.net/issues/open-record-request/
+Livingston	TX	https://www.cityoflivingston-tx.com/FormCenter/Contact-Us-6/CONTACT-US-For-general-inquiries-about-C-45
+Granite Shoals	TX	https://www.graniteshoals.org/FormCenter/Citizen-Requests-8/Public-Records-Request-59
+Sansom Park	TX	https://www.sansompark.org/2157/Request-Records

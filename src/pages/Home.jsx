@@ -29,8 +29,8 @@ const statesData = [
   { id: 11, name: "Arkansas", cityCount: 20 },
   { id: 12, name: "Connecticut", cityCount: 32 },
   { id: 13, name: "Kentucky", cityCount: 44 },
-  { id: 14, name: "Florida", cityCount: 49 },
-  { id: 15, name: "Texas", cityCount: 100 }
+  { id: 14, name: "Florida", cityCount: 177 },
+  { id: 15, name: "Texas", cityCount: 310 }
 ];
 
 // Full city data for all states - 800+ cities total
@@ -746,7 +746,7 @@ const citiesData = {
     { name: "Central City", url: "https://www.cityofcentralcityky.com/records-request" },
     { name: "Douglass Hills", url: "https://www.cityofdouglasshills.gov/SmartForms/104/open-records-request" }
   ],
-  14: [ // Florida - 49 cities COMPLETE
+  14: [ // Florida - 177 cities COMPLETE
     { name: "Jacksonville", url: "https://jacksonvillefl.govqa.us/WEBAPP/_rs/(S(uxtsxib5wpwbh0v2um34bfsm))/supporthome.aspx" },
     { name: "Miami", url: "https://miami.nextrequest.com/requests/new" },
     { name: "Tampa", url: "https://cityoftampa.govqa.us/WEBAPP/_rs/(S(b3o4sertgpsz5ky52p2y5bc1))/SupportHome.aspx" },
@@ -793,11 +793,139 @@ const citiesData = {
     { name: "Port Orange", url: "https://portorangefl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
     { name: "Palm Beach Gardens", url: "https://palmbeachgardensfl.justfoia.com/Forms/Launch/76e23194-15ff-48a2-9027-e38ef02f3aa3" },
     { name: "Wellington", url: "https://www.wellingtonfl.gov/FormCenter/Public-Information-Request-Form-4/Public-Information-Request-Form-46" },
-    { name: "Port Charlotte", url: "https://charlottecountyfl.gov/core/fileparse.php/109/urlt/Public-Records-Request.pdf" },
-    { name: "Brandon", url: "https://cityoftampa.govqa.us/WEBAPP/_rs/(S(b3o4sertgpsz5ky52p2y5bc1))/SupportHome.aspx" },
-    { name: "Kendall", url: "https://miami.nextrequest.com/requests/new" }
+    { name: "Jupiter", url: "https://jupiterfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Apopka", url: "https://cityofapopkafl.nextrequest.com/" },
+    { name: "North Miami", url: "https://northmiamifl.justfoia.com/Forms/Launch/ad7531dc-11a3-4ec9-b579-b6ba88a811bd" },
+    { name: "Margate", url: "https://margatefl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Winter Haven", url: "https://www.mywinterhaven.com/248/Public-Records-Requests" },
+    { name: "Coconut Creek", url: "https://coconutcreekfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Bradenton", url: "https://cityofbradenton.govqa.us/WEBAPP/_rs/(S(5qyo3hifowtf4v50t5x2jz21))/supporthome.aspx" },
+    { name: "Sarasota", url: "https://sarasotafl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Bonita Springs", url: "https://www.cityofbonitasprings.org/services___departments/city_clerk/public_record_request" },
+    { name: "Pensacola", url: "https://cityofpensacola.justfoia.com/publicportal/home/newrequest" },
+    { name: "Pinellas Park", url: "https://pinellasparkpd.govqa.us/WEBAPP/_rs/(S(cnmma3252sb5gm3yc412kzzb))/supporthome.aspx" },
+    { name: "Ocoee", url: "https://cityofocoeefl.nextrequest.com/" },
+    { name: "Clermont", url: "https://clermontfl.justfoia.com/publicportal/home/track" },
+    { name: "Fort Pierce", url: "https://www.cityoffortpierce.com/988/Public-Records-Request" },
+    { name: "Coral Gables", url: "https://coralgablesfl.justfoia.com/publicportal/home/track" },
+    { name: "Winter Garden", url: "https://www.cwgdn.com/DocumentCenter/View/64/Public-Records-Request-PDF" },
+    { name: "Altamonte Springs", url: "https://www.altamonte.org/401/Public-Records-Requests" },
+    { name: "North Lauderdale", url: "https://northlauderdalefl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Cutler Bay", url: "https://www.cutlerbay-fl.gov/townclerk/webform/public-records-request" },
+    { name: "Oakland Park", url: "https://oaklandparkfl.justfoia.com/publicportal/home/track" },
+    { name: "North Miami Beach", url: "https://northmiamibeachfl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "DeLand", url: "https://delandfl.justfoia.com/publicportal/home/track" },
+    { name: "Greenacres", url: "https://greenacresfl.gov/administration/webform/public-records-request" },
+    { name: "Ormond Beach", url: "https://ormondbeachfl.justfoia.com/publicportal/home/track" },
+    { name: "Lake Worth Beach", url: "https://portal.lakeworthbeachfl.gov/public-records-request/" },
+    { name: "Hallandale Beach", url: "https://hallandalebeachfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Royal Palm Beach", url: "https://www.royalpalmbeachfl.gov/clerk/page/public-records-requests" },
+    { name: "Oviedo", url: "https://cityofoviedo.nextrequest.com/" },
+    { name: "Aventura", url: "https://aventurafl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Winter Springs", url: "https://www.winterspringsfl.org/cityclerk/page/public-records-requests" },
+    { name: "Riviera Beach", url: "https://www.rivierabch.com/clerk/records-request" },
+    { name: "Estero", url: "https://estero-fl.gov/departments-services/clerk-of-the-village/public-records/" },
+    { name: "Leesburg", url: "https://www.leesburgflorida.gov/citizen_request_center/index.php" },
+    { name: "Panama City", url: "https://www.panamacity.gov/580/Public-Records-Request-Contacts" },
+    { name: "Cooper City", url: "https://cityofcoopercityfl.nextrequest.com/requests/new" },
+    { name: "Miami Lakes", url: "https://www.miamilakes-fl.gov/town-services/records-request-open-government/" },
+    { name: "New Smyrna Beach", url: "https://newsmyrnabeachfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Dania Beach", url: "https://daniabeachfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Rockledge", url: "https://www.cityofrockledge.org/FormCenter/Police-7/Police-Department-Public-Records-Request-55" },
+    { name: "West Melbourne", url: "https://www.westmelbourne.gov/FormCenter/City-Clerk-9/Public-Records-Request-Form-68" },
+    { name: "Winter Park", url: "https://cityofwinterparkfl.nextrequest.com/" },
+    { name: "Crestview", url: "https://city-of-crestview-fl.nextrequest.com/" },
+    { name: "Venice", url: "https://venicefl.mycusthelp.com/WEBAPP/_rs/(S(rtlmzudi0l14r255obrdzgqb))/supporthome.aspx" },
+    { name: "Palm Springs", url: "https://vpsfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Temple Terrace", url: "https://www.templeterrace.gov/107/Public-Records-Requesting-Information" },
+    { name: "Sebastian", url: "https://www.cityofsebastian.org/229/Public-Records-Search" },
+    { name: "Palmetto Bay", url: "https://palmettobayfl.justfoia.com/publicportal/home/track" },
+    { name: "Eustis", url: "https://www.eustis.org/Services/Public-Records-Requests" },
+    { name: "Bellview", url: "https://www.belleviewfl.org/formcenter/city-clerk-6/public-records-request-form-53" },
+    { name: "Groveland", url: "https://groveland-fl.gov/FormCenter/City-of-Groveland-6/Request-for-Public-Records-49" },
+    { name: "Edgewater", url: "https://edgewaterfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Jacksonville Beach", url: "https://jacksonvillebeach.justfoia.com/publicportal/home/newrequest" },
+    { name: "DeBary", url: "https://debary.org/306/Make-a-Public-Records-Request" },
+    { name: "Hialeah Gardens", url: "https://www.cityofhialeahgardens.com/city-government/city-clerk-s-office/public-records-request" },
+    { name: "Sunny Isles Beach", url: "https://sibfl.nextrequest.com/" },
+    { name: "Zephyrhills", url: "https://cityofzephyrhillsfl.nextrequest.com/" },
+    { name: "Bartow", url: "https://www.cityofbartow.net/209/Public-Record-Requests" },
+    { name: "Lynn Haven", url: "https://www.cityoflynnhaven.com/DocumentCenter/View/2545/Public-Records-Request-Form-updated-April-2023" },
+    { name: "Fort Walton Beach", url: "https://ftwaltonbeachfl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "Auburndale", url: "https://auburndalefl.com/wp-content/uploads/2023/07/Requesting-Inspection-or-Copying-of-Public-Records-7-31-23.pdf" },
+    { name: "Punta Gorda", url: "https://puntagordafl.govqa.us/WEBAPP/_rs/(S(docwojytjkggvgpphlr1ag3i))/SupportHome.aspx" },
+    { name: "Naples", url: "https://naplesfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Cocoa", url: "https://www.cocoafl.gov/1499/Public-Records-Search" },
+    { name: "Maitland", url: "https://www.itsmymaitland.com/163/Public-Record-Requests" },
+    { name: "Minneola", url: "https://www.minneola.us/city-clerk/pages/public-records-requests" },
+    { name: "Stuart", url: "https://stuartfl.justfoia.com/publicportal/home/track" },
+    { name: "Wildwood", url: "https://wildwoodfl.justfoia.com/publicportal/home/track" },
+    { name: "Pinecrest", url: "https://pinecrestfl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "Mount Dora", url: "https://mountdorafl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "New Port Richey", url: "https://citynprfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Lake Wales", url: "https://www.lakewalesfl.gov/FormCenter/Public-Record-request-13/City-of-Lake-Wales-Public-Records-Reques-66" },
+    { name: "Vero Beach", url: "https://www.covb.org/164/Public-Records-Request" },
+    { name: "Lady Lake", url: "https://ladylakefl.nextrequest.com/" },
+    { name: "Longwood", url: "https://www.longwoodfl.org/154/Public-Records-Requests" },
+    { name: "Davenport", url: "https://www.mydavenport.org/?SEC=7A797ED1-D093-4AF6-9D00-F9FD402D7F4E" },
+    { name: "Marco Island", url: "https://cityofmarcoislandpublicrecords.justfoia.com/publicportal/home/newrequest" },
+    { name: "St. Augustine", url: "https://www.citystaug.com/482/Public-Records-Request" },
+    { name: "Orange City", url: "https://orangecityfl.justfoia.com/publicportal/home/track" },
+    { name: "Key Biscayne", url: "https://keybiscayne.justfoia.com/publicportal/home/newrequest" },
+    { name: "Oldsmar", url: "https://myoldsmar.justfoia.com/publicportal/home/newrequest" },
+    { name: "Iona", url: "https://www.cityofiona.org/city-clerktreasurers-office/records-requests/" },
+    { name: "Callaway", url: "https://cityofcallaway.com/DocumentCenter/View/5384/Public-Records-Request-Form-2024---Robyck-" },
+    { name: "Destin", url: "https://www.cityofdestin.com/FormCenter/Public-Record-Request-3/City-of-Destin-Public-Records-Request-40" },
+    { name: "Miami Springs", url: "https://www.miamisprings-fl.gov/cityclerk/page/public-records-request" },
+    { name: "Palmetto", url: "https://palmettofl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Fernandina Beach", url: "https://fernandinabeachfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Atlantic Beach", url: "https://atlanticbeachfl.justfoia.com/publicportal/home/track" },
+    { name: "Holly Hill", url: "https://cityofhollyhillfl.nextrequest.com/" },
+    { name: "Lake City", url: "https://lakecityfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Lantana", url: "https://www.lantana.org/FormCenter/Town-Clerk-8/Request-For-Public-Records-49" },
+    { name: "Miami Shores", url: "https://msvfl.justfoia.com/publicportal/home/track" },
+    { name: "Wilton Manors", url: "https://cityofwiltonmanorsfl.nextrequest.com/" },
+    { name: "Cocoa Beach", url: "https://cityofcocoabeach.nextrequest.com/" },
+    { name: "Satellite Beach", url: "https://satellitebeach.justfoia.com/publicportal/home/newrequest" },
+    { name: "Lighthouse Point", url: "https://lighthousepointfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Alachua", url: "https://www.cityofalachua.com/government/police-department/records-division/records-request" },
+    { name: "Avon Park", url: "https://www.avonpark.city/recordscityclerk/page/public-records-requests" },
+    { name: "Green Cove Springs", url: "https://greencovespringsfl.govqa.us/WEBAPP/_rs/(S(o24wmhkhbf5smgmk0snwpild))/supporthome.aspx" },
+    { name: "Marathon", url: "https://www.ci.marathon.fl.us/cityclerk/webform/public-record-request" },
+    { name: "Cape Canaveral", url: "https://www.capecanaveral.gov/community_/city_departments/public_records.php" },
+    { name: "Brooksville", url: "https://cityofbrooksvillefl.nextrequest.com/" },
+    { name: "Dade City", url: "https://dadecityfl.justfoia.com/publicportal/home/track" },
+    { name: "Lake Park", url: "https://www.lakeparkflorida.gov/Home/ShowDocument?id=4544" },
+    { name: "Mascotte", url: "https://www.cityofmascotte.com/145/Request" },
+    { name: "Indian Harbour Beach", url: "https://www.indianharbourbeach.org/1187/Records-Request" },
+    { name: "St. Pete Beach", url: "https://stpetebeachfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Newberry", url: "https://www.newberryfl.gov/clerk/webform/public-records-request" },
+    { name: "North Bay Village", url: "https://northbayvillage-fl.gov/public-records/" },
+    { name: "Quincy", url: "https://www.myquincy.net/city-clerk/page/public-records-requests" },
+    { name: "Marianna", url: "https://www.cityofmarianna.com/FormCenter/Administration-12/Public-Records-Request-Online-Form-63" },
+    { name: "Southwest Ranches", url: "https://townofsouthwestranchesfl.nextrequest.com/" },
+    { name: "Belle Isle", url: "https://www.belleislefl.gov/administration/webform/public-records-request-form" },
+    { name: "Westlake", url: "https://cityofwestlakefl.nextrequest.com/" },
+    { name: "Clewiston", url: "https://clewiston-fl.nextrequest.com/" },
+    { name: "Longboat Key", url: "https://longboatkeyfl.justfoia.com/publicportal/home/track" },
+    { name: "West Miami", url: "https://cityofwestmiami.gov/?SEC=42A4A9C1-766F-4478-A5BD-463BC0CC35F4&Type=QUICKFORM" },
+    { name: "Freeport", url: "https://www.freeportflorida.gov/government/department/city_clerk/public_records_request.php" },
+    { name: "Live Oak", url: "https://www.cityofliveoak.org/public-records-custodian/" },
+    { name: "Gulf Breeze", url: "https://cityofgulfbreeze.us/public-records/" },
+    { name: "Indiantown", url: "https://www.indiantownfl.gov/village-clerk/page/public-records-requests" },
+    { name: "High Springs", url: "https://www.highsprings.gov/cityclerk/page/public-records-request" },
+    { name: "Pembroke Park", url: "https://townofpembrokeparkfl.nextrequest.com/" },
+    { name: "Treasure Island", url: "https://mytreasureisland.justfoia.com/publicportal/home/newrequest" },
+    { name: "Sanibel", url: "https://sanibelfl.justfoia.com/publicportal/home/track" },
+    { name: "Tequesta", url: "https://tequestafl.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "Southgate", url: "https://www.cityofsouthgate.org/Government/Departments/City-Clerks-Office/Public-Records-Request" },
+    { name: "Bay Harbor Islands", url: "https://bayharborislandsfl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Pahokee", url: "https://www.cityofpahokee.com/home/webforms/request-document-city" },
+    { name: "Surfside", url: "https://surfsidefl.justfoia.com/publicportal/home/newrequest" },
+    { name: "Eagle Lake", url: "https://www.eaglelakefl.gov/clerk/page/public-records-request#no-back" },
+    { name: "Flagler Beach", url: "https://www.cityofflaglerbeach.com/m/faq?cat=15#question-60" }
   ],
-  15: [ // Texas - 101 cities COMPLETE
+  15: [ // Texas - 310 cities COMPLETE
     { name: "Houston", url: "https://houstontx.govqa.us/WEBAPP/_rs/(S(a1mlmn4ry01gan54hat3er2u))/SupportHome.aspx" },
     { name: "San Antonio", url: "https://aca-prod.accela.com/COSA/Cap/CapHome.aspx?module=Code&TabName=Code" },
     { name: "Dallas", url: "https://dallastx.govqa.us/WEBAPP/_rs/(S(1isvo1gcgop35m4ifj2wfrbl))/RequestOpen.aspx?rqst=3" },
@@ -894,10 +1022,220 @@ const citiesData = {
     { name: "Hurst", url: "https://www.hursttx.gov/about-us/departments/city-secretary/public-information-request-online-form" },
     { name: "Weatherford", url: "https://weatherfordtx.mycusthelp.com/WEBAPP/_rs/(S(vduh5kh2c1nvwx3uvqzxdn23))/supporthome.aspx" },
     { name: "Duncanville", url: "https://duncanvilletx.justfoia.com/publicportal/home/newrequest" },
-    { name: "Anna", url: "https://annatx.justfoia.com/publicportal/home/newrequest" },
-    { name: "Forney", url: "https://www.forneyisd.net/page/open-records-request" },
-    { name: "Southlake", url: "https://southlaketx.mycusthelp.com/webapp/_rs/(S(cdfxihb00kgvdxp1hkqcqbzd))/SupportHome.aspx" },
-    { name: "Melissa", url: "https://melissatx.justfoia.com/publicportal/home/newrequest" }
+    { name: "Seguin", url: "https://seguintx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Socorro", url: "https://cityofsocorrotx.nextrequest.com/requests/new" },
+    { name: "Forney", url: "https://forneytx.mycusthelp.com/WEBAPP/_rs/(S(tsweom4oxh3tjrt2d0n2bawp))/SupportHome.aspx" },
+    { name: "Cleburne", url: "https://cityworks.cleburne.net/Permits/login" },
+    { name: "La Porte", url: "https://laportetx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "Cibolo", url: "https://cibolotx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Farmers Branch", url: "https://farmersbranchtx.mycusthelp.com/WEBAPP/_rs/(S(bmc5j3b0smluj05ma2piz5uy))/SupportHome.aspx?sSessionID=&lp=2" },
+    { name: "San Juan city", url: "https://www.sjtx.us/wp-content/uploads/2024/02/Public_Information_Request_Fillable_Form-_New_Address-2.pdf" },
+    { name: "Princeton", url: "https://orr-princetontx.mycusthelp.com/WEBAPP/_rs/(S(1wvmjai1iimo4oksjyo5l052))/SupportHome.aspx?sSessionID=70172659WGLWTFFQGCLTPEVRJWUFQWXYWBCSV[QP" },
+    { name: "Texarkana", url: "https://public.mygov.us/tx_texarkana/templates?module=reports" },
+    { name: "Harker Heights", url: "https://harkerheights.civicweb.net/Portal/CitizenEngagement.aspx" },
+    { name: "Del Rio", url: "https://www.cityofdelrio.com/government/departments/city-secretary/open-records-request" },
+    { name: "Deer Park", url: "https://deerparktx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Lufkin", url: "https://cityoflufkintx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Greenville", url: "https://www.ci.greenville.tx.us/1385/Public-Information-Requests" },
+    { name: "Sachse", url: "https://cityofsachse.justfoia.com/publicportal/home/newrequest" },
+    { name: "Canyon Lake", url: "https://canyonlakeca.nextrequest.com/" },
+    { name: "Nacogdoches", url: "https://nacogdochestx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Anna", url: "https://annatx.mycusthelp.com/webapp/_rs/(S(acvkutjp52ibajwu2bvyj05a))/supporthome.aspx" },
+    { name: "Southlake", url: "https://cityofsouthlaketx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Alvin", url: "https://alvintx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Eagle Pass", url: "https://www.eaglepasstx.gov/FormCenter/Municipal-Court-5/Request-for-Records-47" },
+    { name: "Lake Jackson", url: "https://lakejacksontx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Katy", url: "https://katytx.justfoia.com/publicportal/home/track" },
+    { name: "Fate", url: "https://fatetx.govqa.us/WEBAPP/_rs/(S(t4zj23wqhlrjxcz2ifom4rzm))/supporthome.aspx" },
+    { name: "Balch Springs", url: "https://www.balchspringstx.gov/158/Open-Records-Requests" },
+    { name: "Denison", url: "https://www.denisontx.gov/169/Open-Records-Request" },
+    { name: "Royse City", url: "https://roysecity.justfoia.com/publicportal/home/newrequest" },
+    { name: "Melissa", url: "https://melissatx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Saginaw", url: "https://saginawtx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "Colleyville", url: "https://www.colleyville.com/government/departments-a-l/city-secretary/open-records-request" },
+    { name: "Belton", url: "https://www.beltontexas.gov/how_do_i/request_report/request_public_information.php" },
+    { name: "Corsicana", url: "https://www.cityofcorsicana.com/617/Open-Records-Request" },
+    { name: "University Park", url: "https://universityparktx.mycusthelp.com/WEBAPP/_rs/(S(fjq5pnzlimhb0fmflw4hr1f5))/SupportHome.aspx" },
+    { name: "Kerrville", url: "https://www.kerrvilletx.gov/FormCenter/Citizen-Forms-2/Public-Information-Request-36" },
+    { name: "Paris", url: "https://www.paristexas.gov/DocumentCenter/View/5151/Public-Information-Request-REVISED-11-19-19" },
+    { name: "Kingsville", url: "https://www.cityofkingsville.com/departments/legal-department/open-record-request/" },
+    { name: "San Benito", url: "https://www.cityofsanbenito.com/DocumentCenter/View/3538/COSB-Open-Records-Request-Form" },
+    { name: "Benbrook", url: "https://www.benbrook-tx.gov/FormCenter/City-Secretary-4/Public-Information-Request-36" },
+    { name: "Corinth", url: "https://corinthtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Marshall", url: "https://www.marshalltexas.net/DocumentCenter/View/90/Open-Records-Request-Form-PDF?bidId=" },
+    { name: "Watauga", url: "https://www.cowtx.org/forms.aspx?FID=264" },
+    { name: "Terrell", url: "https://cityofterrelltx.nextrequest.com/" },
+    { name: "Alton", url: "https://cms5.revize.com/revize/alton/uploadfiles/Public%20Information%20Request%202023.pdf" },
+    { name: "Boerne", url: "https://boernetx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Big Spring", url: "https://bigspringtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Stephenville", url: "https://cityofstephenvilletx.nextrequest.com/" },
+    { name: "Dickinson", url: "https://dickinsontx.govqa.us/WEBAPP/_rs/(S(tvrjzs02fxprw35c0vx2lrjd))/supporthome.aspx" },
+    { name: "Manor", url: "https://manortx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Murphy", url: "https://murphytx.mycusthelp.com/webapp/_rs/(S(iuxox3waxsnggm5n4ggmvb3g))/supporthome.aspx" },
+    { name: "Angleton", url: "https://angletontx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Portland", url: "https://www.portlandtx.com/93/Open-Records-Requests" },
+    { name: "Alamo", url: "https://alamotexas.org/wp-content/uploads/2024/05/PIR-Online-Form.pdf" },
+    { name: "Crowley", url: "https://cityofcrowleytx.nextrequest.com/requests/new" },
+    { name: "Universal City", url: "https://www.universalcitytexas.gov/FormCenter/General-Forms-3-3/Open-Records-Request-47-47" },
+    { name: "La Marque", url: "https://cityoflamarquetx.nextrequest.com/" },
+    { name: "Seagoville", url: "https://seagovilletx.govqa.us/WEBAPP/_rs/(S(jfab21dnt3bbvz4ipytsfsut))/SupportHome.aspx?lp=2&sSessionID=" },
+    { name: "Glenn Heights", url: "https://www.glennheightstx.gov/FormCenter/Record-Requests-4/Public-Information-Request-47" },
+    { name: "Brenham", url: "https://cityofbrenhamtx.nextrequest.com/" },
+    { name: "Palestine", url: "https://www.cityofpalestinetx.com/353/Public-Information-Requests" },
+    { name: "Plainview", url: "https://www.plainviewtx.org/86/Open-Records-Request" },
+    { name: "Red Oak", url: "https://www.redoaktx.org/FormCenter/City-Secretary-15/Public-Information-Request-Form-Online-84" },
+    { name: "Manvel", url: "https://www.cityofmanvel.com/DocumentCenter/View/696/Open-Records-Request" },
+    { name: "Orange", url: "https://orangetexas.gov/FormCenter/City-Secretary-8/Request-for-Public-Records-50" },
+    { name: "Lakeway", url: "https://cityoflakewaytx.nextrequest.com/" },
+    { name: "Brownwood", url: "https://www.brownwoodtexas.gov/FormCenter/Request-Forms-3/Open-Records-Request-Form-43" },
+    { name: "Gainesville", url: "https://www.gainesville.tx.us/FormCenter/Admin-3/City-of-Gainesville-Public-Information-R-67" },
+    { name: "Nederland", url: "https://www.ci.nederland.tx.us/upload/page/0067/docs/Open%20Records%20Request%20Form.pdf" },
+    { name: "White Settlement", url: "https://wstx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Taylor", url: "https://www.taylortx.gov/FormCenter/Open-Records-Requests-9/Texas-Public-Information-Act-Information-74" },
+    { name: "Alice", url: "https://cityofalice.civicweb.net/Portal/CitizenEngagement.aspx" },
+    { name: "Stafford", url: "https://staffordtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Mercedes", url: "https://www.cityofmercedes.com/city-government/open-records-request/" },
+    { name: "Bay City", url: "https://cityofbaycitytx.nextrequest.com/" },
+    { name: "Bellaire", url: "https://bellairetx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Addison", url: "https://addisontx.mycusthelp.com/webapp/_rs/(S(vgusmxdlrny3mzhjowvxg41k))/supporthome.aspx" },
+    { name: "Iowa Colony", url: "https://iowacolonytx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Donna", url: "https://www.cityofdonna.org/213/Request-Public-Information" },
+    { name: "Groves", url: "https://www.cigrovestx.com/upload/page/0224/docs/Open%20Records%20Request%20Form%20240507.pdf" },
+    { name: "Hewitt", url: "https://www.cityofhewitt.com/DocumentCenter/View/214/Open-Records-Request-Form?bidId=" },
+    { name: "Humble", url: "https://humbletx.govqa.us/WEBAPP/_rs/(S(v1ewoaaq3o5tsxmzmtgm4yxk))/SupportHome.aspx" },
+    { name: "Pampa", url: "https://www.cityofpampa.org/community/city_government/city_secretary/public_information_request_form.php#outer-303" },
+    { name: "Canyon", url: "https://canyontx.gov/FormCenter/Police-10/Open-Records-Request-86" },
+    { name: "Mount Pleasant", url: "https://mpcity.net/open-records-request" },
+    { name: "Live Oak", url: "https://www.liveoaktx.net/departments/city-secretary" },
+    { name: "Highland Village", url: "https://highlandvillagetx.govqa.us/WEBAPP/_rs/(S(ydqemvvdvamjdzjs5v0dz40c))/SupportHome.aspx?sSessionID=" },
+    { name: "Buda", url: "https://budatx.govqa.us/WEBAPP/_rs/(S(mvda3g5r2idp1q2oz3siclte))/supporthome.aspx" },
+    { name: "Palmview", url: "https://cityofpalmview.govqa.us/WEBAPP/_rs/(S(w2uduriagl4tpyfjjf1z5ssa))/supporthome.aspx?_gl=1*1ygqg8v*_ga*MTUwMjQzODA4My4xNzc0NjcwNDM4*_ga_CZW0XZZYK8*czE3NzQ2NzA0MzgkbzEkZzAkdDE3NzQ2NzA0MzgkajYwJGwwJGgw*_ga_C5BN7JK7VF*czE3NzQ2NzA0MzgkbzEkZzAkdDE3NzQ2NzA0MzgkajYwJGwwJGgw" },
+    { name: "Mineral Wells", url: "https://mineralwellstx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Uvalde", url: "https://cms8.revize.com/revize/cityofuvaldetx/Public%20Information%20Request%20Form.pdf" },
+    { name: "Tomball", url: "https://tomballtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "West University Place", url: "https://westuniversitytx.justfoia.com/Forms/Launch/d705cbd6-1396-49b7-939e-8d86c5a87deb" },
+    { name: "Azle", url: "https://cityofazle-community-opportunity.app.transform.civicplus.com/forms/34377" },
+    { name: "Jacksonville", url: "https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBm-p40qnjRPBf6Lt2zQqAVmNBwrY92J-WKqMcrQhgUQM1s_bWQl38whpgeMEEmNVE*" },
+    { name: "Forest Hill", url: "https://cityofforesthilltx.nextrequest.com/" },
+    { name: "Seabrook", url: "https://seabrooktx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Trophy Club", url: "https://trophyclubtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Andrews", url: "https://www.cityofandrews.org/service/public_information_request.php" },
+    { name: "Kilgore", url: "https://cityofkilgore.civicweb.net/Portal/CitizenEngagement.aspx" },
+    { name: "Athens", url: "https://cityofathens.nextrequest.com/" },
+    { name: "Henderson", url: "https://www.hendersontx.us/1397/Open-Records" },
+    { name: "Richmond", url: "https://richmondtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Beeville", url: "https://www.beevilletx.gov/public-info" },
+    { name: "Santa Fe", url: "https://www.santafetx.gov/administration/page/city-secretary-and-public-records" },
+    { name: "Robinson", url: "https://robinsontexas-city-secretary-city-secretary.app.transform.civicplus.com/forms/47092" },
+    { name: "Granbury", url: "https://www.granbury.org/forms.aspx?fid=153" },
+    { name: "Bastrop", url: "https://public.mygov.us/bastrop_tx/request?id=9" },
+    { name: "Webster", url: "https://webstertx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Levelland", url: "https://www.levellandtexas.org/DocumentCenter/View/3359/OPEN-RECORDS-REQUEST-FORM--City-of-Levelland" },
+    { name: "Elgin", url: "https://elgintx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Liberty Hill", url: "https://libertyhilltx.govqa.us/WEBAPP/_rs/(S(kq04b5xbr0cuqrfm5p4mv3lt))/supporthome.aspx" },
+    { name: "Selma", url: "https://ci.selma.tx.us/168/Make-a-Public-Information-Request" },
+    { name: "Borger", url: "https://www.borgertx.gov/FormCenter/Public-Records-6/Public-Records-Request-Form-49" },
+    { name: "Fredericksburg", url: "https://www.fbgtx.org/1178/Code-Enforcement" },
+    { name: "Fair Oaks Ranch", url: "https://form.jotform.com/260144661236149" },
+    { name: "Heath", url: "https://cityofheathtx.nextrequest.com/" },
+    { name: "Pleasanton", url: "https://cityofpleasantontx.nextrequest.com/" },
+    { name: "Port Lavaca", url: "https://portlavacatx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Snyder", url: "https://www.snydertx.gov/FormCenter/City-Secretary-6/Open-Records-Request-42" },
+    { name: "Bonham", url: "https://tx-bonham.civicplus.com/FormCenter/City-of-Bonham-4/Open-Records-Request-71" },
+    { name: "Burkburnett", url: "https://www.burkburnett.org/229/Public-Information" },
+    { name: "Rockport", url: "https://rockporttx.gov/FormCenter/Request-for-Information-CS-9/Request-for-Information-55" },
+    { name: "Clute", url: "https://clutetexas.gov/new/city-info/freedom-of-information-act-foia/" },
+    { name: "Kennedale", url: "https://www.cityofkennedale.com/FormCenter/City-Secretary-Forms-5/Request-for-Public-Information-118" },
+    { name: "Northlake", url: "https://northlaketx.govqa.us/WEBAPP/_rs/(S(2qkav2wv4tcnfylok5bdecqh))/RequestLogin.aspx?sSessionID=&rqst=1&target=YpURA3m6cNU+N1K9kEqQhqz8yC2ZLKNdSdB4wnowVJ5S8CGTBp2GIItHg4/I0pUMVtKVBt74dC4B8Fg0Spu/B2ptZsIOVvBQmH6sfbSBBNe6tQ7pv+SFdJYoVQ1A0LAt" },
+    { name: "Freeport", url: "https://freeporttx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Bellmead", url: "https://bellmeadtx.gov/510/Open-Records-Requests" },
+    { name: "Galena Park", url: "https://www.cityofgalenapark-tx.gov/FormCenter/About-Galena-Park-3/Open-Records-Request-34" },
+    { name: "Robstown", url: "https://cityofrobstown.com/city-hall/administration/open-records-request/" },
+    { name: "Providence Village", url: "https://pvtx.gov/FormCenter/Public-Information-Request-5/Public-Information-Request-52" },
+    { name: "Mont Belvieu", url: "https://montbelvieutx.govqa.us/WEBAPP/_rs/(S(jfbuf0aa4hhef5ocg1e5y21z))/supporthome.aspx" },
+    { name: "Helotes", url: "https://helotes-tx.gov/government/public-info-requests/" },
+    { name: "Lago Vista city", url: "https://cityoflagovistatx.nextrequest.com/" },
+    { name: "Sweetwater", url: "https://www.sweetwatertx.gov/222/Open-Records-Requests" },
+    { name: "Dripping Springs", url: "https://drippingspringstx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Ingleside", url: "https://inglesidetx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Sanger", url: "https://sangertx.justfoia.com/publicportal/home/newrequest" },
+    { name: "San Elizario", url: "https://cityofsanelizario.com/open-records-request/" },
+    { name: "Bridge City", url: "https://www.bridgecitytex.com/214/Public-Information" },
+    { name: "Whitehouse", url: "https://www.whitehousetx.org/FormCenter/Code-Enforcement-10/Report-Code-Violations-52" },
+    { name: "Cleveland", url: "https://www.clevelandtexas.com/446/Request" },
+    { name: "Dayton", url: "https://www.cityofdaytontx.com/government/departments/city-secretary/public-records-requests/pir-online-form" },
+    { name: "Woodway", url: "https://www.woodwaytexas.gov/wp-content/uploads/2020/09/REQUEST-FOR-PUBLIC-INFORMATION-002.pdf" },
+    { name: "Navasota", url: "https://navasotatx.rja.revize.com/forms/13227" },
+    { name: "Marble Falls", url: "https://marblefallstx.gov/FormCenter/City-Secretary-10/Public-Information-Request-80" },
+    { name: "Joshua", url: "https://cityofjoshuatx.nextrequest.com/" },
+    { name: "Liberty", url: "https://www.cityofliberty.org/city-secretary/page/public-information-request" },
+    { name: "Hondo", url: "https://cityofhondotx.nextrequest.com/" },
+    { name: "Hillsboro", url: "https://www.hillsborotx.org/departments/administration/city_secretarys_office/open_records_request_form.php" },
+    { name: "Aubrey", url: "https://www.aubreytx.gov/223/Forms-Applications" },
+    { name: "Sunnyvale", url: "https://townofsunnyvale.govqa.us/WEBAPP/_rs/(S(eoohajoog3n0yf32bav2xqkl))/supporthome.aspx" },
+    { name: "Josephine", url: "https://cityofjosephinetx.com/public-information-and-records-request-link/" },
+    { name: "Highland Park", url: "https://hptx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Aransas Pass", url: "https://aptx.nextrequest.com/" },
+    { name: "Floresville", url: "https://www.floresvilletx.gov/contact-feedback/open-records-requests/" },
+    { name: "Brownfield", url: "https://ci.brownfield.tx.us/256/Public-Information-Request" },
+    { name: "Los Fresnos city", url: "https://losfresnostx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Richland Hills", url: "https://www.richlandhills.com/166/Records-Request" },
+    { name: "Bee Cave", url: "https://cityofbeecavetx.nextrequest.com/" },
+    { name: "Decatur", url: "https://decaturtx.nextrequest.com/" },
+    { name: "Cuero", url: "https://www.cityofcuero.com/527/Open-Records-Request" },
+    { name: "Venus", url: "https://www.cityofvenus.org/city-secretary/webforms/online-open-records-request-form" },
+    { name: "Fort Stockton", url: "https://www.cityoffortstockton.com/departments/city_secretary/public_information_act.php" },
+    { name: "Kirby", url: "https://cityofkirbytx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Hutchins", url: "https://cityofhutchins.justfoia.com/publicportal/home/newrequest" },
+    { name: "Wolfforth", url: "https://www.wolfforthtx.us/government/city_secretary/public_information_requests.php" },
+    { name: "Lampasas", url: "https://www.lampasas.org/FormCenter/Administration-21/Request-for-Public-Records-37" },
+    { name: "Lake Dallas", url: "https://www.lakedallas.com/FormCenter/Police-Department-3/Open-Records-Request-44" },
+    { name: "Jersey Village", url: "https://www.jerseyvillage.gov/FormCenter/NonPolice-Record-Process-for-Requesting--5/NonPolice-Record-Process-for-Requesting--46" },
+    { name: "Hitchcock", url: "https://www.cityofhitchcock.org/departments_/city_secretary/open_records_request/index.php" },
+    { name: "Alamo Heights", url: "https://www.alamoheightstx.gov/government/public-information-request/public-information-request-form/" },
+    { name: "Sealy", url: "https://www.ci.sealy.tx.us/government/public_information.php" },
+    { name: "River Oaks", url: "https://riveroakstx.com/openrecords" },
+    { name: "Jasper", url: "https://www.jaspertx.org/page/public%20open%20records%20request" },
+    { name: "Seminole", url: "https://cityofseminoletx.org/government/city-secretary/public-information-request/" },
+    { name: "Monahans", url: "https://cityofmonahans.nextrequest.com/" },
+    { name: "Alvarado", url: "https://www.cityofalvarado.org/FormCenter/Online-Open-Records-Request-Form-6/Online-Open-Records-Request-Form-53" },
+    { name: "Lacy-Lakeview", url: "https://www.lacylakeview.org/administration/page/open-records-request" },
+    { name: "Lindale", url: "https://www.lindaletx.gov/DocumentCenter/View/180/Open-Records-Request-PDF" },
+    { name: "Willis", url: "https://ci.willis.tx.us/346/Records" },
+    { name: "Van Alstyne", url: "https://cityofvanalstyne.us/codeviolations" },
+    { name: "Bulverde", url: "https://cityofbulverdetx.nextrequest.com/" },
+    { name: "La Feria", url: "https://www.cityoflaferia.com/departments/public-information/" },
+    { name: "Mabank", url: "https://www.cityofmabanktx.org/163/Open-Records-Request" },
+    { name: "Gun Barrel City", url: "https://www.gunbarrelcity.gov/DocumentCenter/View/775/REQUEST-FOR-PUBLIC-INFORMATION?bidId=" },
+    { name: "Keene", url: "https://keenetx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Hickory Creek", url: "https://www.hickorycreek-tx.gov/police/page/open-records-request" },
+    { name: "Burnet", url: "https://www.cityofburnet.com/administration/webform/request-public-information" },
+    { name: "Willow Park", url: "https://willowparktx.govqa.us/WEBAPP/_rs/(S(omgts44qal0k1cqb0jke41ph))/supporthome.aspx" },
+    { name: "Krum", url: "https://cityofkrum.com/government/city-documents/public-information-request/" },
+    { name: "Wilmer", url: "https://cityofwilmertx.govqa.us/WEBAPP/_rs/(S(3rzqtdw04gpwldeuwrufv42d))/supporthome.aspx" },
+    { name: "Pilot Point", url: "https://pilotpointtx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Bridgeport", url: "https://www.cityofbridgeport.net/FormCenter/Online-Forms-5/Open-Records-Request-36" },
+    { name: "Hempstead", url: "https://www.hempsteadcitytx.gov/residents/public_information_request.php" },
+    { name: "Aledo", url: "https://www.aledotx.gov/city-secretary/pages/public-information-requests" },
+    { name: "Carthage", url: "https://www.carthagetexas.us/government/open_records_request.php" },
+    { name: "Penitas", url: "https://www.cityofpenitas.com/request-for-public-records" },
+    { name: "Magnolia", url: "https://www.cityofmagnolia.com/sites/g/files/vyhlif7206/f/uploads/open_records_request_information_form_5.pdf" },
+    { name: "Crockett", url: "https://www.crocketttexas.org/transparency/page/public-information-request" },
+    { name: "Parker", url: "https://www.parkertexas.us/DocumentCenter/View/76/Form_Records-Request?bidId=" },
+    { name: "Gladewater", url: "https://cityofgladewater.com/inforequest" },
+    { name: "Argyle", url: "https://argyletx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Alpine", url: "https://www.cityofalpine.com/departments/administration2/city_secretary1/public_information_request/index.php" },
+    { name: "Crandall", url: "https://www.crandalltexas.com/145/2457/Records" },
+    { name: "Brookshire", url: "https://brookshiretx.justfoia.com/publicportal/home/newrequest" },
+    { name: "Luling", url: "https://www.cityofluling.net/DocumentCenter/View/780/open-records-request" },
+    { name: "Littlefield", url: "https://littlefieldtexas.net/1352/Open-Records-Request" },
+    { name: "Sandy Oaks", url: "https://cityofsandyoaks.com/open-records-request/" },
+    { name: "Sinton", url: "https://www.sintontexas.org/2215/Public-Information-Requests" },
+    { name: "Rockdale", url: "https://rockdaletx.govqa.us/WEBAPP/_rs/(S(iq1hagk2pnb2k5tmwptmwpdv))/supporthome.aspx" },
+    { name: "Marlin", url: "https://marlintx.net/issues/open-record-request/" },
+    { name: "Livingston", url: "https://www.cityoflivingston-tx.com/FormCenter/Contact-Us-6/CONTACT-US-For-general-inquiries-about-C-45" },
+    { name: "Granite Shoals", url: "https://www.graniteshoals.org/FormCenter/Citizen-Requests-8/Public-Records-Request-59" },
+    { name: "Sansom Park", url: "https://www.sansompark.org/2157/Request-Records" }
   ]
 };
 
@@ -937,7 +1275,7 @@ export default function Home() {
   });
   const [sortOrder, setSortOrder] = useState('original');
   const [isDarkMode, setIsDarkMode] = useState(false);
-  
+
   // Sort states based on selected order
   const sortedStates = useMemo(() => {
     const states = [...statesData];
@@ -952,14 +1290,14 @@ export default function Home() {
         return states;
     }
   }, [sortOrder]);
-  
+
   // Get cities for selected state with status (auto-compute resubmit after 30 days)
   const getCitiesWithStatus = useCallback((stateId) => {
     const stateCities = citiesData[stateId] || generateSampleCities(
       statesData.find(s => s.id === stateId)?.cityCount || 10,
       statesData.find(s => s.id === stateId)?.name || ''
     );
-    
+
     const cstDateString = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
     const currentDate = new Date(cstDateString);
 
@@ -967,7 +1305,7 @@ export default function Home() {
       const key = `${stateId}_${city.name}`;
       let status = cityStatuses[key] || 'neutral';
       const timestamp = cityStatuses[`${key}_timestamp`];
-      
+
       // Auto-set resubmit if 30 days have passed since any non-neutral status
       if (status !== 'neutral' && status !== 'resubmit' && timestamp) {
         const daysDiff = Math.floor((currentDate.getTime() - new Date(timestamp).getTime()) / (1000 * 60 * 60 * 24));
@@ -977,7 +1315,7 @@ export default function Home() {
       return { ...city, status };
     });
   }, [cityStatuses]);
-  
+
   // All cities for search
   const allCitiesForSearch = useMemo(() => {
     const all = [];
@@ -989,14 +1327,14 @@ export default function Home() {
     });
     return all;
   }, []);
-  
+
   // Handle status change
   const handleStatusChange = useCallback((cityName, status) => {
     if (!selectedState) return;
-    
+
     const key = `${selectedState.id}_${cityName}`;
     const newStatuses = { ...cityStatuses, [key]: status };
-    
+
     // Set timestamp when status changes to any non-neutral status (CST timezone)
     if (status !== 'neutral') {
       const cstDate = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
@@ -1005,31 +1343,31 @@ export default function Home() {
       // Clear timestamp when reset to neutral
       delete newStatuses[`${key}_timestamp`];
     }
-    
+
     setCityStatuses(newStatuses);
     localStorage.setItem('cityStatuses', JSON.stringify(newStatuses));
   }, [selectedState, cityStatuses]);
-  
+
   // Generate notifications
   const notifications = useMemo(() => {
     const notifs = [];
     // Get current date in CST
     const cstDateString = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
     const currentDate = new Date(cstDateString);
-    
+
     Object.keys(cityStatuses).forEach(key => {
       if (key.includes('_timestamp') || key.includes('_resubmit')) return;
-      
+
       const status = cityStatuses[key];
       const timestamp = cityStatuses[`${key}_timestamp`];
-      
+
       if (!timestamp) return;
-      
+
       const [stateId, cityName] = key.split('_');
       const state = statesData.find(s => s.id === parseInt(stateId));
       const statusDate = new Date(timestamp);
       const daysDiff = Math.floor((currentDate.getTime() - statusDate.getTime()) / (1000 * 60 * 60 * 24));
-      
+
       if (status === 'pending' && daysDiff >= 14) {
         notifs.push({
           id: `${key}_pending`,
@@ -1042,7 +1380,7 @@ export default function Home() {
           isNew: !clearedNotifications.includes(`${key}_pending`)
         });
       }
-      
+
       if ((status === 'completed' || status === 'pending') && daysDiff >= 30) {
         notifs.push({
           id: `${key}_expired`,
@@ -1056,22 +1394,22 @@ export default function Home() {
         });
       }
     });
-    
+
     return notifs.sort((a, b) => b.isNew - a.isNew);
   }, [cityStatuses, clearedNotifications]);
-  
+
   const handleClearAllNotifications = () => {
     const allIds = notifications.map(n => n.id);
     setClearedNotifications(allIds);
     localStorage.setItem('clearedNotifications', JSON.stringify(allIds));
   };
-  
+
   const handleClearOneNotification = (id) => {
     const newCleared = [...clearedNotifications, id];
     setClearedNotifications(newCleared);
     localStorage.setItem('clearedNotifications', JSON.stringify(newCleared));
   };
-  
+
   const handleNotificationClick = (notification) => {
     const state = statesData.find(s => s.id === notification.stateId);
     if (state) {
@@ -1079,23 +1417,23 @@ export default function Home() {
       setShowNotifications(false);
     }
   };
-  
+
   // Open modal for state
   const openStateModal = useCallback((state) => {
     setSelectedState(state);
     setIsModalOpen(true);
   }, []);
-  
+
   return (
     <div className={`min-h-screen transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
       {!accessGranted && !isAuthenticated && <AccessModal onAccessGranted={() => setAccessGranted(true)} />}
-      <Header 
+      <Header
         onLogout={() => logout(true)}
         isAuthenticated={isAuthenticated}
         notificationBell={
           <div className="relative">
-            <NotificationBell 
-              count={notifications.filter(n => n.isNew).length} 
+            <NotificationBell
+              count={notifications.filter(n => n.isNew).length}
               onClick={() => setShowNotifications(!showNotifications)}
               isScrolled={isScrolled}
             />
@@ -1110,10 +1448,10 @@ export default function Home() {
           </div>
         }
       />
-      
+
       <main id="home">
         <HeroSection isDarkMode={isDarkMode} />
-        
+
         {/* States Section */}
         <section id="states" className={`-mt-1 pt-0 pb-20 transition-colors ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
           <div className="max-w-6xl mx-auto px-6 pt-20">
@@ -1127,14 +1465,12 @@ export default function Home() {
                 <span className={`text-sm transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Light</span>
                 <button
                   onClick={() => setIsDarkMode(!isDarkMode)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    isDarkMode ? 'bg-emerald-600' : 'bg-slate-300'
-                  }`}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isDarkMode ? 'bg-emerald-600' : 'bg-slate-300'
+                    }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      isDarkMode ? 'translate-x-6' : 'translate-x-1'
-                    }`}
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isDarkMode ? 'translate-x-6' : 'translate-x-1'
+                      }`}
                   />
                 </button>
                 <span className={`text-sm transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Dark</span>
@@ -1158,7 +1494,7 @@ export default function Home() {
                 </div>
               </div>
               <p className={`max-w-2xl mx-auto text-center transition-colors ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Select a state to view all available city code violation form links. 
+                Select a state to view all available city code violation form links.
                 Each state directory is meticulously organized for quick access.
               </p>
             </motion.div>
@@ -1175,22 +1511,22 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
+
         <div className={isDarkMode ? 'bg-slate-900' : ''}>
           <SearchSection allCities={allCitiesForSearch} />
         </div>
-        
+
         <section id="faq" className={isDarkMode ? 'bg-slate-900' : ''}>
           <FAQSection isDarkMode={isDarkMode} />
         </section>
-        
+
         <div className={isDarkMode ? 'bg-slate-900' : ''}>
           <ScriptGenerator isDarkMode={isDarkMode} />
         </div>
       </main>
-      
+
       <Footer />
-      
+
       {/* Cities Modal */}
       <CitiesModal
         isOpen={isModalOpen}
