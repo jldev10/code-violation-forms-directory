@@ -3,6 +3,29 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_for_local_dev';
 
+// Ensure the city_statuses table exists
+async function ensureTable() {
+  try {
+    await query(`
+      CREATE TABLE IF NOT EXISTS city_statuses (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+        state_id INTEGER NOT NULL,
+        city_name VARCHAR(255) NOT NULL,
+        status VARCHAR(50) NOT NULL DEFAULT 'neutral',
+        status_timestamp TIMESTAMP WITH TIME ZONE,
+        created_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        updated_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        UNIQUE(user_id, state_id, city_name)
+      );
+    `);
+  } catch (e) {
+    // Table likely already exists or foreign key ref issue; 
+    // log but don't block
+    console.warn('[city-statuses] ensureTable warning:', e.message);
+  }
+}
+
 // Middleware to verify user is authenticated
 async function verifyUser(req, res) {
   const authHeader = req.headers.authorization;
@@ -25,6 +48,9 @@ export default async function handler(req, res) {
   const user = await verifyUser(req, res);
   if (!user) return;
 
+  // Auto-create table on first request
+  await ensureTable();
+
   if (req.method === 'GET') {
     try {
       console.log('[city-statuses] GET request from user:', user.id);
@@ -36,7 +62,7 @@ export default async function handler(req, res) {
       return res.status(200).json(result.rows);
     } catch (error) {
       console.error('Error fetching city statuses:', error);
-      return res.status(500).json({ error: 'Failed to fetch city statuses' });
+      return res.status(500).json({ error: 'Failed to fetch city statuses', details: error.message });
     }
   }
 
@@ -100,7 +126,7 @@ export default async function handler(req, res) {
       }
     } catch (error) {
       console.error('Error saving city status:', error);
-      return res.status(500).json({ error: 'Failed to save city status' });
+      return res.status(500).json({ error: 'Failed to save city status', details: error.message });
     }
   }
 
