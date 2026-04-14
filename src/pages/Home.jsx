@@ -1274,7 +1274,9 @@ export default function Home() {
     if (isAuthenticated) {
       const fetchStatuses = async () => {
         try {
+          console.log('[CityStatus] Fetching statuses from backend...');
           const data = await api.get('/city-statuses');
+          console.log('[CityStatus] Received from backend:', data?.length || 0, 'records');
           if (data && data.length > 0) {
             const newObj = {};
             data.forEach(item => {
@@ -1405,12 +1407,18 @@ export default function Home() {
     localStorage.setItem('cityStatuses', JSON.stringify(newStatuses));
 
     if (isAuthenticated) {
-      api.post('/city-statuses', {
+      const payload = {
         state_id: selectedState.id,
         city_name: cityName,
         status: status,
         status_timestamp: timestampToUse
-      }).catch(e => console.error("Failed to sync", e));
+      };
+      console.log('[CityStatus] Syncing to backend:', payload);
+      api.post('/city-statuses', payload)
+        .then(result => console.log('[CityStatus] Sync success:', result))
+        .catch(e => console.error("[CityStatus] Sync FAILED:", e));
+    } else {
+      console.warn('[CityStatus] Not authenticated - status saved to localStorage only, NOT synced to DB');
     }
   }, [selectedState, cityStatuses, isAuthenticated]);
 

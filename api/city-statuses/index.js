@@ -27,10 +27,12 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
+      console.log('[city-statuses] GET request from user:', user.id);
       const result = await query(
         'SELECT * FROM city_statuses WHERE user_id = $1 ORDER BY updated_date DESC',
         [user.id]
       );
+      console.log('[city-statuses] Returning', result.rows.length, 'rows');
       return res.status(200).json(result.rows);
     } catch (error) {
       console.error('Error fetching city statuses:', error);
@@ -73,6 +75,7 @@ export default async function handler(req, res) {
       } else {
         // Single update
         const { state_id, city_name, status, status_timestamp } = data;
+        console.log('[city-statuses] POST single update:', { user_id: user.id, state_id, city_name, status });
         
         let result;
         if (status === 'neutral') {
@@ -81,6 +84,7 @@ export default async function handler(req, res) {
             'DELETE FROM city_statuses WHERE user_id = $1 AND state_id = $2 AND city_name = $3 RETURNING *',
             [user.id, state_id, city_name]
           );
+          console.log('[city-statuses] Deleted neutral status');
         } else {
           result = await query(
             `INSERT INTO city_statuses (id, user_id, state_id, city_name, status, status_timestamp, created_date, updated_date) 
@@ -90,6 +94,7 @@ export default async function handler(req, res) {
              RETURNING *`,
             [user.id, state_id, city_name, status, status_timestamp || null]
           );
+          console.log('[city-statuses] Upserted:', result.rows[0]?.id);
         }
         return res.status(200).json(result.rows[0] || { deleted: true });
       }
