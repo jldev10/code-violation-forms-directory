@@ -38,7 +38,7 @@ const citiesData = {
   1: [ // Arizona - 73 cities COMPLETE
     { name: "Phoenix", url: "https://cityofphoenixaz.govqa.us/WEBAPP/_rs/" },
     { name: "Tucson", url: "https://www.tucsonaz.gov/Departments/Clerks/Public-Records" },
-    { name: "Mesa", url: "https://mesaaz.govqa.us/WEBAPP/_rs/" },
+    { name: "Mesa", url: "https://aca-prod.accela.com/MESA/Cap/CapHome.aspx?module=Enforcement&TabName=Enforcement" },
     { name: "Chandler", url: "https://chandleraz.gov/government/departments/city-clerks-office/public-records-request" },
     { name: "Gilbert", url: "https://gilbertaz.justfoia.com/publicportal/home/newrequest" },
     { name: "Glendale", url: "https://glendaleaz.gov/your-government/city-clerk/public-records-request" },

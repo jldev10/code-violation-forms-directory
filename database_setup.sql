@@ -100,3 +100,22 @@ CREATE INDEX IF NOT EXISTS idx_banned_emails_email ON banned_emails(email);
 -- );
 
 -- After inserting, immediately log into the Admin Dashboard and change the password!
+
+-- ============================================================
+-- TABLE: city_statuses
+-- Stores user-specific city statuses for Code Violation Forms
+-- ============================================================
+CREATE TABLE IF NOT EXISTS city_statuses (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    state_id INTEGER NOT NULL,
+    city_name VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'neutral',
+    status_timestamp TIMESTAMP WITH TIME ZONE,
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    UNIQUE(user_id, state_id, city_name)
+);
+
+-- Index for fast lookup by user_id
+CREATE INDEX IF NOT EXISTS idx_city_statuses_user_id ON city_statuses(user_id);
