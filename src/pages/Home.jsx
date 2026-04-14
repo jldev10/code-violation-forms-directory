@@ -1285,10 +1285,13 @@ export default function Home() {
             });
             setCityStatuses(newObj);
             localStorage.setItem('cityStatuses', JSON.stringify(newObj));
+            localStorage.setItem('migratedToBackend', 'true');
           } else {
-            // Local storage migration
+            // Local storage migration ONLY if we haven't migrated
             const saved = localStorage.getItem('cityStatuses');
-            if (saved) {
+            const hasMigrated = localStorage.getItem('migratedToBackend');
+            
+            if (saved && !hasMigrated) {
               const parsed = JSON.parse(saved);
               const arrayToSync = Object.keys(parsed)
                 .filter(k => !k.includes('_timestamp') && !k.includes('_resubmit'))
@@ -1304,6 +1307,13 @@ export default function Home() {
               if (arrayToSync.length > 0) {
                 await api.post('/city-statuses', arrayToSync);
               }
+              localStorage.setItem('migratedToBackend', 'true');
+            } else if (hasMigrated && data && data.length === 0) {
+              // The backend has no data, and we've already migrated.
+              // This means the user deleted all statuses on another device.
+              // We must clear our local state to reflect the backend.
+              setCityStatuses({});
+              localStorage.setItem('cityStatuses', JSON.stringify({}));
             }
           }
         } catch(e) {

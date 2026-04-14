@@ -60,7 +60,15 @@ class ApiClient {
   }
 
   async get(endpoint) {
-    return this.request(endpoint, { method: 'GET' });
+    return this.request(endpoint, { 
+      method: 'GET', 
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    });
   }
 
   async post(endpoint, data) {
