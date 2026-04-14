@@ -53,10 +53,10 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      console.log('[city-statuses] GET request from user:', user.id);
+      console.log('[city-statuses] GET request from user:', user.userId);
       const result = await query(
         'SELECT * FROM city_statuses WHERE user_id = $1 ORDER BY updated_date DESC',
-        [user.id]
+        [user.userId]
       );
       console.log('[city-statuses] Returning', result.rows.length, 'rows');
       return res.status(200).json(result.rows);
@@ -85,7 +85,7 @@ export default async function handler(req, res) {
                ON CONFLICT (user_id, state_id, city_name) 
                DO UPDATE SET status = EXCLUDED.status, status_timestamp = EXCLUDED.status_timestamp, updated_date = NOW() 
                RETURNING *`,
-              [user.id, state_id, city_name, status, status_timestamp || null]
+              [user.userId, state_id, city_name, status, status_timestamp || null]
             );
             results.push(result.rows[0]);
           }
@@ -101,14 +101,14 @@ export default async function handler(req, res) {
       } else {
         // Single update
         const { state_id, city_name, status, status_timestamp } = data;
-        console.log('[city-statuses] POST single update:', { user_id: user.id, state_id, city_name, status });
+        console.log('[city-statuses] POST single update:', { user_id: user.userId, state_id, city_name, status });
         
         let result;
         if (status === 'neutral') {
           // If returning to neutral, clear it to save space (or delete it)
           result = await query(
             'DELETE FROM city_statuses WHERE user_id = $1 AND state_id = $2 AND city_name = $3 RETURNING *',
-            [user.id, state_id, city_name]
+            [user.userId, state_id, city_name]
           );
           console.log('[city-statuses] Deleted neutral status');
         } else {
@@ -118,7 +118,7 @@ export default async function handler(req, res) {
              ON CONFLICT (user_id, state_id, city_name) 
              DO UPDATE SET status = EXCLUDED.status, status_timestamp = EXCLUDED.status_timestamp, updated_date = NOW() 
              RETURNING *`,
-            [user.id, state_id, city_name, status, status_timestamp || null]
+            [user.userId, state_id, city_name, status, status_timestamp || null]
           );
           console.log('[city-statuses] Upserted:', result.rows[0]?.id);
         }
