@@ -13,6 +13,7 @@ import NotificationDropdown from '../components/home/NotificationDropdown';
 import AccessModal from '../components/home/AccessModal';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/lib/AuthContext';
+import { api } from '@/api/apiClient';
 
 // States data
 const statesData = [
@@ -1268,6 +1269,50 @@ export default function Home() {
     const saved = localStorage.getItem('cityStatuses');
     return saved ? JSON.parse(saved) : {};
   });
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      const fetchStatuses = async () => {
+        try {
+          const data = await api.get('/city-statuses');
+          if (data && data.length > 0) {
+            const newObj = {};
+            data.forEach(item => {
+              newObj[`${item.state_id}_${item.city_name}`] = item.status;
+              if (item.status_timestamp) {
+                newObj[`${item.state_id}_${item.city_name}_timestamp`] = item.status_timestamp;
+              }
+            });
+            setCityStatuses(newObj);
+            localStorage.setItem('cityStatuses', JSON.stringify(newObj));
+          } else {
+            // Local storage migration
+            const saved = localStorage.getItem('cityStatuses');
+            if (saved) {
+              const parsed = JSON.parse(saved);
+              const arrayToSync = Object.keys(parsed)
+                .filter(k => !k.includes('_timestamp') && !k.includes('_resubmit'))
+                .map(k => {
+                   const [stateId, cityName] = k.split('_');
+                   return {
+                     state_id: parseInt(stateId),
+                     city_name: cityName,
+                     status: parsed[k],
+                     status_timestamp: parsed[`${k}_timestamp`] || null
+                   };
+                });
+              if (arrayToSync.length > 0) {
+                await api.post('/city-statuses', arrayToSync);
+              }
+            }
+          }
+        } catch(e) {
+          console.error("Failed to fetch statuses", e);
+        }
+      };
+      fetchStatuses();
+    }
+  }, [isAuthenticated]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [clearedNotifications, setClearedNotifications] = useState(() => {
     const saved = localStorage.getItem('clearedNotifications');
@@ -1336,9 +1381,11 @@ export default function Home() {
     const newStatuses = { ...cityStatuses, [key]: status };
 
     // Set timestamp when status changes to any non-neutral status (CST timezone)
+    let timestampToUse = null;
     if (status !== 'neutral') {
       const cstDate = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
-      newStatuses[`${key}_timestamp`] = new Date(cstDate).toISOString();
+      timestampToUse = new Date(cstDate).toISOString();
+      newStatuses[`${key}_timestamp`] = timestampToUse;
     } else {
       // Clear timestamp when reset to neutral
       delete newStatuses[`${key}_timestamp`];
@@ -1346,7 +1393,16 @@ export default function Home() {
 
     setCityStatuses(newStatuses);
     localStorage.setItem('cityStatuses', JSON.stringify(newStatuses));
-  }, [selectedState, cityStatuses]);
+
+    if (isAuthenticated) {
+      api.post('/city-statuses', {
+        state_id: selectedState.id,
+        city_name: cityName,
+        status: status,
+        status_timestamp: timestampToUse
+      }).catch(e => console.error("Failed to sync", e));
+    }
+  }, [selectedState, cityStatuses, isAuthenticated]);
 
   // Generate notifications
   const notifications = useMemo(() => {
